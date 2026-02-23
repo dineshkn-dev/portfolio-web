@@ -1,15 +1,13 @@
 "use client";
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
-import { toast, Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import { spring, staggerContainer, staggerItem } from "@/lib/motion";
 
 export default function ContactContent() {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        message: ""
-    });
+    const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [status, setStatus] = useState(null);
 
     const handleChange = (e) => {
@@ -19,13 +17,11 @@ export default function ContactContent() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setStatus("loading");
-
         const res = await fetch("https://formspree.io/f/meoelkyp", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(formData),
         });
-
         if (res.ok) {
             setStatus("success");
             toast.success("Message sent successfully!");
@@ -38,97 +34,111 @@ export default function ContactContent() {
         }
     };
 
+    const socials = [
+        { Icon: FaLinkedin, href: "https://www.linkedin.com/in/kandili/", label: "LinkedIn", color: "text-[#0a66c2]" },
+        { Icon: FaGithub, href: "https://github.com/kandilidinesh", label: "GitHub", color: "text-white" },
+        { Icon: FaEnvelope, href: "mailto:kandilindinesh@gmail.com", label: "Email", color: "text-red-400" },
+    ];
+
     return (
         <>
-            <Toaster position="bottom-right" reverseOrder={false} />
-
-            <div className="fixed top-0 left-0 w-full min-h-screen h-full bg-[#0d0d0d]">
-                <div className="absolute inset-0 w-full h-full opacity-25 bg-[radial-gradient(circle,rgba(0,255,255,0.3)_0%,rgba(0,0,0,0.1)_80%)]"></div>
-                <div className="absolute inset-0 w-full h-full opacity-15 bg-[linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+            <div className="contact-bg fixed top-0 left-0 w-full min-h-screen h-full -z-10">
+                <div className="absolute inset-0 bg-[var(--background)]" />
+                <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_80%_50%_at_50%_120%,rgba(0,230,255,0.2),transparent)]" />
+                <div className="absolute inset-0 opacity-20 bg-[linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px]" />
             </div>
 
-            <div className="min-h-screen flex flex-col justify-center items-center px-8 pt-20 relative text-white">
-                <motion.h1
-                    className="text-4xl font-bold mb-6 flex items-center neon-text"
-                    initial={{ opacity: 0, y: -15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    style={{ willChange: "transform, opacity" }}>
-                    Let&apos;s connect
-                </motion.h1>
-
+            <div className="min-h-screen flex flex-col justify-center items-center px-6 md:px-8 pt-24 pb-16 relative text-white">
                 <motion.div
-                    className="flex space-x-8 mb-6"
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    style={{ willChange: "transform, opacity" }}>
-                    <a
-                        href="https://www.linkedin.com/in/kandili/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-4xl text-blue-400 transition-all hover:scale-110">
-                        <FaLinkedin />
-                    </a>
-                    <a
-                        href="https://github.com/kandilidinesh"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-4xl text-gray-300 transition-all hover:scale-110">
-                        <FaGithub />
-                    </a>
-                    <a
-                        href="mailto:kandilindinesh@gmail.com"
-                        className="text-4xl text-red-400 transition-all hover:scale-110">
-                        <FaEnvelope />
-                    </a>
+                    className="flex flex-col items-center w-full max-w-md"
+                    variants={staggerContainer(0.1, 0.1)}
+                    initial="initial"
+                    animate="animate"
+                >
+                    <motion.h1
+                        className="text-4xl font-semibold mb-2 neon-text"
+                        variants={staggerItem}
+                        transition={spring.bouncy}
+                    >
+                        Let&apos;s connect
+                    </motion.h1>
+
+                    <motion.div
+                        className="flex gap-8 mb-10"
+                        variants={staggerItem}
+                        transition={spring.soft}
+                    >
+                        {socials.map(({ Icon, href, label, color }) => (
+                            <motion.a
+                                key={label}
+                                href={href}
+                                target={href.startsWith("http") ? "_blank" : undefined}
+                                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                                aria-label={label}
+                                className={`text-3xl md:text-4xl ${color} contact-social-icon`}
+                                whileHover={{ scale: 1.2, y: -4 }}
+                                whileTap={{ scale: 0.9 }}
+                                transition={spring.bouncy}
+                            >
+                                <Icon />
+                            </motion.a>
+                        ))}
+                    </motion.div>
+
+                    <motion.form
+                        onSubmit={handleSubmit}
+                        className="contact-form w-full max-w-lg rounded-2xl p-6 md:p-8 border border-[var(--border)] bg-[var(--surface)] backdrop-blur-xl shadow-xl"
+                        variants={staggerItem}
+                        transition={spring.soft}
+                    >
+                        <label className="block mb-4">
+                            <span className="block text-xs font-medium text-white/50 mb-1.5">Name</span>
+                            <input
+                                name="name"
+                                type="text"
+                                placeholder="Your name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
+                                className="contact-input w-full px-4 py-3 rounded-xl bg-white/5 border border-[var(--border)] text-white placeholder-white/30 outline-none focus:border-[var(--neon-cyan)] focus:ring-2 focus:ring-[var(--accent-soft)] transition-all duration-200"
+                            />
+                        </label>
+                        <label className="block mb-4">
+                            <span className="block text-xs font-medium text-white/50 mb-1.5">Email</span>
+                            <input
+                                name="email"
+                                type="email"
+                                placeholder="you@example.com"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                                className="contact-input w-full px-4 py-3 rounded-xl bg-white/5 border border-[var(--border)] text-white placeholder-white/30 outline-none focus:border-[var(--neon-cyan)] focus:ring-2 focus:ring-[var(--accent-soft)] transition-all duration-200"
+                            />
+                        </label>
+                        <label className="block mb-6">
+                            <span className="block text-xs font-medium text-white/50 mb-1.5">Message</span>
+                            <textarea
+                                name="message"
+                                placeholder="Say hello..."
+                                value={formData.message}
+                                onChange={handleChange}
+                                required
+                                rows={4}
+                                className="contact-input w-full px-4 py-3 rounded-xl bg-white/5 border border-[var(--border)] text-white placeholder-white/30 resize-none outline-none focus:border-[var(--neon-cyan)] focus:ring-2 focus:ring-[var(--accent-soft)] transition-all duration-200"
+                            />
+                        </label>
+                        <motion.button
+                            type="submit"
+                            disabled={status === "loading"}
+                            className="w-full py-3.5 rounded-xl font-medium bg-gradient-to-r from-[var(--neon-blue)] to-[var(--neon-cyan)] text-[#0a0a0f] border-0 cursor-pointer disabled:opacity-70"
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            transition={spring.snappy}
+                        >
+                            {status === "loading" ? "Sending…" : "Send message"}
+                        </motion.button>
+                    </motion.form>
                 </motion.div>
-
-                <motion.form
-                    onSubmit={handleSubmit}
-                    className="bg-opacity-50 p-8 rounded-lg w-full max-w-lg shadow-lg backdrop-blur-md border border-cyan-400/20 bg-white/5 transition-all duration-300">
-                    <input
-                        name="name"
-                        type="text"
-                        placeholder="Name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        className="w-full p-3 mb-4 bg-transparent border-b border-cyan-700 text-white placeholder-gray-600 
-                   outline-none focus:ring-0 focus:border-cyan-300 transition-all 
-                   duration-300 focus:shadow-[0px_0px_10px_#00ffc3]"
-                    />
-
-                    <input
-                        name="email"
-                        type="email"
-                        placeholder="Email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full p-3 mb-4 bg-transparent border-b border-cyan-700 text-white placeholder-gray-600 
-                   outline-none focus:ring-0 focus:border-cyan-300 transition-all 
-                   duration-300 focus:shadow-[0px_0px_10px_#00ffc3]"
-                    />
-
-                    <textarea
-                        name="message"
-                        placeholder="Message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        className="w-full p-3 mb-4 bg-transparent border-b border-cyan-700 text-white placeholder-gray-600 h-32 resize-none 
-                   outline-none focus:ring-0 focus:border-cyan-300 transition-all 
-                   duration-300 focus:shadow-[0px_0px_10px_#00ffc3]"
-                    />
-
-                    <button
-                        type="submit"
-                        className="w-full bg-cyan-600 text-white py-3 rounded-md transition-all duration-300 
-                   hover:opacity-90 focus:shadow-[0px_0px_25px_#00ffc3]">
-                        {status === "loading" ? "Sending..." : "Send Message"}
-                    </button>
-                </motion.form>
             </div>
         </>
     );

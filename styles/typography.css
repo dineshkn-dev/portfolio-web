@@ -1,12 +1,13 @@
-/* Typography Styles */
+/* Typography */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-    font-family: var(--futuristic-font);
-    font-weight: 700;
+    font-family: var(--primary-font);
+    font-weight: 600;
+    letter-spacing: -0.02em;
 }
 
 h1 {
@@ -18,5 +19,13 @@ h2 {
 }
 
 p {
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+/* Accent heading - sleek glow (replaces undefined .neon-text) */
+.neon-text {
+    color: var(--foreground);
+    text-shadow: 0 0 20px var(--accent-soft), 0 0 40px rgba(0, 230, 255, 0.15);
+    font-weight: 600;
 }

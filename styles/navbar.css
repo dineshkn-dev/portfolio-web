@@ -1,86 +1,12 @@
-/* Navbar Styling */
-nav {
-    height: 60px;
-    position: fixed;
-    width: 100%;
-    z-index: 50;
-    transition: all 0.3s ease-in-out;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    background: rgba(20, 20, 20, 0.2);
-    box-shadow: none;
-    font-family: var(--futuristic-font);
+/* Navbar - glass pill style */
+.navbar-bar {
+    font-family: var(--primary-font);
 }
 
-nav.scrolled {
-    background: rgba(20, 20, 20, 0.7);
-    box-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
+.nav-pill a {
+    transition: color 0.2s ease;
 }
 
-/* Navbar Links */
-nav a {
-    font-family: var(--futuristic-font);
-    font-weight: 500;
-    text-transform: uppercase;
-    position: relative;
-    display: inline-block;
-    padding: 5px 10px;
-    overflow: hidden;
-    font-size: 15px;
-    color: white;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Navbar Hover Effects */
-nav a::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background-color: var(--neon-blue);
-    transition: width 0.4s ease-in-out, left 0.4s ease-in-out;
-}
-
-nav a:hover::before {
-    width: 100%;
-    left: 0;
-}
-
-nav a:hover {
-    text-shadow: 0 0 8px var(--neon-blue);
-}
-
-nav a:active {
-    transform: scale(0.95);
-}
-
-/* Navbar Overlay */
-nav::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    background: rgba(20, 20, 20, 0.2);
-    z-index: -1;
-}
-
-/* Navbar Logo */
 .nav-logo {
-    transition: transform 0.3s ease-in-out;
-}
-
-.nav-logo:hover {
-    transform: scale(1.1);
-}
-
-.navbar {
-    backdrop-filter: blur(10px);
-    background: rgba(0, 0, 0, 0.6);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    border-radius: 10px;
 }

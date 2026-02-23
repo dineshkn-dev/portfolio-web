@@ -1,25 +1,45 @@
-/* Import Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Poppins:wght@300;400;600&family=Raleway:wght@300;400;600&display=swap");
+/* Import Google Fonts - Sleeker set */
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
 
-/* CSS Variables */
+/* Design system - Telegram-inspired, modern tech */
 :root {
-    --background: #ffffff;
-    --foreground: #171717;
-    --neon-blue: #00eaff;
-    --primary-font: "Poppins", sans-serif;
-    --futuristic-font: "Poppins", sans-serif;
+    --background: #0a0a0f;
+    --foreground: #e8e8ed;
+    --surface: rgba(255, 255, 255, 0.04);
+    --surface-hover: rgba(255, 255, 255, 0.08);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(0, 230, 255, 0.4);
+    --neon-blue: #00e6ff;
+    --neon-cyan: #00ffd5;
+    --accent: #00d4aa;
+    --accent-soft: rgba(0, 212, 170, 0.25);
+    --glow: 0 0 20px rgba(0, 230, 255, 0.35);
+    --glow-strong: 0 0 30px rgba(0, 255, 213, 0.5);
+    --primary-font: "Outfit", system-ui, sans-serif;
+    --mono-font: "JetBrains Mono", monospace;
+    /* Spring-like easing for CSS (Framer uses spring in JS) */
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-out-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
 }
 
-/* Dark Mode Variables */
+/* Dark (default) */
 @media (prefers-color-scheme: dark) {
     :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
+        --background: #0a0a0f;
+        --foreground: #e8e8ed;
     }
 }
 
 body {
-    background: linear-gradient(to bottom, #0b0c10, #1f2833);
-    color: #ffffff;
+    background: var(--background);
+    background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 230, 255, 0.12), transparent),
+        linear-gradient(180deg, #0a0a0f 0%, #0d0f14 50%, #0a0a0f 100%);
+    color: var(--foreground);
     font-family: var(--primary-font);
+    -webkit-font-smoothing: antialiased;
 }

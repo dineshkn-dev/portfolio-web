@@ -1,5 +1,6 @@
 import "@/globals.css";
 import Navbar from "@/components/Navbar";
+import { Toaster } from "react-hot-toast";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -50,11 +51,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body className="bg-gray-900 text-white">
+            <body className="min-h-screen text-white antialiased">
                 <Navbar />
                 <main className="min-h-screen flex flex-col justify-center">
                     {children}
                 </main>
+                <Toaster position="bottom-center" toastOptions={{ duration: 2500, style: { background: "#0d0d12", color: "#e8e8ed", border: "1px solid rgba(255,255,255,0.08)" } }} />
                 <Analytics />
                 <SpeedInsights />
             </body>
