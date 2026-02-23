@@ -1,8 +1,9 @@
+import { resolve } from "path";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    experimental: {
-        useDeploymentId: true,
-        useDeploymentIdServerActions: true
+    turbopack: {
+        root: resolve(".")
     }
 };
 
