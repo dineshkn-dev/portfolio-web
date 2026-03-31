@@ -35,64 +35,49 @@ export default function ContactContent() {
     };
 
     const socials = [
-        { Icon: FaLinkedin, href: "https://www.linkedin.com/in/kandili/", label: "LinkedIn", color: "text-[#0a66c2]" },
-        { Icon: FaGithub, href: "https://github.com/kandilidinesh", label: "GitHub", color: "text-white" },
+        { Icon: FaLinkedin, href: "https://www.linkedin.com/in/dinesh-kn/", label: "LinkedIn", color: "text-[#0a66c2]" },
+        { Icon: FaGithub, href: "https://github.com/dineshkn-dev", label: "GitHub", color: "text-white" },
         { Icon: FaEnvelope, href: "mailto:kandilindinesh@gmail.com", label: "Email", color: "text-red-400" },
     ];
 
     return (
-        <>
-            <div className="contact-bg fixed top-0 left-0 w-full min-h-screen h-full -z-10">
-                <div className="absolute inset-0 bg-[var(--background)]" />
-                <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_80%_50%_at_50%_120%,rgba(0,230,255,0.2),transparent)]" />
-                <div className="absolute inset-0 opacity-20 bg-[linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px]" />
-            </div>
+        <section className="page-shell">
+            <motion.div className="section-shell section-stack" variants={staggerContainer(0.1, 0.1)} initial="initial" animate="animate">
+                <motion.div className="section-intro" variants={staggerItem} transition={spring.soft}>
+                    <span className="eyebrow">Contact</span>
+                    <h1>Let&apos;s build something meaningful.</h1>
+                    <p className="section-copy">
+                        Reach out for engineering collaboration, consulting, or backend leadership opportunities.
+                    </p>
+                </motion.div>
 
-            <div className="min-h-screen flex flex-col justify-center items-center px-6 md:px-8 pt-24 pb-16 relative text-white">
-                <motion.div
-                    className="flex flex-col items-center w-full max-w-md"
-                    variants={staggerContainer(0.1, 0.1)}
-                    initial="initial"
-                    animate="animate"
-                >
-                    <motion.h1
-                        className="text-4xl font-semibold mb-2 neon-text"
-                        variants={staggerItem}
-                        transition={spring.bouncy}
-                    >
-                        Let&apos;s connect
-                    </motion.h1>
+                <motion.div className="grid-2" variants={staggerContainer(0.08, 0.08)} initial="initial" animate="animate">
+                    <motion.aside className="glass-card p-6" variants={staggerItem} transition={spring.soft}>
+                        <h2 className="text-xl">Social</h2>
+                        <p className="mt-2 text-sm">Pick your preferred channel and I&apos;ll respond quickly.</p>
+                        <div className="cluster mt-5">
+                            {socials.map(({ Icon, href, label, color }) => (
+                                <motion.a
+                                    key={label}
+                                    href={href}
+                                    target={href.startsWith("http") ? "_blank" : undefined}
+                                    rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                                    aria-label={label}
+                                    className={`glass-card px-4 py-3 inline-flex items-center gap-3 ${color}`}
+                                    whileHover={{ scale: 1.04 }}
+                                    whileTap={{ scale: 0.97 }}
+                                    transition={spring.snappy}
+                                >
+                                    <Icon className="text-xl" />
+                                    <span className="text-sm font-medium">{label}</span>
+                                </motion.a>
+                            ))}
+                        </div>
+                    </motion.aside>
 
-                    <motion.div
-                        className="flex gap-8 mb-10"
-                        variants={staggerItem}
-                        transition={spring.soft}
-                    >
-                        {socials.map(({ Icon, href, label, color }) => (
-                            <motion.a
-                                key={label}
-                                href={href}
-                                target={href.startsWith("http") ? "_blank" : undefined}
-                                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                                aria-label={label}
-                                className={`text-3xl md:text-4xl ${color} contact-social-icon`}
-                                whileHover={{ scale: 1.2, y: -4 }}
-                                whileTap={{ scale: 0.9 }}
-                                transition={spring.bouncy}
-                            >
-                                <Icon />
-                            </motion.a>
-                        ))}
-                    </motion.div>
-
-                    <motion.form
-                        onSubmit={handleSubmit}
-                        className="contact-form w-full max-w-lg rounded-2xl p-6 md:p-8 border border-[var(--border)] bg-[var(--surface)] backdrop-blur-xl shadow-xl"
-                        variants={staggerItem}
-                        transition={spring.soft}
-                    >
+                    <motion.form onSubmit={handleSubmit} className="contact-form p-6" variants={staggerItem} transition={spring.soft}>
                         <label className="block mb-4">
-                            <span className="block text-xs font-medium text-white/50 mb-1.5">Name</span>
+                            <span className="block text-xs font-medium mb-1.5 text-[var(--muted-foreground)]">Name</span>
                             <input
                                 name="name"
                                 type="text"
@@ -100,11 +85,11 @@ export default function ContactContent() {
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
-                                className="contact-input w-full px-4 py-3 rounded-xl bg-white/5 border border-[var(--border)] text-white placeholder-white/30 outline-none focus:border-[var(--neon-cyan)] focus:ring-2 focus:ring-[var(--accent-soft)] transition-all duration-200"
+                                className="w-full px-4 py-3 rounded-xl bg-[var(--surface)] border border-[var(--border)] text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]"
                             />
                         </label>
                         <label className="block mb-4">
-                            <span className="block text-xs font-medium text-white/50 mb-1.5">Email</span>
+                            <span className="block text-xs font-medium mb-1.5 text-[var(--muted-foreground)]">Email</span>
                             <input
                                 name="email"
                                 type="email"
@@ -112,34 +97,34 @@ export default function ContactContent() {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                className="contact-input w-full px-4 py-3 rounded-xl bg-white/5 border border-[var(--border)] text-white placeholder-white/30 outline-none focus:border-[var(--neon-cyan)] focus:ring-2 focus:ring-[var(--accent-soft)] transition-all duration-200"
+                                className="w-full px-4 py-3 rounded-xl bg-[var(--surface)] border border-[var(--border)] text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]"
                             />
                         </label>
-                        <label className="block mb-6">
-                            <span className="block text-xs font-medium text-white/50 mb-1.5">Message</span>
+                        <label className="block mb-5">
+                            <span className="block text-xs font-medium mb-1.5 text-[var(--muted-foreground)]">Message</span>
                             <textarea
                                 name="message"
-                                placeholder="Say hello..."
+                                placeholder="Tell me what you are building"
                                 value={formData.message}
                                 onChange={handleChange}
                                 required
-                                rows={4}
-                                className="contact-input w-full px-4 py-3 rounded-xl bg-white/5 border border-[var(--border)] text-white placeholder-white/30 resize-none outline-none focus:border-[var(--neon-cyan)] focus:ring-2 focus:ring-[var(--accent-soft)] transition-all duration-200"
+                                rows={5}
+                                className="w-full px-4 py-3 rounded-xl bg-[var(--surface)] border border-[var(--border)] text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] resize-none"
                             />
                         </label>
                         <motion.button
                             type="submit"
                             disabled={status === "loading"}
-                            className="w-full py-3.5 rounded-xl font-medium bg-gradient-to-r from-[var(--neon-blue)] to-[var(--neon-cyan)] text-[#0a0a0f] border-0 cursor-pointer disabled:opacity-70"
-                            whileHover={{ scale: 1.02 }}
+                            className="button button-primary w-full disabled:opacity-70"
+                            whileHover={{ scale: 1.01 }}
                             whileTap={{ scale: 0.98 }}
                             transition={spring.snappy}
                         >
-                            {status === "loading" ? "Sending…" : "Send message"}
+                            {status === "loading" ? "Sending..." : "Send Message"}
                         </motion.button>
                     </motion.form>
                 </motion.div>
-            </div>
-        </>
+            </motion.div>
+        </section>
     );
 }

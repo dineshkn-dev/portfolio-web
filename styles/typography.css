@@ -1,31 +1,66 @@
-/* Typography */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-    font-family: var(--primary-font);
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    margin: 0;
+    font-family: var(--display-font);
+    color: var(--foreground);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
 }
 
 h1 {
-    font-size: 2rem;
+    font-size: clamp(2.2rem, 5.2vw, 4.4rem);
+    font-weight: 700;
 }
 
 h2 {
-    font-size: 1.25rem;
+    font-size: clamp(1.65rem, 3.2vw, 2.7rem);
+    font-weight: 650;
+}
+
+h3 {
+    font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+    font-weight: 600;
 }
 
 p {
-    font-size: 0.9375rem;
-    line-height: 1.6;
+    margin: 0;
+    color: var(--muted-foreground);
+    font-size: clamp(0.96rem, 1.2vw, 1.08rem);
+    line-height: 1.75;
 }
 
-/* Accent heading - sleek glow (replaces undefined .neon-text) */
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+}
+
+.section-title {
+    font-family: var(--display-font);
+    font-size: clamp(1.55rem, 2.9vw, 2.4rem);
+    font-weight: 650;
+    color: var(--foreground);
+}
+
+.section-copy {
+    max-width: 68ch;
+    margin-top: var(--space-3);
+}
+
+.text-mono {
+    font-family: var(--mono-font);
+}
+
 .neon-text {
     color: var(--foreground);
-    text-shadow: 0 0 20px var(--accent-soft), 0 0 40px rgba(0, 230, 255, 0.15);
-    font-weight: 600;
+    text-shadow: 0 0 16px var(--accent-soft);
 }

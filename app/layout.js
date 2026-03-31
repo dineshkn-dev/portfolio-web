@@ -51,12 +51,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body className="min-h-screen text-white antialiased">
+            <body className="site-shell min-h-screen antialiased text-[var(--foreground)]">
                 <Navbar />
                 <main className="min-h-screen flex flex-col justify-center">
                     {children}
                 </main>
-                <Toaster position="bottom-center" toastOptions={{ duration: 2500, style: { background: "#0d0d12", color: "#e8e8ed", border: "1px solid rgba(255,255,255,0.08)" } }} />
+                <Toaster position="bottom-center" toastOptions={{ duration: 2500, style: { background: "var(--surface-strong)", color: "var(--foreground)", border: "1px solid var(--border)" } }} />
                 <Analytics />
                 <SpeedInsights />
             </body>

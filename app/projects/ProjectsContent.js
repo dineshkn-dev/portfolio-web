@@ -43,82 +43,67 @@ const projects = [
 ];
 
 export default function ProjectsContent() {
+    const primaryProjects = projects.slice(0, 3);
+    const secondaryProjects = projects.slice(3);
+
+    const renderCard = (project) => {
+        const visibleTech = project.technologies.slice(0, 4);
+        const extraTechCount = Math.max(0, project.technologies.length - visibleTech.length);
+
+        return (
+            <TiltCard className="h-full">
+                <article className="project-card p-6 h-full min-h-[295px] flex flex-col">
+                    <h2 className="text-[1.7rem] leading-tight font-semibold tracking-tight text-[var(--foreground)]">{project.title}</h2>
+                    <p className="mt-3 text-sm leading-relaxed line-clamp-3">{project.description}</p>
+
+                    <div className="flex flex-wrap gap-2 mt-4">
+                        {visibleTech.map((tech) => (
+                            <span key={`${project.title}-${tech}`} className="tech-badge">{tech}</span>
+                        ))}
+                        {extraTechCount > 0 && <span className="tech-badge">+{extraTechCount} more</span>}
+                    </div>
+
+                    <p className="mt-auto pt-5 text-sm text-[var(--muted-foreground)]">
+                        <strong className="text-[var(--foreground)]">{project.company}</strong> · {project.timeline}
+                    </p>
+                </article>
+            </TiltCard>
+        );
+    };
+
     return (
-        <motion.div
-            className="min-h-screen text-white flex flex-col items-center px-4 md:px-16 pt-24 pb-16"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={spring.soft}
-        >
-            <div className="w-full max-w-[1400px] mx-auto">
-                <motion.div
-                    className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 w-full auto-rows-fr"
-                    variants={staggerContainer(0.15, 0.1)}
-                    initial="initial"
-                    animate="animate"
-                >
-                    {projects.slice(0, 3).map((project, index) => (
-                        <motion.div key={index} variants={staggerItem} transition={spring.soft} className="min-h-[260px] md:min-h-[280px]">
-                            <TiltCard className="h-full min-h-[260px] md:min-h-[280px]">
-                                <motion.div
-                                    className="project-card p-4 md:p-5 rounded-xl h-full min-h-[260px] md:min-h-[280px] flex flex-col justify-between"
-                                    whileHover={{ scale: 1.02 }}
-                                    transition={spring.snappy}
-                                >
-                                    <div className="flex flex-col flex-grow min-h-0">
-                                        <h2 className="text-lg font-semibold tracking-tight shrink-0">{project.title}</h2>
-                                        <p className="mt-1.5 text-white/70 flex-grow text-sm leading-relaxed line-clamp-3 min-h-[3.25rem]">{project.description}</p>
-                                        <div className="mt-2 flex flex-wrap gap-1.5 shrink-0">
-                                            {project.technologies.map((tech, i) => (
-                                                <span key={i} className="tech-badge px-2 py-0.5 text-xs rounded-md">
-                                                    {tech}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <span className="block mt-3 text-white/50 text-xs shrink-0">
-                                            <strong className="text-white/70">{project.company}</strong> · {project.timeline}
-                                        </span>
-                                    </div>
-                                </motion.div>
-                            </TiltCard>
+        <section className="page-shell">
+            <motion.div
+                className="section-shell section-stack"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={spring.soft}
+            >
+                <motion.div className="section-intro" variants={staggerContainer(0.1, 0.08)} initial="initial" animate="animate">
+                    <motion.span className="eyebrow" variants={staggerItem}>Projects</motion.span>
+                    <motion.h1 variants={staggerItem}>Production platforms and high-impact engineering delivery.</motion.h1>
+                    <motion.p className="section-copy" variants={staggerItem}>
+                        Selected work across fintech, IoT, HR systems, and ML applications, with a focus on API reliability,
+                        scale, and measurable delivery outcomes.
+                    </motion.p>
+                </motion.div>
+
+                <motion.div className="grid grid-cols-1 lg:grid-cols-3 gap-5" variants={staggerContainer(0.08, 0.08)} initial="initial" animate="animate">
+                    {primaryProjects.map((project) => (
+                        <motion.div key={project.title} variants={staggerItem} transition={spring.soft}>
+                            {renderCard(project)}
                         </motion.div>
                     ))}
                 </motion.div>
 
-                <motion.div
-                    className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 mt-6 w-full md:max-w-[900px] mx-auto auto-rows-fr"
-                    variants={staggerContainer(0.1, 0.1)}
-                    initial="initial"
-                    animate="animate"
-                >
-                    {projects.slice(3, 5).map((project, index) => (
-                        <motion.div key={index} variants={staggerItem} transition={spring.soft} className="min-h-[260px] md:min-h-[280px]">
-                            <TiltCard className="h-full min-h-[260px] md:min-h-[280px]">
-                                <motion.div
-                                    className="project-card p-4 md:p-5 rounded-xl h-full min-h-[260px] md:min-h-[280px] flex flex-col justify-between"
-                                    whileHover={{ scale: 1.02 }}
-                                    transition={spring.snappy}
-                                >
-                                    <div className="flex flex-col flex-grow min-h-0">
-                                        <h2 className="text-lg font-semibold tracking-tight shrink-0">{project.title}</h2>
-                                        <p className="mt-1.5 text-white/70 flex-grow text-sm leading-relaxed line-clamp-3 min-h-[3.25rem]">{project.description}</p>
-                                        <div className="mt-2 flex flex-wrap gap-1.5 shrink-0">
-                                            {project.technologies.map((tech, i) => (
-                                                <span key={i} className="tech-badge px-2 py-0.5 text-xs rounded-md">
-                                                    {tech}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <span className="block mt-3 text-white/50 text-xs shrink-0">
-                                            <strong className="text-white/70">{project.company}</strong> · {project.timeline}
-                                        </span>
-                                    </div>
-                                </motion.div>
-                            </TiltCard>
+                <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full lg:max-w-[760px] mx-auto" variants={staggerContainer(0.08, 0.08)} initial="initial" animate="animate">
+                    {secondaryProjects.map((project) => (
+                        <motion.div key={project.title} variants={staggerItem} transition={spring.soft}>
+                            {renderCard(project)}
                         </motion.div>
                     ))}
                 </motion.div>
-            </div>
-        </motion.div>
+            </motion.div>
+        </section>
     );
 }

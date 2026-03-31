@@ -1,18 +1,39 @@
 .button {
-    background: linear-gradient(90deg, #00eaff, #007bff);
-    color: white;
-    padding: 12px 20px;
-    border-radius: 5px;
-    text-transform: uppercase;
-    font-weight: bold;
-    transition: all 0.3s ease-in-out;
-}
-
-.button:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.8);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-full);
+    padding: 0.75rem 1.15rem;
+    font-size: 0.89rem;
+    font-weight: 600;
+    line-height: 1;
+    transition: transform 0.2s var(--ease-out-smooth), border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .button:active {
-    transform: scale(0.95);
+    transform: translateY(1px);
+}
+
+.button-primary {
+    color: #04131f;
+    background: linear-gradient(105deg, var(--accent), var(--accent-2));
+    box-shadow: 0 10px 24px rgba(25, 180, 224, 0.3);
+}
+
+.button-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(19, 173, 219, 0.4);
+}
+
+.button-ghost {
+    color: var(--foreground);
+    border-color: var(--border);
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
+}
+
+.button-ghost:hover {
+    border-color: var(--border-strong);
+    background: var(--surface-hover);
 }

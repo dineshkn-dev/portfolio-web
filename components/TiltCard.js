@@ -16,7 +16,7 @@ export default function TiltCard({ children, className = "" }) {
         const rect = ref.current.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        const maxRotate = 8;
+        const maxRotate = 3;
         const rotateXValue = ((e.clientY - centerY) / (rect.height / 2)) * -maxRotate;
         const rotateYValue = ((e.clientX - centerX) / (rect.width / 2)) * maxRotate;
         x.set(rotateYValue);
@@ -40,9 +40,9 @@ export default function TiltCard({ children, className = "" }) {
                 transformStyle: "preserve-3d",
                 perspective: 1000,
             }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            transition={{ type: "spring", stiffness: 220, damping: 26 }}
         >
-            <div className="h-full min-h-full" style={{ transform: "translateZ(20px)" }}>{children}</div>
+            <div className="h-full min-h-full" style={{ transform: "translateZ(8px)" }}>{children}</div>
         </motion.div>
     );
 }

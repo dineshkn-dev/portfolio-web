@@ -1,45 +1,116 @@
-/* Import Google Fonts - Sleeker set */
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+/* Cinematic typography */
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
 
-/* Design system - Telegram-inspired, modern tech */
 :root {
-    --background: #0a0a0f;
-    --foreground: #e8e8ed;
-    --surface: rgba(255, 255, 255, 0.04);
-    --surface-hover: rgba(255, 255, 255, 0.08);
-    --border: rgba(255, 255, 255, 0.08);
-    --border-accent: rgba(0, 230, 255, 0.4);
-    --neon-blue: #00e6ff;
-    --neon-cyan: #00ffd5;
-    --accent: #00d4aa;
-    --accent-soft: rgba(0, 212, 170, 0.25);
-    --glow: 0 0 20px rgba(0, 230, 255, 0.35);
-    --glow-strong: 0 0 30px rgba(0, 255, 213, 0.5);
-    --primary-font: "Outfit", system-ui, sans-serif;
-    --mono-font: "JetBrains Mono", monospace;
-    /* Spring-like easing for CSS (Framer uses spring in JS) */
+    --background: #090d13;
+    --background-alt: #0f1724;
+    --foreground: #ecf4ff;
+    --muted-foreground: #9aa9bd;
+    --surface: rgba(14, 27, 41, 0.7);
+    --surface-strong: rgba(16, 32, 50, 0.92);
+    --surface-hover: rgba(20, 38, 59, 0.95);
+    --border: rgba(123, 160, 196, 0.28);
+    --border-strong: rgba(131, 191, 255, 0.45);
+    --accent: #58d2ff;
+    --accent-2: #34f2b7;
+    --accent-soft: rgba(88, 210, 255, 0.26);
+    --accent-soft-2: rgba(52, 242, 183, 0.2);
+    --success: #3bd18c;
+    --danger: #ff6f7a;
+    --warning: #ffca57;
+    --ring: rgba(88, 210, 255, 0.45);
+    --glow: 0 0 44px rgba(88, 210, 255, 0.22);
+    --shadow-sm: 0 10px 24px rgba(5, 9, 16, 0.16);
+    --shadow-md: 0 22px 56px rgba(4, 10, 19, 0.34);
+    --shadow-lg: 0 30px 80px rgba(3, 8, 15, 0.48);
+
+    --primary-font: "Space Grotesk", "Segoe UI", sans-serif;
+    --display-font: "Sora", "Avenir Next", sans-serif;
+    --mono-font: "IBM Plex Mono", monospace;
+
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-7: 3rem;
+    --space-8: 4rem;
+
+    --radius-sm: 0.625rem;
+    --radius-md: 0.875rem;
+    --radius-lg: 1.25rem;
+    --radius-xl: 1.75rem;
+    --radius-full: 9999px;
+
     --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     --ease-out-smooth: cubic-bezier(0.16, 1, 0.3, 1);
-    --radius-sm: 10px;
-    --radius-md: 14px;
-    --radius-lg: 20px;
-    --radius-full: 9999px;
 }
 
-/* Dark (default) */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: #0a0a0f;
-        --foreground: #e8e8ed;
+:root[data-theme="light"] {
+    --background: #e9eff8;
+    --background-alt: #d7e2f1;
+    --foreground: #0e1a2a;
+    --muted-foreground: #3f556d;
+    --surface: rgba(255, 255, 255, 0.78);
+    --surface-strong: rgba(255, 255, 255, 0.94);
+    --surface-hover: rgba(255, 255, 255, 0.99);
+    --border: rgba(84, 116, 148, 0.28);
+    --border-strong: rgba(59, 129, 205, 0.46);
+    --accent: #0d94cf;
+    --accent-2: #11b487;
+    --accent-soft: rgba(13, 148, 207, 0.2);
+    --accent-soft-2: rgba(17, 180, 135, 0.17);
+    --ring: rgba(13, 148, 207, 0.35);
+    --glow: 0 0 36px rgba(24, 130, 196, 0.23);
+    --shadow-sm: 0 10px 24px rgba(21, 52, 83, 0.09);
+    --shadow-md: 0 22px 48px rgba(17, 43, 73, 0.17);
+    --shadow-lg: 0 30px 70px rgba(17, 43, 73, 0.22);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
 
 body {
-    background: var(--background);
+    background-color: var(--background);
     background-image:
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 230, 255, 0.12), transparent),
-        linear-gradient(180deg, #0a0a0f 0%, #0d0f14 50%, #0a0a0f 100%);
+        radial-gradient(circle at 7% 8%, var(--accent-soft), transparent 35%),
+        radial-gradient(circle at 88% 16%, var(--accent-soft-2), transparent 30%),
+        linear-gradient(180deg, var(--background) 0%, var(--background-alt) 48%, var(--background) 100%);
     color: var(--foreground);
     font-family: var(--primary-font);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+.site-shell {
+    position: relative;
+    isolation: isolate;
+}
+
+.surface-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.section-shell {
+    width: min(1160px, calc(100vw - 2rem));
+    margin-inline: auto;
+}
+
+.gradient-text {
+    background: linear-gradient(92deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }

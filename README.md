@@ -23,7 +23,7 @@ To run this project locally:
 
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/kandilidinesh/portfolio-web.git
+   git clone https://github.com/dineshkn-dev/portfolio-web.git
    cd portfolio-web
    ```
 
@@ -42,8 +42,8 @@ To run this project locally:
 
 ## Contact
 - **Email:** [kandilindinesh@gmail.com](mailto:kandilindinesh@gmail.com)
-- **LinkedIn:** [linkedin.com/in/kandili](https://www.linkedin.com/in/kandili)
-- **GitHub:** [github.com/kandilidinesh](https://github.com/kandilidinesh)
+- **LinkedIn:** [linkedin.com/in/dinesh-kn](https://www.linkedin.com/in/dinesh-kn/)
+- **GitHub:** [github.com/dineshkn-dev](https://github.com/dineshkn-dev)
 
 ## License
 This project is licensed under the MIT License.

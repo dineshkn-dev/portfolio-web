@@ -1,205 +1,93 @@
-/* Glassmorphism Card Styling */
-.glass-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2),
-        0 4px 6px rgba(0, 255, 255, 0.15) inset;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.glass-card,
+.project-card,
+.timeline-card,
+.skill-card,
+.contact-form {
     position: relative;
-    overflow: hidden;
-    max-height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.glass-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 255, 255, 0.4),
-        0 6px 12px rgba(0, 255, 255, 0.3) inset;
-}
-
-/* Hexagon Styling */
-.hexagon {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    margin: 10px;
-    background: var(--surface);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--radius-lg);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    transition: transform 0.3s var(--ease-spring), box-shadow 0.3s ease, border-color 0.3s ease;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(165deg, color-mix(in srgb, var(--surface) 78%, transparent), color-mix(in srgb, var(--surface-strong) 88%, transparent));
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.25s var(--ease-out-smooth), border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.hexagon:hover {
-    border-color: var(--border-accent);
-    box-shadow: 0 0 24px rgba(0, 230, 255, 0.2);
+.glass-card:hover,
+.project-card:hover,
+.timeline-card:hover,
+.skill-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-md), var(--glow);
 }
 
-.hexagon-inner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    box-shadow: none;
-    backdrop-filter: none;
+.timeline-card {
+    padding: 1.25rem;
+    min-height: 210px;
 }
 
-.hexagon:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(0, 255, 204, 0.8), 0 0 30px rgba(0, 255, 204, 0.6);
+.timeline-card--about {
+    min-height: 232px;
 }
 
-.hexagon:hover .hexagon-inner {
-    backdrop-filter: blur(20px);
+.timeline-year {
+    font-family: var(--mono-font);
+    font-size: 0.78rem;
+    color: var(--accent);
 }
 
-/* Tech Badge Styling */
+.timeline-role {
+    margin-top: 0.75rem;
+    font-family: var(--display-font);
+    font-size: 1.15rem;
+    font-weight: 650;
+    color: var(--foreground);
+}
+
+.timeline-company {
+    margin-top: 0.35rem;
+    color: var(--muted-foreground);
+}
+
 .tech-badge {
-    background: rgba(0, 255, 255, 0.2);
-    border-radius: 6px;
-    border: 1px solid rgba(0, 230, 255, 0.25);
-    transition: all 0.25s var(--ease-out-smooth);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    background: color-mix(in srgb, var(--accent-soft) 45%, transparent);
+    color: var(--foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    padding: 0.4rem 0.68rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .tech-badge:hover {
-    background: rgba(0, 255, 255, 0.35);
-    box-shadow: 0 0 12px rgba(0, 230, 255, 0.3);
+    border-color: var(--border-strong);
+    background: color-mix(in srgb, var(--accent-soft) 68%, transparent);
 }
 
-/* Tech orbs - interactive skill pills */
-.tech-orb {
-    cursor: default;
+.skill-card {
+    padding: 1rem;
 }
 
-.tech-orb-inner {
+.skill-card--about {
+    min-height: 146px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-    min-width: 5.5rem;
-    border-radius: var(--radius-md);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    gap: 0.75rem;
 }
 
-.tech-orb:hover .tech-orb-inner {
-    border-color: var(--border-accent);
-    box-shadow: var(--glow);
-}
-
-.tech-orb-level {
-    height: 4px;
+.skill-meter {
+    margin-top: 0.65rem;
     width: 100%;
-    max-width: 56px;
+    height: 6px;
     border-radius: var(--radius-full);
-    background: rgba(255, 255, 255, 0.1);
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
     overflow: hidden;
 }
 
-.tech-orb-fill {
+.skill-meter-fill {
     height: 100%;
     border-radius: var(--radius-full);
-    background: linear-gradient(90deg, var(--neon-blue), var(--neon-cyan));
-    transition: width 0.5s var(--ease-spring);
-}
-
-.hexagon-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* 🔹 RESPONSIVE FIXES 🔹 */
-
-/* 1️⃣ Hexagon Adjustments for Mobile */
-@media screen and (max-width: 768px) {
-    .hexagon {
-        width: 120px;
-        height: 120px;
-        clip-path: polygon(
-            50% 0%,
-            100% 25%,
-            100% 75%,
-            50% 100%,
-            0% 75%,
-            0% 25%
-        );
-        margin: 8px auto; /* Center hexagons */
-    }
-
-    .hexagon-container {
-        flex-direction: column; /* Stack hexagons vertically */
-        align-items: center;
-    }
-}
-
-/* 2️⃣ Prevent Overflow & Ensure Scrolling */
-@media screen and (max-width: 768px) {
-    body,
-    html {
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
-
-    .about-section {
-        min-height: 100vh;
-        overflow-y: auto;
-        padding-bottom: 50px;
-    }
-}
-
-/* 3️⃣ Tech Stack Adjustments */
-@media screen and (max-width: 768px) {
-    .tech-stack {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        justify-content: center;
-    }
-
-    .tech-badge {
-        width: 90px;
-        height: auto;
-        font-size: 12px;
-        padding: 5px;
-    }
-}
-
-/* 4️⃣ Career Timeline - Enable Horizontal Scroll */
-@media screen and (max-width: 768px) {
-    .career-timeline {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        white-space: nowrap;
-        padding: 10px 0;
-        scroll-snap-type: x mandatory;
-    }
-
-    .career-card {
-        flex: 0 0 80%;
-        scroll-snap-align: start;
-        margin: 5px;
-    }
-}
-
-/* 5️⃣ Ensure Section Visibility on Mobile */
-@media screen and (max-width: 768px) {
-    .about-container {
-        overflow-y: auto; /* Fixes hidden sections */
-        height: auto;
-    }
+    background: linear-gradient(96deg, var(--accent), var(--accent-2));
 }
