@@ -55,12 +55,3 @@ p {
     max-width: 68ch;
     margin-top: var(--space-3);
 }
-
-.text-mono {
-    font-family: var(--mono-font);
-}
-
-.neon-text {
-    color: var(--foreground);
-    text-shadow: 0 0 16px var(--accent-soft);
-}

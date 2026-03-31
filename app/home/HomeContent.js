@@ -3,15 +3,10 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { spring, staggerContainer, staggerItem } from "@/lib/motion";
+import { homeStats } from "@/lib/site-content";
 import "./styles.css";
 
 export default function HomeContent() {
-    const stats = [
-        { label: "Years Building", value: "7+" },
-        { label: "Core Stack", value: "Node.js / TS" },
-        { label: "Cloud Delivery", value: "AWS · Azure · GCP" },
-    ];
-
     return (
         <div className="home-container page-shell">
             <motion.section
@@ -37,7 +32,7 @@ export default function HomeContent() {
                 </motion.div>
 
                 <motion.div className="hero-stats" variants={staggerContainer(0.04, 0.06)}>
-                    {stats.map((stat) => (
+                    {homeStats.map((stat) => (
                         <motion.article key={stat.label} className="hero-stat" variants={staggerItem} transition={spring.soft}>
                             <strong>{stat.value}</strong>
                             <span>{stat.label}</span>

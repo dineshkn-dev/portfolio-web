@@ -6,7 +6,7 @@ This repository contains the source code for my personal portfolio website, show
 Visit: **[dineshkn.site](https://www.dineshkn.site/)**
 
 ## Tech Stack
-- **Framework:** Next.js 15 (App Router), React 19
+- **Framework:** Next.js 16 (App Router), React 19
 - **Styling:** Tailwind CSS, Framer Motion
 - **Analytics:** Vercel Analytics, Vercel Speed Insights
 - **Deployment:** Vercel

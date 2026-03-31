@@ -3,54 +3,9 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { spring, staggerContainer, staggerItem } from "@/lib/motion";
-
-const levelToWidth = { Advanced: 92, Intermediate: 74, Beginner: 58 };
+import { aboutIntro, careerTimeline, skillLevelWidth, techStack } from "@/lib/site-content";
 
 export default function AboutContent() {
-    const careerTimeline = [
-        {
-            year: "2024 - 2025",
-            role: "Software Engineer 3",
-            company: "Candescent",
-            impact: "Led backend API delivery for core banking workflows with reliability and security at scale.",
-        },
-        {
-            year: "2022 - 2024",
-            role: "Senior Software Engineer",
-            company: "HCL Technologies",
-            impact: "Shipped high-throughput integrations and real-time workflows for connected kitchen products.",
-        },
-        {
-            year: "2020 - 2022",
-            role: "Backend Developer",
-            company: "Wiznet India",
-            impact: "Designed GraphQL and REST services that improved release velocity across HR platforms.",
-        },
-        {
-            year: "2019 - 2020",
-            role: "Associate Software Engineer",
-            company: "Iolite Technologies",
-            impact: "Contributed to ML-based product features and productionized service endpoints.",
-        },
-        {
-            year: "2018 - 2019",
-            role: "Associate Software Engineer",
-            company: "Microhard Infotech",
-            impact: "Built proof-of-concept systems across ML use cases and backend automation.",
-        },
-    ];
-
-    const techStack = [
-        { name: "JavaScript", icon: "/icons/javascript.svg", level: "Advanced" },
-        { name: "Node.js", icon: "/icons/nodejs.svg", level: "Advanced" },
-        { name: "Express.js", icon: "/icons/express.svg", level: "Advanced" },
-        { name: "AWS", icon: "/icons/aws.svg", level: "Advanced" },
-        { name: "GraphQL", icon: "/icons/graphql.svg", level: "Advanced" },
-        { name: "Azure", icon: "/icons/azure.svg", level: "Intermediate" },
-        { name: "NestJS", icon: "/icons/nestjs.svg", level: "Intermediate" },
-        { name: "TypeScript", icon: "/icons/typescript.svg", level: "Beginner" },
-    ];
-
     const timelinePrimary = careerTimeline.slice(0, 3);
     const timelineSecondary = careerTimeline.slice(3);
     const skillsPrimary = techStack.slice(0, 4);
@@ -69,11 +24,10 @@ export default function AboutContent() {
                     variants={staggerItem}
                     transition={spring.soft}
                 >
-                    <span className="eyebrow">About</span>
-                    <h1>Dinesh K N</h1>
+                    <span className="eyebrow">{aboutIntro.eyebrow}</span>
+                    <h1>{aboutIntro.title}</h1>
                     <p className="section-copy">
-                        Backend engineer focused on scalable systems, API architecture, and cloud-first delivery. I enjoy
-                        turning complex business workflows into dependable platforms that teams can iterate on quickly.
+                        {aboutIntro.description}
                     </p>
                 </motion.div>
 
@@ -136,7 +90,7 @@ export default function AboutContent() {
                                     </div>
                                 </div>
                                 <div className="skill-meter mt-auto">
-                                    <div className="skill-meter-fill" style={{ width: `${levelToWidth[tech.level]}%` }} />
+                                    <div className="skill-meter-fill" style={{ width: `${skillLevelWidth[tech.level]}%` }} />
                                 </div>
                             </motion.article>
                         ))}
@@ -159,7 +113,7 @@ export default function AboutContent() {
                                     </div>
                                 </div>
                                 <div className="skill-meter mt-auto">
-                                    <div className="skill-meter-fill" style={{ width: `${levelToWidth[tech.level]}%` }} />
+                                    <div className="skill-meter-fill" style={{ width: `${skillLevelWidth[tech.level]}%` }} />
                                 </div>
                             </motion.article>
                         ))}

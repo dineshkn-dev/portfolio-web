@@ -5,6 +5,13 @@ import { motion } from "framer-motion";
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { spring, staggerContainer, staggerItem } from "@/lib/motion";
+import { contactFormEndpoint, socialLinks } from "@/lib/site-content";
+
+const socialIcons = {
+    LinkedIn: FaLinkedin,
+    GitHub: FaGithub,
+    Email: FaEnvelope,
+};
 
 export default function ContactContent() {
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -17,7 +24,7 @@ export default function ContactContent() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setStatus("loading");
-        const res = await fetch("https://formspree.io/f/meoelkyp", {
+        const res = await fetch(contactFormEndpoint, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
@@ -33,12 +40,6 @@ export default function ContactContent() {
             setTimeout(() => setStatus(null), 3000);
         }
     };
-
-    const socials = [
-        { Icon: FaLinkedin, href: "https://www.linkedin.com/in/dinesh-kn/", label: "LinkedIn", color: "text-[#0a66c2]" },
-        { Icon: FaGithub, href: "https://github.com/dineshkn-dev", label: "GitHub", color: "text-white" },
-        { Icon: FaEnvelope, href: "mailto:kandilindinesh@gmail.com", label: "Email", color: "text-red-400" },
-    ];
 
     return (
         <section className="page-shell">
@@ -56,22 +57,26 @@ export default function ContactContent() {
                         <h2 className="text-xl">Social</h2>
                         <p className="mt-2 text-sm">Pick your preferred channel and I&apos;ll respond quickly.</p>
                         <div className="cluster mt-5">
-                            {socials.map(({ Icon, href, label, color }) => (
+                            {socialLinks.map(({ platform, href, color }) => {
+                                const Icon = socialIcons[platform];
+
+                                return (
                                 <motion.a
-                                    key={label}
+                                    key={platform}
                                     href={href}
                                     target={href.startsWith("http") ? "_blank" : undefined}
                                     rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                                    aria-label={label}
+                                    aria-label={platform}
                                     className={`glass-card px-4 py-3 inline-flex items-center gap-3 ${color}`}
                                     whileHover={{ scale: 1.04 }}
                                     whileTap={{ scale: 0.97 }}
                                     transition={spring.snappy}
                                 >
                                     <Icon className="text-xl" />
-                                    <span className="text-sm font-medium">{label}</span>
+                                    <span className="text-sm font-medium">{platform}</span>
                                 </motion.a>
-                            ))}
+                                );
+                            })}
                         </div>
                     </motion.aside>
 

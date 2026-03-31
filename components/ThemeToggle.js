@@ -7,15 +7,20 @@ import { spring } from "@/lib/motion";
 const THEMES = ["dark", "light"];
 
 export default function ThemeToggle() {
-    const [theme, setTheme] = useState("dark");
+    const [theme, setTheme] = useState(() => {
+        if (typeof window === "undefined") {
+            return "dark";
+        }
+
+        const saved = window.localStorage.getItem("theme");
+        const preferredDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        return THEMES.includes(saved) ? saved : preferredDark ? "dark" : "light";
+    });
 
     useEffect(() => {
-        const saved = localStorage.getItem("theme");
-        const preferredDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        const initialTheme = THEMES.includes(saved) ? saved : preferredDark ? "dark" : "light";
-        document.documentElement.setAttribute("data-theme", initialTheme);
-        setTheme(initialTheme);
-    }, []);
+        document.documentElement.setAttribute("data-theme", theme);
+        window.localStorage.setItem("theme", theme);
+    }, [theme]);
 
     const toggleTheme = () => {
         const nextTheme = theme === "dark" ? "light" : "dark";
@@ -32,6 +37,7 @@ export default function ThemeToggle() {
             whileTap={{ scale: 0.96 }}
             transition={spring.snappy}
             aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            suppressHydrationWarning
         >
             <span className="theme-toggle-track" aria-hidden="true">
                 <motion.span
@@ -40,7 +46,7 @@ export default function ThemeToggle() {
                     transition={spring.soft}
                 />
             </span>
-            <span className="theme-toggle-label">{theme === "dark" ? "Dark" : "Light"}</span>
+            <span className="theme-toggle-label" suppressHydrationWarning>{theme === "dark" ? "Dark" : "Light"}</span>
         </motion.button>
     );
 }
