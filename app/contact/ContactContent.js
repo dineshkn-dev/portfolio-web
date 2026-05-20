@@ -74,9 +74,9 @@ export default function ContactContent() {
                                         target={href.startsWith("http") ? "_blank" : undefined}
                                         rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                                         aria-label={platform}
-                                        className={`glass-card px-4 py-3 inline-flex items-center gap-3 hover-lift ${color}`}
+                                        className="glass-card px-4 py-3 inline-flex items-center gap-3 hover-lift text-[var(--foreground)]"
                                     >
-                                        <Icon className="text-xl" />
+                                        <Icon className={`w-5 h-5 shrink-0 ${color}`} />
                                         <span className="text-sm font-medium">{platform}</span>
                                     </A>
                                 );
