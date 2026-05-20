@@ -1,4 +1,9 @@
-import ContactContent from "./ContactContent";
+import dynamic from "next/dynamic";
+import PageFallback from "@/components/PageFallback";
+
+const ContactContent = dynamic(() => import("./ContactContent"), {
+    loading: () => <PageFallback />,
+});
 
 export const metadata = {
     title: "Contact",

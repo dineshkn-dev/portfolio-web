@@ -20,6 +20,15 @@ body {
     max-width: 70ch;
 }
 
+.section-intro--full {
+    max-width: none;
+    width: 100%;
+}
+
+.section-intro--full .section-copy {
+    max-width: none;
+}
+
 .cluster {
     display: flex;
     flex-wrap: wrap;

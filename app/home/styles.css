@@ -5,12 +5,12 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding-inline: 1rem;
+    padding-inline: var(--content-gutter);
 }
 
 .hero-section {
     position: relative;
-    width: min(1080px, 100%);
+    width: min(var(--content-max), 100%);
     border-radius: var(--radius-xl);
     padding: clamp(1.6rem, 2.8vw, 3rem);
     border: 1px solid var(--border);

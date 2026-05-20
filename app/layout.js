@@ -1,8 +1,8 @@
 import "@/globals.css";
 import Navbar from "@/components/Navbar";
-import { Toaster } from "react-hot-toast";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { fontVariables } from "@/lib/fonts";
 
 export const metadata = {
     metadataBase: new URL("https://www.dineshkn.site"),
@@ -50,13 +50,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en">
+        <html lang="en" data-scroll-behavior="smooth" className={fontVariables}>
             <body className="site-shell min-h-screen antialiased text-[var(--foreground)]">
                 <Navbar />
                 <main className="min-h-screen flex flex-col justify-center">
                     {children}
                 </main>
-                <Toaster position="bottom-center" toastOptions={{ duration: 2500, style: { background: "var(--surface-strong)", color: "var(--foreground)", border: "1px solid var(--border)" } }} />
                 <Analytics />
                 <SpeedInsights />
             </body>

@@ -1,4 +1,9 @@
-import ProjectsContent from "./ProjectsContent";
+import dynamic from "next/dynamic";
+import PageFallback from "@/components/PageFallback";
+
+const ProjectsContent = dynamic(() => import("./ProjectsContent"), {
+    loading: () => <PageFallback />,
+});
 
 export const metadata = {
     title: "Projects",

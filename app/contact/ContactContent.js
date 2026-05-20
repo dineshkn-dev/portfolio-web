@@ -1,21 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
 import toast from "react-hot-toast";
-import { spring, staggerContainer, staggerItem } from "@/lib/motion";
+import { socialIconMap } from "@/components/icons/SocialIcons";
+import { useMotionUI } from "@/lib/motion-ui";
 import { contactFormEndpoint, socialLinks } from "@/lib/site-content";
 
-const socialIcons = {
-    LinkedIn: FaLinkedin,
-    GitHub: FaGithub,
-    Email: FaEnvelope,
-};
-
 export default function ContactContent() {
+    const { m, spring, staggerContainer, staggerItem, animateClass, motionInitial, motionAnimate } = useMotionUI();
+    const Div = m.div;
+    const Aside = m.aside;
+    const Form = m.form;
+    const Button = m.button;
+    const A = m.a;
+
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-    const [status, setStatus] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,64 +23,68 @@ export default function ContactContent() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setStatus("loading");
+        setIsSubmitting(true);
         const res = await fetch(contactFormEndpoint, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
         });
         if (res.ok) {
-            setStatus("success");
             toast.success("Message sent successfully!");
             setFormData({ name: "", email: "", message: "" });
-            setTimeout(() => setStatus(null), 3000);
         } else {
-            setStatus("error");
             toast.error("Failed to send message. Try again!");
-            setTimeout(() => setStatus(null), 3000);
         }
+        setIsSubmitting(false);
     };
 
     return (
         <section className="page-shell">
-            <motion.div className="section-shell section-stack" variants={staggerContainer(0.1, 0.1)} initial="initial" animate="animate">
-                <motion.div className="section-intro" variants={staggerItem} transition={spring.soft}>
+            <Div
+                className={`section-shell section-stack ${animateClass}`}
+                variants={staggerContainer(0.1, 0.1)}
+                initial={motionInitial}
+                animate={motionAnimate}
+            >
+                <Div className="section-intro" variants={staggerItem} transition={spring.soft}>
                     <span className="eyebrow">Contact</span>
                     <h1>Let&apos;s build something meaningful.</h1>
                     <p className="section-copy">
                         Reach out for engineering collaboration, consulting, or backend leadership opportunities.
                     </p>
-                </motion.div>
+                </Div>
 
-                <motion.div className="grid-2" variants={staggerContainer(0.08, 0.08)} initial="initial" animate="animate">
-                    <motion.aside className="glass-card p-6" variants={staggerItem} transition={spring.soft}>
+                <Div
+                    className="grid-2"
+                    variants={staggerContainer(0.08, 0.08)}
+                    initial={motionInitial}
+                    animate={motionAnimate}
+                >
+                    <Aside className="glass-card p-6" variants={staggerItem} transition={spring.soft}>
                         <h2 className="text-xl">Social</h2>
                         <p className="mt-2 text-sm">Pick your preferred channel and I&apos;ll respond quickly.</p>
                         <div className="cluster mt-5">
                             {socialLinks.map(({ platform, href, color }) => {
-                                const Icon = socialIcons[platform];
+                                const Icon = socialIconMap[platform];
 
                                 return (
-                                <motion.a
-                                    key={platform}
-                                    href={href}
-                                    target={href.startsWith("http") ? "_blank" : undefined}
-                                    rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                                    aria-label={platform}
-                                    className={`glass-card px-4 py-3 inline-flex items-center gap-3 ${color}`}
-                                    whileHover={{ scale: 1.04 }}
-                                    whileTap={{ scale: 0.97 }}
-                                    transition={spring.snappy}
-                                >
-                                    <Icon className="text-xl" />
-                                    <span className="text-sm font-medium">{platform}</span>
-                                </motion.a>
+                                    <A
+                                        key={platform}
+                                        href={href}
+                                        target={href.startsWith("http") ? "_blank" : undefined}
+                                        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                                        aria-label={platform}
+                                        className={`glass-card px-4 py-3 inline-flex items-center gap-3 hover-lift ${color}`}
+                                    >
+                                        <Icon className="text-xl" />
+                                        <span className="text-sm font-medium">{platform}</span>
+                                    </A>
                                 );
                             })}
                         </div>
-                    </motion.aside>
+                    </Aside>
 
-                    <motion.form onSubmit={handleSubmit} className="contact-form p-6" variants={staggerItem} transition={spring.soft}>
+                    <Form onSubmit={handleSubmit} className="contact-form p-6" variants={staggerItem} transition={spring.soft}>
                         <label className="block mb-4">
                             <span className="block text-xs font-medium mb-1.5 text-[var(--muted-foreground)]">Name</span>
                             <input
@@ -117,19 +121,16 @@ export default function ContactContent() {
                                 className="w-full px-4 py-3 rounded-xl bg-[var(--surface)] border border-[var(--border)] text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] resize-none"
                             />
                         </label>
-                        <motion.button
+                        <Button
                             type="submit"
-                            disabled={status === "loading"}
+                            disabled={isSubmitting}
                             className="button button-primary w-full disabled:opacity-70"
-                            whileHover={{ scale: 1.01 }}
-                            whileTap={{ scale: 0.98 }}
-                            transition={spring.snappy}
                         >
-                            {status === "loading" ? "Sending..." : "Send Message"}
-                        </motion.button>
-                    </motion.form>
-                </motion.div>
-            </motion.div>
+                            {isSubmitting ? "Sending..." : "Send Message"}
+                        </Button>
+                    </Form>
+                </Div>
+            </Div>
         </section>
     );
 }

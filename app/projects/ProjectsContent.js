@@ -1,11 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
 import TiltCard from "@/components/TiltCard";
-import { spring, staggerContainer, staggerItem } from "@/lib/motion";
+import { useMotionUI } from "@/lib/motion-ui";
 import { projects } from "@/lib/site-content";
 
 export default function ProjectsContent() {
+    const { m, spring, staggerContainer, staggerItem, motionInitial, motionAnimate } = useMotionUI();
+    const Div = m.div;
     const primaryProjects = projects.slice(0, 3);
     const secondaryProjects = projects.slice(3);
 
@@ -36,37 +37,38 @@ export default function ProjectsContent() {
 
     return (
         <section className="page-shell">
-            <motion.div
+            <Div
                 className="section-shell section-stack"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={spring.soft}
             >
-                <motion.div className="section-intro" variants={staggerContainer(0.1, 0.08)} initial="initial" animate="animate">
-                    <motion.span className="eyebrow" variants={staggerItem}>Projects</motion.span>
-                    <motion.h1 variants={staggerItem}>Production platforms and high-impact engineering delivery.</motion.h1>
-                    <motion.p className="section-copy" variants={staggerItem}>
-                        Selected work across fintech, IoT, HR systems, and ML applications, with a focus on API reliability,
-                        scale, and measurable delivery outcomes.
-                    </motion.p>
-                </motion.div>
-
-                <motion.div className="grid grid-cols-1 lg:grid-cols-3 gap-5" variants={staggerContainer(0.08, 0.08)} initial="initial" animate="animate">
+                <Div
+                    className="grid grid-cols-1 lg:grid-cols-3 gap-5"
+                    variants={staggerContainer(0.08, 0.08)}
+                    initial={motionInitial}
+                    animate={motionAnimate}
+                >
                     {primaryProjects.map((project) => (
-                        <motion.div key={project.title} variants={staggerItem} transition={spring.soft}>
+                        <Div key={project.title} variants={staggerItem} transition={spring.soft}>
                             {renderCard(project)}
-                        </motion.div>
+                        </Div>
                     ))}
-                </motion.div>
+                </Div>
 
-                <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full lg:max-w-[760px] mx-auto" variants={staggerContainer(0.08, 0.08)} initial="initial" animate="animate">
+                <Div
+                    className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full lg:max-w-[880px] mx-auto"
+                    variants={staggerContainer(0.08, 0.08)}
+                    initial={motionInitial}
+                    animate={motionAnimate}
+                >
                     {secondaryProjects.map((project) => (
-                        <motion.div key={project.title} variants={staggerItem} transition={spring.soft}>
+                        <Div key={project.title} variants={staggerItem} transition={spring.soft}>
                             {renderCard(project)}
-                        </motion.div>
+                        </Div>
                     ))}
-                </motion.div>
-            </motion.div>
+                </Div>
+            </Div>
         </section>
     );
 }

@@ -1,7 +1,12 @@
-import HomeContent from "./home/HomeContent";
+import dynamic from "next/dynamic";
+import PageFallback from "@/components/PageFallback";
+
+const HomeContent = dynamic(() => import("./home/HomeContent"), {
+    loading: () => <PageFallback />,
+});
 
 export const metadata = {
-    title: "Home",
+    title: "About",
     description:
         "Dinesh K N — Software Engineer building solutions one line of code at a time."
 };

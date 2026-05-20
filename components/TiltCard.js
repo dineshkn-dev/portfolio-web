@@ -1,18 +1,18 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion, useMotionValue, useTransform, useReducedMotion } from "framer-motion";
 
 export default function TiltCard({ children, className = "" }) {
+    const reduce = useReducedMotion();
     const ref = useRef(null);
     const x = useMotionValue(0);
     const y = useMotionValue(0);
-
     const rotateX = useTransform(y, (v) => `${v}deg`);
     const rotateY = useTransform(x, (v) => `${v}deg`);
 
     const handleMove = (e) => {
-        if (!ref.current) return;
+        if (!ref.current || reduce) return;
         const rect = ref.current.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
@@ -27,6 +27,10 @@ export default function TiltCard({ children, className = "" }) {
         x.set(0);
         y.set(0);
     };
+
+    if (reduce) {
+        return <div className={className}>{children}</div>;
+    }
 
     return (
         <motion.div

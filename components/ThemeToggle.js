@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { spring } from "@/lib/motion";
 
 const THEMES = ["dark", "light"];
 
@@ -23,30 +21,23 @@ export default function ThemeToggle() {
     }, [theme]);
 
     const toggleTheme = () => {
-        const nextTheme = theme === "dark" ? "light" : "dark";
-        setTheme(nextTheme);
-        document.documentElement.setAttribute("data-theme", nextTheme);
-        localStorage.setItem("theme", nextTheme);
+        setTheme((current) => (current === "dark" ? "light" : "dark"));
     };
 
     return (
-        <motion.button
+        <button
             type="button"
             className="theme-toggle"
             onClick={toggleTheme}
-            whileTap={{ scale: 0.96 }}
-            transition={spring.snappy}
             aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
             suppressHydrationWarning
         >
             <span className="theme-toggle-track" aria-hidden="true">
-                <motion.span
-                    className="theme-toggle-thumb"
-                    animate={{ x: theme === "dark" ? 0 : 22 }}
-                    transition={spring.soft}
-                />
+                <span className="theme-toggle-thumb" />
             </span>
-            <span className="theme-toggle-label" suppressHydrationWarning>{theme === "dark" ? "Dark" : "Light"}</span>
-        </motion.button>
+            <span className="theme-toggle-label" suppressHydrationWarning>
+                {theme === "dark" ? "Dark" : "Light"}
+            </span>
+        </button>
     );
 }
