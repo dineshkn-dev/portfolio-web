@@ -56,8 +56,15 @@ export default function JarvisProvider({ children }) {
         const mqMobile = window.matchMedia("(max-width: 768px)");
         const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
         const update = () => {
+            const optIn3d = localStorage.getItem(STORAGE_KEYS.reactor3d) === "true";
             setIsMobile(mqMobile.matches);
-            setUse3D(!mqMobile.matches && !mqReduce.matches && !reduceMotion);
+            setUse3D(
+                optIn3d &&
+                    !mqMobile.matches &&
+                    !mqReduce.matches &&
+                    !reduceMotion &&
+                    (navigator.hardwareConcurrency ?? 4) >= 6
+            );
         };
         mqMobile.addEventListener("change", update);
         mqReduce.addEventListener("change", update);

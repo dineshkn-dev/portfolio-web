@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { useJarvis } from "@/components/jarvis/JarvisProvider";
 import { getModuleFromPath } from "@/lib/jarvis/constants";
@@ -10,19 +10,18 @@ export default function HudFrame() {
     const pathname = usePathname();
     const { voiceEnabled, transcript } = useJarvis();
     const mod = getModuleFromPath(pathname);
-    const [time, setTime] = useState("");
+    const timeRef = useRef(null);
 
     useEffect(() => {
         const tick = () => {
+            if (!timeRef.current) return;
             const d = new Date();
-            setTime(
-                d.toLocaleTimeString("en-US", {
-                    hour12: false,
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                })
-            );
+            timeRef.current.textContent = `${d.toLocaleTimeString("en-US", {
+                hour12: false,
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+            })} UTC`;
         };
         tick();
         const id = setInterval(tick, 1000);
@@ -47,7 +46,7 @@ export default function HudFrame() {
                 <span>
                     {homeStats.map((s) => `${s.value} ${s.label}`).join(" · ")}
                 </span>
-                <span>{time} UTC</span>
+                <span ref={timeRef} />
             </footer>
 
             {voiceEnabled ? (

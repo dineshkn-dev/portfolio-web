@@ -61,7 +61,7 @@
     border: 1px solid var(--hud-line);
     border-radius: var(--radius-xl);
     background: color-mix(in srgb, var(--surface-strong) 90%, transparent);
-    backdrop-filter: blur(18px);
+    /* Solid surface — backdrop-filter is costly on macOS */
     box-shadow: var(--hud-glow);
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }

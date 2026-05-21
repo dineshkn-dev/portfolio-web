@@ -14,6 +14,13 @@ export default function JarvisInit({ onInit }) {
         const consent = localStorage.getItem(STORAGE_KEYS.voiceConsent);
         const mqMobile = window.matchMedia("(max-width: 768px)");
         const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const optIn3d = localStorage.getItem(STORAGE_KEYS.reactor3d) === "true";
+        const can3D =
+            optIn3d &&
+            !mqMobile.matches &&
+            !mqReduce.matches &&
+            !reduceMotion &&
+            (navigator.hardwareConcurrency ?? 4) >= 6;
 
         onInit({
             booting: !reduceMotion && !bootDone,
@@ -22,7 +29,7 @@ export default function JarvisInit({ onInit }) {
             voiceEnabled: voice === "true" && consent === "true" && !reduceMotion,
             voiceConsent: consent === "true",
             isMobile: mqMobile.matches,
-            use3D: !mqMobile.matches && !mqReduce.matches && !reduceMotion,
+            use3D: can3D,
         });
     }, [reduceMotion, onInit]);
 

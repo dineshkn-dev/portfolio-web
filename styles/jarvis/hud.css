@@ -53,6 +53,12 @@
     to { background-position: 0 0, 48px 48px, 48px 48px; }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .jarvis-css-reactor {
+        animation: none;
+    }
+}
+
 .jarvis-content {
     position: relative;
     z-index: 2;
@@ -154,7 +160,6 @@
     border: 1px solid var(--hud-line);
     border-radius: var(--radius-lg);
     background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
-    backdrop-filter: blur(14px);
     box-shadow: var(--hud-glow);
 }
 

@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useJarvis } from "@/components/jarvis/JarvisProvider";
+
+const INTERACTIVE =
+    "a, button, input, textarea, select, label, [role='button'], [role='tab'], .hud-nav-link, .hud-tab, .jarvis-stat-card, .jarvis-skill-tile, .chronos-rail-item, .chronos-map-node, .vault-strip-tab, .jarvis-chip, [cmdk-item]";
 
 export default function CursorLayer() {
     const { reduceMotion, isMobile } = useJarvis();
     const ringRef = useRef(null);
-    const [hovering, setHovering] = useState(false);
 
     useEffect(() => {
         if (reduceMotion || isMobile) return;
@@ -26,12 +28,7 @@ export default function CursorLayer() {
         };
 
         const onOver = (e) => {
-            const t = e.target;
-            setHovering(
-                !!t?.closest?.(
-                    "a, button, input, textarea, select, label, [role='button'], [role='tab'], .hud-nav-link, .hud-tab, .jarvis-stat-card, .jarvis-skill-tile, .chronos-rail-item, .chronos-map-node, .vault-strip-tab, .jarvis-chip, [cmdk-item]"
-                )
-            );
+            ring.classList.toggle("jarvis-cursor-ring--hover", !!e.target?.closest?.(INTERACTIVE));
         };
 
         window.addEventListener("mousemove", onMove, { passive: true });
@@ -49,7 +46,7 @@ export default function CursorLayer() {
         <div className="jarvis-cursor" aria-hidden="true">
             <div
                 ref={ringRef}
-                className={`jarvis-cursor-ring ${hovering ? "jarvis-cursor-ring--hover" : ""}`}
+                className="jarvis-cursor-ring"
                 style={{ position: "fixed", top: 0, left: 0, willChange: "transform" }}
             >
                 <span className="jarvis-cursor-dot" />

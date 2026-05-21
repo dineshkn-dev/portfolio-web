@@ -11,11 +11,13 @@ import HelpOverlay from "@/components/jarvis/HelpOverlay";
 import BootSequence from "@/components/jarvis/BootSequence";
 import CursorLayer from "@/components/jarvis/CursorLayer";
 import ModuleTransition from "@/components/jarvis/ModuleTransition";
+import ReactorBackdrop from "@/components/canvas/ReactorBackdrop";
 import AudioController, { useJarvisAudio } from "@/components/jarvis/AudioController";
 import { handleGlobalKeydown } from "@/lib/jarvis/keyboard";
 
-const ReactorScene = dynamic(() => import("@/components/canvas/ReactorScene"), {
+const ReactorCanvas = dynamic(() => import("@/components/canvas/ReactorCanvas"), {
     ssr: false,
+    loading: () => null,
 });
 
 const VoiceController = dynamic(() => import("@/components/jarvis/VoiceController"), {
@@ -44,7 +46,8 @@ function JarvisShellInner({ children }) {
 
     return (
         <div className="jarvis-shell site-shell">
-            <ReactorScene />
+            <ReactorBackdrop />
+            {jarvis.use3D ? <ReactorCanvas /> : null}
             <HudFrame />
             <HudNav />
             <CommandPalette />
