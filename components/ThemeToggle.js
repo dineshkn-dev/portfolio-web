@@ -36,7 +36,7 @@ export default function ThemeToggle() {
                 <span className="theme-toggle-thumb" />
             </span>
             <span className="theme-toggle-label" suppressHydrationWarning>
-                {theme === "dark" ? "Dark" : "Light"}
+                {theme === "dark" ? "Reactor" : "Daylight"}
             </span>
         </button>
     );

@@ -1,47 +1,101 @@
 "use client";
 
+import { useRef } from "react";
 import Link from "next/link";
-import { useMotionUI } from "@/lib/motion-ui";
-import { homeStats } from "@/lib/site-content";
-import "./styles.css";
+import { useDrag } from "@use-gesture/react";
+import gsap from "gsap";
+import { useJarvis } from "@/components/jarvis/JarvisProvider";
+import { useJarvisAudio } from "@/components/jarvis/AudioController";
+import { useTypewriter } from "@/hooks/useTypewriter";
+import { cockpitBrief, homeStats, jarvisLines } from "@/lib/site-content";
+import { JARVIS_MODULES } from "@/lib/jarvis/constants";
 
-export default function HomeContent() {
-    const { m, spring, staggerContainer, staggerItem, animateClass, motionInitial, motionAnimate } = useMotionUI();
-    const Section = m.section;
-    const P = m.p;
-    const H1 = m.h1;
-    const Div = m.div;
-    const Article = m.article;
+function DraggableStat({ stat }) {
+    const ref = useRef(null);
+    const { playSfx } = useJarvisAudio();
+
+    useDrag(
+        ({ offset: [x, y] }) => {
+            if (ref.current) {
+                ref.current.style.transform = `translate(${x}px, ${y}px)`;
+            }
+        },
+        { target: ref, from: () => [0, 0] }
+    );
 
     return (
-        <div className="home-container page-shell">
-            <Section
-                className={`hero-section ${animateClass}`}
-                variants={staggerContainer(0.15, 0.1)}
-                initial={motionInitial}
-                animate={motionAnimate}
-            >
-                <P className="eyebrow" variants={staggerItem} transition={spring.soft}>Software Engineer</P>
-                <H1 className="hero-name" variants={staggerItem} transition={spring.bouncy}>
-                    Building resilient backend systems that scale under pressure.
-                </H1>
-                <P className="hero-subtitle" variants={staggerItem} transition={spring.soft}>
-                    I design and ship API-first platforms with cloud-native architecture, observability, and delivery speed that teams can trust.
-                </P>
-                <Div className="hero-actions" variants={staggerItem} transition={spring.soft}>
-                    <Link href="/projects" className="button button-primary">View Projects</Link>
-                    <Link href="/contact" className="button button-ghost">Let&apos;s Connect</Link>
-                </Div>
+        <article ref={ref} className="jarvis-stat-card" onClick={() => playSfx("click")}>
+            <strong>{stat.value}</strong>
+            <span>{stat.label}</span>
+        </article>
+    );
+}
 
-                <Div className="hero-stats" variants={staggerContainer(0.04, 0.06)}>
-                    {homeStats.map((stat) => (
-                        <Article key={stat.label} className="hero-stat" variants={staggerItem} transition={spring.soft}>
-                            <strong>{stat.value}</strong>
-                            <span>{stat.label}</span>
-                        </Article>
+export default function HomeContent() {
+    const { reduceMotion, speak, bootComplete } = useJarvis();
+    const { playSfx } = useJarvisAudio();
+    const heroRef = useRef(null);
+    const { display, done } = useTypewriter(
+        cockpitBrief.subline,
+        24,
+        bootComplete && !reduceMotion
+    );
+
+    const initSystems = (e) => {
+        const btn = e.currentTarget;
+        gsap.fromTo(btn, { scale: 1 }, { scale: 1.05, duration: 0.12, yoyo: true, repeat: 1 });
+        playSfx("whoosh");
+    };
+
+    const systems = JARVIS_MODULES.filter((m) => m.path !== "/");
+
+    return (
+        <div className="jarvis-cockpit">
+            <section className="jarvis-cockpit-hero" ref={heroRef}>
+                <p className="jarvis-eyebrow">{cockpitBrief.eyebrow}</p>
+                <h1 className="jarvis-title">{cockpitBrief.headline}</h1>
+                <p className="jarvis-typewriter mt-4">
+                    {display}
+                    {!done && !reduceMotion ? (
+                        <span className="jarvis-typewriter-cursor" aria-hidden="true" />
+                    ) : null}
+                </p>
+
+                <div className="jarvis-system-btns">
+                    {systems.map((mod) => (
+                        <Link
+                            key={mod.path}
+                            href={mod.path}
+                            className="button button-primary"
+                            onClick={(e) => {
+                                initSystems(e);
+                            }}
+                        >
+                            {mod.label}
+                        </Link>
                     ))}
-                </Div>
-            </Section>
+                    <button
+                        type="button"
+                        className="button button-ghost"
+                        onClick={() => {
+                            speak(jarvisLines.welcome);
+                            playSfx("click");
+                        }}
+                    >
+                        Briefing
+                    </button>
+                </div>
+            </section>
+
+            <div className="jarvis-stat-grid">
+                {homeStats.map((stat) => (
+                    <DraggableStat key={stat.label} stat={stat} />
+                ))}
+            </div>
+
+            <p className="jarvis-eyebrow text-center opacity-70">
+                Drag telemetry cards · Press ⌘K for commands · Say &quot;open projects&quot;
+            </p>
         </div>
     );
 }

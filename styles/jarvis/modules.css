@@ -1,0 +1,442 @@
+.jarvis-module {
+    width: min(var(--content-max), calc(100% - var(--content-gutter) * 2));
+    margin-inline: auto;
+    padding: 6.5rem 0 5rem;
+}
+
+.jarvis-module-panel {
+    position: relative;
+    padding: 1.5rem;
+    border: 1px solid var(--hud-line);
+    border-radius: var(--radius-xl);
+    background: color-mix(in srgb, var(--surface-strong) 88%, transparent);
+    backdrop-filter: blur(16px);
+    box-shadow: var(--hud-glow), var(--shadow-md);
+    clip-path: polygon(
+        0 12px,
+        12px 0,
+        calc(100% - 12px) 0,
+        100% 12px,
+        100% calc(100% - 12px),
+        calc(100% - 12px) 100%,
+        12px 100%,
+        0 calc(100% - 12px)
+    );
+}
+
+.jarvis-module-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(
+        135deg,
+        rgba(88, 210, 255, 0.12) 0%,
+        transparent 40%,
+        transparent 60%,
+        rgba(52, 242, 183, 0.08) 100%
+    );
+}
+
+.jarvis-eyebrow {
+    font-family: var(--mono-font);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.jarvis-title {
+    font-family: var(--font-hud), var(--display-font);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+    margin: 0.5rem 0 0;
+}
+
+.jarvis-cockpit {
+    min-height: calc(100vh - 8rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 6.5rem var(--content-gutter) 5rem;
+    max-width: var(--content-max);
+    margin-inline: auto;
+}
+
+.jarvis-cockpit-hero {
+    padding: 1.75rem;
+    border: 1px solid var(--hud-line);
+    border-radius: var(--radius-xl);
+    background: color-mix(in srgb, var(--surface-strong) 90%, transparent);
+    backdrop-filter: blur(18px);
+}
+
+.jarvis-typewriter {
+    font-family: var(--mono-font);
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    line-height: 1.6;
+    color: var(--foreground);
+    min-height: 3.2em;
+}
+
+.jarvis-typewriter-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: var(--accent);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink-cursor 0.9s step-end infinite;
+}
+
+@keyframes blink-cursor {
+    50% { opacity: 0; }
+}
+
+.jarvis-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.jarvis-stat-card {
+    padding: 1rem;
+    border: 1px solid var(--hud-line);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+}
+
+.jarvis-stat-card:active {
+    cursor: grabbing;
+}
+
+.jarvis-stat-card strong {
+    display: block;
+    font-family: var(--font-hud), var(--display-font);
+    font-size: 1.35rem;
+    color: var(--accent);
+}
+
+.jarvis-stat-card span {
+    font-family: var(--mono-font);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+}
+
+.jarvis-system-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.jarvis-skills-orbit {
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.jarvis-skill-node {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.65rem;
+    border: 1px solid var(--hud-line);
+    border-radius: var(--radius-full);
+    background: var(--surface);
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.jarvis-skill-node:hover,
+.jarvis-skill-node--active {
+    border-color: var(--accent);
+    box-shadow: var(--hud-glow);
+    transform: scale(1.08);
+}
+
+.jarvis-skill-detail {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+}
+
+.jarvis-filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.jarvis-chip {
+    padding: 0.35rem 0.75rem;
+    font-family: var(--mono-font);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid var(--hud-line);
+    border-radius: var(--radius-full);
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted-foreground);
+}
+
+.jarvis-chip--active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+}
+
+.jarvis-timeline-scrub {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.jarvis-scrub-track {
+    position: relative;
+    height: 4px;
+    background: var(--border);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    touch-action: none;
+}
+
+.jarvis-scrub-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.jarvis-scrub-thumb {
+    position: absolute;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.jarvis-timeline-card {
+    padding: 1.5rem;
+    border: 1px solid var(--hud-line);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+}
+
+.jarvis-projects-carousel {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.5rem;
+    scrollbar-width: thin;
+}
+
+.jarvis-project-slide {
+    flex: 0 0 min(320px, 85vw);
+    scroll-snap-align: center;
+    cursor: pointer;
+}
+
+.jarvis-drawer {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: min(400px, 92vw);
+    z-index: 60;
+    padding: 5.5rem 1.25rem 2rem;
+    border-left: 1px solid var(--hud-line);
+    background: color-mix(in srgb, var(--surface-strong) 96%, transparent);
+    backdrop-filter: blur(20px);
+    overflow-y: auto;
+}
+
+.jarvis-terminal-form input,
+.jarvis-terminal-form textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.85rem;
+    font-family: var(--mono-font);
+    font-size: 0.85rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--hud-line);
+    border-radius: var(--radius-md);
+    color: var(--foreground);
+}
+
+.jarvis-terminal-form input:focus,
+.jarvis-terminal-form textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 16px var(--accent-soft);
+}
+
+.jarvis-terminal-prompt::before {
+    content: "> ";
+    color: var(--accent);
+}
+
+.jarvis-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    pointer-events: none;
+    mix-blend-mode: difference;
+}
+
+.jarvis-cursor-ring {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.1s ease-out, height 0.1s ease-out, border-color 0.1s ease-out;
+}
+
+.jarvis-cursor-ring--hover {
+    width: 48px;
+    height: 48px;
+    border-color: var(--accent-2);
+}
+
+.jarvis-cursor-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.jarvis-boot {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--background);
+    font-family: var(--mono-font);
+}
+
+.jarvis-boot-line {
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin: 0.25rem 0;
+}
+
+.jarvis-boot-skip {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+    background: none;
+    border: 1px solid var(--hud-line);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+}
+
+.jarvis-help-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(4, 8, 14, 0.75);
+    backdrop-filter: blur(6px);
+}
+
+.jarvis-help-panel {
+    width: min(480px, 92vw);
+    padding: 1.5rem;
+    border: 1px solid var(--hud-line);
+    border-radius: var(--radius-xl);
+    background: var(--surface-strong);
+    font-family: var(--mono-font);
+    font-size: 0.78rem;
+}
+
+.jarvis-help-panel kbd {
+    display: inline-block;
+    padding: 0.15rem 0.4rem;
+    border: 1px solid var(--hud-line);
+    border-radius: 4px;
+    margin-right: 0.35rem;
+    color: var(--accent);
+}
+
+.jarvis-voice-banner {
+    position: fixed;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 55;
+    max-width: 90vw;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--hud-line);
+    border-radius: var(--radius-lg);
+    background: var(--surface-strong);
+    font-family: var(--mono-font);
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.jarvis-transcript {
+    position: fixed;
+    bottom: 3.5rem;
+    left: 1.25rem;
+    z-index: 55;
+    max-width: min(320px, 85vw);
+    padding: 0.5rem 0.75rem;
+    font-family: var(--mono-font);
+    font-size: 0.68rem;
+    line-height: 1.45;
+    color: var(--accent);
+    border-left: 2px solid var(--accent);
+    background: color-mix(in srgb, var(--surface-strong) 90%, transparent);
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .jarvis-stat-grid { grid-template-columns: 1fr; }
+    .jarvis-cursor { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .jarvis-css-reactor { animation: none; }
+    .hud-status-dot { animation: none; }
+}

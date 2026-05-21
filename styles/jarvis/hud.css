@@ -1,0 +1,268 @@
+/* Hide OS cursor when JARVIS custom cursor is active (desktop + fine pointer) */
+@media (hover: hover) and (pointer: fine) {
+    html.jarvis-custom-cursor,
+    html.jarvis-custom-cursor * {
+        cursor: none !important;
+    }
+}
+
+.jarvis-shell {
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.jarvis-canvas-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.jarvis-canvas-layer--interactive {
+    pointer-events: auto;
+}
+
+.jarvis-css-reactor {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+        radial-gradient(ellipse 90% 70% at 50% 50%, transparent 55%, rgba(4, 8, 14, 0.5) 100%),
+        linear-gradient(rgba(88, 210, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(88, 210, 255, 0.025) 1px, transparent 1px);
+    background-size: auto, 48px 48px, 48px 48px;
+    animation: jarvis-grid-drift 48s linear infinite;
+}
+
+/* Soft edge glow only — no center orb */
+.jarvis-ambient-glow {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 55% 45% at 12% 18%, var(--accent-soft), transparent 70%),
+        radial-gradient(ellipse 50% 40% at 88% 22%, var(--accent-soft-2), transparent 70%),
+        radial-gradient(ellipse 60% 50% at 50% 100%, rgba(88, 210, 255, 0.06), transparent 65%);
+    opacity: 0.85;
+}
+
+@keyframes jarvis-grid-drift {
+    from { background-position: 0 0, 0 0, 0 0; }
+    to { background-position: 0 0, 48px 48px, 48px 48px; }
+}
+
+.jarvis-content {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+}
+
+.hud-frame {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    pointer-events: none;
+}
+
+.hud-corner {
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    border-color: var(--hud-line);
+    border-style: solid;
+    opacity: 0.85;
+}
+
+.hud-corner--tl { top: 5.5rem; left: 1rem; border-width: 2px 0 0 2px; }
+.hud-corner--tr { top: 5.5rem; right: 1rem; border-width: 2px 2px 0 0; }
+.hud-corner--bl { bottom: 2.5rem; left: 1rem; border-width: 0 0 2px 2px; }
+.hud-corner--br { bottom: 2.5rem; right: 1rem; border-width: 0 2px 2px 0; }
+
+.hud-scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(88, 210, 255, var(--scanline-opacity)) 2px,
+        rgba(88, 210, 255, var(--scanline-opacity)) 4px
+    );
+    opacity: 0.35;
+    mix-blend-mode: overlay;
+}
+
+.hud-statusbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 45;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 1.25rem;
+    font-family: var(--mono-font);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+    border-top: 1px solid var(--hud-line);
+    background: linear-gradient(180deg, transparent, rgba(6, 12, 20, 0.88));
+    pointer-events: none;
+}
+
+.hud-statusbar strong {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.hud-status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-2);
+    box-shadow: 0 0 8px var(--accent-2);
+    margin-right: 0.35rem;
+    animation: hud-pulse 2s ease-in-out infinite;
+}
+
+@keyframes hud-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+}
+
+.hud-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding: 0.75rem var(--content-gutter);
+}
+
+.hud-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 1rem;
+    border: 1px solid var(--hud-line);
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
+    backdrop-filter: blur(14px);
+    box-shadow: var(--hud-glow);
+}
+
+.hud-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-family: var(--font-hud), var(--display-font);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.hud-brand-tag {
+    color: var(--accent);
+    font-family: var(--mono-font);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+}
+
+.hud-nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.hud-nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 0.75rem;
+    font-family: var(--mono-font);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.hud-nav-link:hover,
+.hud-nav-link:focus-visible {
+    border-color: var(--hud-line);
+    color: var(--accent);
+}
+
+.hud-nav-link--active {
+    border-color: var(--border-strong);
+    color: var(--accent);
+    background: var(--accent-soft);
+}
+
+.hud-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hud-cmd-btn {
+    font-family: var(--mono-font);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.65rem;
+    border: 1px solid var(--hud-line);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--muted-foreground);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.hud-cmd-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.hud-voice-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.65rem;
+    border: 1px solid var(--hud-line);
+    border-radius: var(--radius-md);
+    background: transparent;
+    font-family: var(--mono-font);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--muted-foreground);
+}
+
+.hud-voice-btn--active {
+    border-color: var(--accent-2);
+    color: var(--accent-2);
+    box-shadow: 0 0 12px var(--accent-soft-2);
+}
+
+.hud-voice-btn--listening {
+    animation: hud-pulse 1s ease-in-out infinite;
+}
+
+@media (max-width: 900px) {
+    .hud-nav-links { display: none; }
+    .hud-corner { width: 48px; height: 48px; }
+}

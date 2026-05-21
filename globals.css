@@ -4,6 +4,10 @@
 @import "./styles/cards.css";
 @import "./styles/typography.css";
 @import "./styles/layouts.css";
+@import "./styles/jarvis/hud.css";
+@import "./styles/jarvis/modules.css";
+@import "./styles/jarvis/palette.css";
+@import "./styles/jarvis/pages.css";
 
 /* Tailwind Directives */
 @tailwind base;
@@ -23,6 +27,8 @@ body {
 html {
 	scroll-behavior: smooth;
 	scrollbar-gutter: stable;
+	/* Keep layout width stable when moving between scroll / no-scroll pages */
+	overflow-y: scroll;
 }
 
 * {
