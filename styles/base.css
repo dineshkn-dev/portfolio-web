@@ -24,7 +24,7 @@
     --shadow-lg: 0 30px 80px rgba(3, 8, 15, 0.48);
 
     --primary-font: var(--font-primary), "Segoe UI", sans-serif;
-    --display-font: var(--font-display), "Avenir Next", sans-serif;
+    --display-font: var(--font-primary), "Avenir Next", sans-serif;
     --mono-font: var(--font-mono), monospace;
 
     --space-3: 0.75rem;

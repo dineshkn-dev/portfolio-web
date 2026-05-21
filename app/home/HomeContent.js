@@ -1,35 +1,23 @@
 "use client";
 
 import { useRef } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useDrag } from "@use-gesture/react";
-import gsap from "gsap";
 import { useJarvis } from "@/components/jarvis/JarvisProvider";
 import { useJarvisAudio } from "@/components/jarvis/AudioController";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { cockpitBrief, homeStats, jarvisLines } from "@/lib/site-content";
 import { JARVIS_MODULES } from "@/lib/jarvis/constants";
 
-function DraggableStat({ stat }) {
-    const ref = useRef(null);
-    const { playSfx } = useJarvisAudio();
-
-    useDrag(
-        ({ offset: [x, y] }) => {
-            if (ref.current) {
-                ref.current.style.transform = `translate(${x}px, ${y}px)`;
-            }
-        },
-        { target: ref, from: () => [0, 0] }
-    );
-
-    return (
-        <article ref={ref} className="jarvis-stat-card" onClick={() => playSfx("click")}>
-            <strong>{stat.value}</strong>
-            <span>{stat.label}</span>
+const DraggableStat = dynamic(() => import("@/components/home/DraggableStat"), {
+    ssr: false,
+    loading: () => (
+        <article className="jarvis-stat-card">
+            <strong>…</strong>
+            <span>…</span>
         </article>
-    );
-}
+    ),
+});
 
 export default function HomeContent() {
     const { reduceMotion, speak, bootComplete } = useJarvis();
@@ -41,10 +29,12 @@ export default function HomeContent() {
         bootComplete && !reduceMotion
     );
 
-    const initSystems = (e) => {
-        const btn = e.currentTarget;
-        gsap.fromTo(btn, { scale: 1 }, { scale: 1.05, duration: 0.12, yoyo: true, repeat: 1 });
+    const initSystems = async (e) => {
         playSfx("whoosh");
+        if (reduceMotion) return;
+        const btn = e.currentTarget;
+        const { gsap } = await import("gsap");
+        gsap.fromTo(btn, { scale: 1 }, { scale: 1.05, duration: 0.12, yoyo: true, repeat: 1 });
     };
 
     const systems = JARVIS_MODULES.filter((m) => m.path !== "/");
@@ -55,8 +45,8 @@ export default function HomeContent() {
                 <p className="jarvis-eyebrow">{cockpitBrief.eyebrow}</p>
                 <h1 className="jarvis-title">{cockpitBrief.headline}</h1>
                 <p className="jarvis-typewriter mt-4">
-                    {display}
-                    {!done && !reduceMotion ? (
+                    {reduceMotion ? cockpitBrief.subline : display}
+                    {!reduceMotion && !done ? (
                         <span className="jarvis-typewriter-cursor" aria-hidden="true" />
                     ) : null}
                 </p>
@@ -67,9 +57,7 @@ export default function HomeContent() {
                             key={mod.path}
                             href={mod.path}
                             className="button button-primary"
-                            onClick={(e) => {
-                                initSystems(e);
-                            }}
+                            onClick={initSystems}
                         >
                             {mod.label}
                         </Link>

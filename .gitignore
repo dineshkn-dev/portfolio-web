@@ -13,6 +13,11 @@
 # testing
 /coverage
 
+# performance audits (keep README)
+/perf-reports/*
+!/perf-reports/README.md
+!/perf-reports/.gitkeep
+
 # next.js
 /.next/
 /out/

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import ModulePage from "@/components/jarvis/ModulePage";
 import { useJarvisAudio } from "@/components/jarvis/AudioController";
 import { useViewportPager } from "@/hooks/useViewportPager";
@@ -76,16 +75,11 @@ export default function AboutContent() {
                     </ul>
                 </nav>
 
-                <AnimatePresence mode="wait" initial={false}>
-                    <motion.article
-                        key={`${item.year}-${item.company}`}
-                        className="chronos-core hud-card hud-card--glow-left"
-                        role="tabpanel"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.22, ease: "easeOut" }}
-                    >
+                <article
+                    key={`${item.year}-${item.company}`}
+                    className="chronos-core hud-card hud-card--glow-left hud-panel-swap"
+                    role="tabpanel"
+                >
                         <div className="chronos-core-head">
                             <div>
                                 <p className="chronos-intel-year">{item.year}</p>
@@ -148,8 +142,7 @@ export default function AboutContent() {
                                 </button>
                             </div>
                         </div>
-                    </motion.article>
-                </AnimatePresence>
+                </article>
 
                 <aside className="chronos-map hud-card" aria-label="Career trajectory">
                     <p className="hud-card-label">Flight trajectory</p>

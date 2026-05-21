@@ -47,7 +47,7 @@
 }
 
 .jarvis-title {
-    font-family: var(--font-hud), var(--display-font);
+    font-family: var(--font-primary), var(--display-font);
     font-size: clamp(1.5rem, 3vw, 2.25rem);
     font-weight: 600;
     letter-spacing: 0.04em;
@@ -116,7 +116,7 @@
 
 .jarvis-stat-card strong {
     display: block;
-    font-family: var(--font-hud), var(--display-font);
+    font-family: var(--font-primary), var(--display-font);
     font-size: 1.35rem;
     color: var(--accent);
 }

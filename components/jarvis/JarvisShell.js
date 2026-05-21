@@ -6,10 +6,6 @@ import { useRouter } from "next/navigation";
 import JarvisProvider, { useJarvis } from "@/components/jarvis/JarvisProvider";
 import HudFrame from "@/components/jarvis/HudFrame";
 import HudNav from "@/components/jarvis/HudNav";
-import CommandPalette from "@/components/jarvis/CommandPalette";
-import HelpOverlay from "@/components/jarvis/HelpOverlay";
-import BootSequence from "@/components/jarvis/BootSequence";
-import CursorLayer from "@/components/jarvis/CursorLayer";
 import ModuleTransition from "@/components/jarvis/ModuleTransition";
 import ReactorBackdrop from "@/components/canvas/ReactorBackdrop";
 import AudioController, { useJarvisAudio } from "@/components/jarvis/AudioController";
@@ -21,6 +17,22 @@ const ReactorCanvas = dynamic(() => import("@/components/canvas/ReactorCanvas"),
 });
 
 const VoiceController = dynamic(() => import("@/components/jarvis/VoiceController"), {
+    ssr: false,
+});
+
+const CommandPalette = dynamic(() => import("@/components/jarvis/CommandPalette"), {
+    ssr: false,
+});
+
+const HelpOverlay = dynamic(() => import("@/components/jarvis/HelpOverlay"), {
+    ssr: false,
+});
+
+const BootSequence = dynamic(() => import("@/components/jarvis/BootSequence"), {
+    ssr: false,
+});
+
+const CursorLayer = dynamic(() => import("@/components/jarvis/CursorLayer"), {
     ssr: false,
 });
 
@@ -50,10 +62,10 @@ function JarvisShellInner({ children }) {
             {jarvis.use3D ? <ReactorCanvas /> : null}
             <HudFrame />
             <HudNav />
-            <CommandPalette />
-            <HelpOverlay />
-            <BootSequence />
-            <CursorLayer />
+            {jarvis.paletteOpen ? <CommandPalette /> : null}
+            {jarvis.helpOpen ? <HelpOverlay /> : null}
+            {jarvis.booting ? <BootSequence /> : null}
+            {!jarvis.reduceMotion && !jarvis.isMobile ? <CursorLayer /> : null}
             <AudioController />
             <VoiceController />
             <main

@@ -65,6 +65,25 @@
     min-height: 100vh;
 }
 
+@keyframes hud-panel-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.hud-panel-swap {
+    animation: hud-panel-in 0.22s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hud-panel-swap {
+        animation: none;
+    }
+}
+
 .hud-frame {
     position: fixed;
     inset: 0;
@@ -167,7 +186,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.65rem;
-    font-family: var(--font-hud), var(--display-font);
+    font-family: var(--font-primary), var(--display-font);
     font-size: 0.82rem;
     font-weight: 600;
     letter-spacing: 0.12em;

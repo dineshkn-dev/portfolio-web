@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import ModulePage from "@/components/jarvis/ModulePage";
 import { useJarvisAudio } from "@/components/jarvis/AudioController";
 import { useViewportPager } from "@/hooks/useViewportPager";
@@ -51,15 +50,10 @@ export default function ProjectsContent() {
                     ))}
                 </div>
 
-                <AnimatePresence mode="wait" initial={false}>
-                    <motion.article
-                        key={project.title}
-                        className="vault-stage hud-card hud-card--glow-left"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.22, ease: "easeOut" }}
-                    >
+                <article
+                    key={project.title}
+                    className="vault-stage hud-card hud-card--glow-left hud-panel-swap"
+                >
                         <div className="vault-stage-grid">
                             <div className="vault-stage-main">
                                 <div className="vault-stage-head">
@@ -137,8 +131,7 @@ export default function ProjectsContent() {
                                 </button>
                             </div>
                         </div>
-                    </motion.article>
-                </AnimatePresence>
+                </article>
             </div>
         </ModulePage>
     );

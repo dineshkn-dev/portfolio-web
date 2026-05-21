@@ -35,7 +35,14 @@ export default function HudNav() {
         <header className="hud-nav">
             <div className="hud-nav-inner">
                 <Link href="/" className="hud-brand" onClick={() => playSfx("click")}>
-                    <Image src="/favico.svg" alt="" width={32} height={32} aria-hidden />
+                    <Image
+                        src="/favico.svg"
+                        alt=""
+                        width={32}
+                        height={32}
+                        priority
+                        aria-hidden
+                    />
                     <span>
                         Dinesh K N
                         <span className="hud-brand-tag block">J.A.R.V.I.S</span>

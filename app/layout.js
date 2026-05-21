@@ -1,7 +1,6 @@
 import "@/globals.css";
 import JarvisShell from "@/components/jarvis/JarvisShell";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import DeferredAnalytics from "@/components/DeferredAnalytics";
 import { fontVariables } from "@/lib/fonts";
 
 export const metadata = {
@@ -53,8 +52,7 @@ export default function RootLayout({ children }) {
         <html lang="en" data-scroll-behavior="smooth" className={fontVariables}>
             <body className="min-h-screen antialiased text-[var(--foreground)]">
                 <JarvisShell>{children}</JarvisShell>
-                <Analytics />
-                <SpeedInsights />
+                <DeferredAnalytics />
             </body>
         </html>
     );

@@ -40,6 +40,28 @@ To run this project locally:
 4. **Open in browser**
    Go to [http://localhost:3000](http://localhost:3000) to view it locally.
 
+## Performance audits
+
+Generate shareable Lighthouse reports (for optimization reviews or sharing with AI tools):
+
+```sh
+# With dev or production server already running:
+npm run perf
+
+# Dev server + one audit when localhost:3000 is ready:
+npm run dev:perf
+
+# Fully automated: build → start → audit → stop:
+npm run perf:full
+```
+
+Output is written to:
+
+- `perf-reports/latest.md` — summary table
+- `perf-reports/latest.json` — full metrics
+
+Copy either file into chat when asking for performance help. See `perf-reports/README.md` for options (`--mobile`, custom routes, etc.).
+
 ## Contact
 - **Email:** [kandilindinesh@gmail.com](mailto:kandilindinesh@gmail.com)
 - **LinkedIn:** [linkedin.com/in/dinesh-kn](https://www.linkedin.com/in/dinesh-kn/)

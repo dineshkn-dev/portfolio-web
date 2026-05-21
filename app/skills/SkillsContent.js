@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import ModulePage from "@/components/jarvis/ModulePage";
 import { useJarvisAudio } from "@/components/jarvis/AudioController";
 import { skillLevelWidth, techStack } from "@/lib/site-content";
@@ -102,16 +101,11 @@ export default function SkillsContent() {
                     </div>
                 </div>
 
-                <AnimatePresence mode="wait" initial={false}>
-                    {active ? (
-                        <motion.aside
-                            key={active.name}
-                            className="hud-card hud-skill-inspect"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.22, ease: "easeOut" }}
-                        >
+                {active ? (
+                    <aside
+                        key={active.name}
+                        className="hud-card hud-skill-inspect hud-panel-swap"
+                    >
                             <p className="hud-card-label">Module inspection</p>
                             <div className="hud-skill-inspect-head">
                                 <div
@@ -146,9 +140,8 @@ export default function SkillsContent() {
                                 <span className="tech-badge">Cloud native</span>
                                 <span className="tech-badge">Observability</span>
                             </div>
-                        </motion.aside>
-                    ) : null}
-                </AnimatePresence>
+                    </aside>
+                ) : null}
             </div>
         </ModulePage>
     );

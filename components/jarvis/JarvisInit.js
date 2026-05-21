@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { STORAGE_KEYS } from "@/lib/jarvis/constants";
 
 export default function JarvisInit({ onInit }) {

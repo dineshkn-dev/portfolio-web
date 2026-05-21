@@ -9,7 +9,7 @@ import {
     useRef,
     useState,
 } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import JarvisInit from "@/components/jarvis/JarvisInit";
 import { STORAGE_KEYS } from "@/lib/jarvis/constants";
 
