@@ -1,31 +1,17 @@
 "use client";
 
-import { useEffect } from "react";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
-import JarvisProvider, { useJarvis } from "@/components/jarvis/JarvisProvider";
+import JarvisProvider from "@/components/jarvis/JarvisProvider";
 import HudFrame from "@/components/jarvis/HudFrame";
 import HudNav from "@/components/jarvis/HudNav";
 import ModuleTransition from "@/components/jarvis/ModuleTransition";
 import ReactorBackdrop from "@/components/canvas/ReactorBackdrop";
-import AudioController, { useJarvisAudio } from "@/components/jarvis/AudioController";
-import { handleGlobalKeydown } from "@/lib/jarvis/keyboard";
+import AudioController from "@/components/jarvis/AudioController";
+import { useJarvis } from "@/components/jarvis/JarvisProvider";
 
 const ReactorCanvas = dynamic(() => import("@/components/canvas/ReactorCanvas"), {
     ssr: false,
     loading: () => null,
-});
-
-const VoiceController = dynamic(() => import("@/components/jarvis/VoiceController"), {
-    ssr: false,
-});
-
-const CommandPalette = dynamic(() => import("@/components/jarvis/CommandPalette"), {
-    ssr: false,
-});
-
-const HelpOverlay = dynamic(() => import("@/components/jarvis/HelpOverlay"), {
-    ssr: false,
 });
 
 const BootSequence = dynamic(() => import("@/components/jarvis/BootSequence"), {
@@ -37,46 +23,28 @@ const CursorLayer = dynamic(() => import("@/components/jarvis/CursorLayer"), {
 });
 
 function JarvisShellInner({ children }) {
-    const router = useRouter();
     const jarvis = useJarvis();
-    const { playSfx } = useJarvisAudio();
-
-    useEffect(() => {
-        const handler = (e) =>
-            handleGlobalKeydown(e, {
-                openPalette: () => jarvis.setPaletteOpen(true),
-                closePalette: () => jarvis.setPaletteOpen(false),
-                setHelpOpen: jarvis.setHelpOpen,
-                navigate: (path) => router.push(path),
-                toggleSfx: jarvis.toggleSfx,
-                toggleVoice: jarvis.toggleVoice,
-                playSfx,
-            });
-        window.addEventListener("keydown", handler);
-        return () => window.removeEventListener("keydown", handler);
-    }, [router, jarvis, playSfx]);
 
     return (
         <div className="jarvis-shell site-shell">
             <ReactorBackdrop />
             {jarvis.use3D ? <ReactorCanvas /> : null}
             <HudFrame />
-            <HudNav />
-            {jarvis.paletteOpen ? <CommandPalette /> : null}
-            {jarvis.helpOpen ? <HelpOverlay /> : null}
+            <div className="jarvis-chrome">
+                <HudNav />
+                <main
+                    className="jarvis-main"
+                    style={{
+                        visibility: jarvis.booting ? "hidden" : "visible",
+                        pointerEvents: jarvis.booting ? "none" : "auto",
+                    }}
+                >
+                    <ModuleTransition>{children}</ModuleTransition>
+                </main>
+            </div>
             {jarvis.booting ? <BootSequence /> : null}
             {!jarvis.reduceMotion && !jarvis.isMobile ? <CursorLayer /> : null}
             <AudioController />
-            <VoiceController />
-            <main
-                className="min-h-screen"
-                style={{
-                    visibility: jarvis.booting ? "hidden" : "visible",
-                    pointerEvents: jarvis.booting ? "none" : "auto",
-                }}
-            >
-                <ModuleTransition>{children}</ModuleTransition>
-            </main>
         </div>
     );
 }

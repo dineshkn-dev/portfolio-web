@@ -56,13 +56,16 @@
 }
 
 .jarvis-cockpit {
-    min-height: calc(100vh - 8rem);
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    padding: 6.5rem var(--content-gutter) 5rem;
+    padding: var(--page-pad-top) var(--content-gutter) var(--page-pad-bottom);
+    padding-left: max(var(--content-gutter), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--content-gutter), env(safe-area-inset-right, 0px));
     max-width: var(--content-max);
     margin-inline: auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .jarvis-cockpit-hero {
@@ -105,13 +108,19 @@
     border: 1px solid var(--hud-line);
     border-radius: var(--radius-lg);
     background: var(--surface);
-    cursor: grab;
-    touch-action: none;
+    cursor: pointer;
+    touch-action: manipulation;
     user-select: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.jarvis-stat-card:active {
-    cursor: grabbing;
+.jarvis-stat-card--static {
+    cursor: pointer;
+}
+
+.jarvis-stat-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--hud-glow);
 }
 
 .jarvis-stat-card strong {
@@ -429,7 +438,6 @@
 }
 
 @media (max-width: 768px) {
-    .jarvis-stat-grid { grid-template-columns: 1fr; }
     .jarvis-cursor { display: none; }
 }
 

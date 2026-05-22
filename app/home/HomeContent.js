@@ -1,26 +1,15 @@
 "use client";
 
 import { useRef } from "react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useJarvis } from "@/components/jarvis/JarvisProvider";
 import { useJarvisAudio } from "@/components/jarvis/AudioController";
 import { useTypewriter } from "@/hooks/useTypewriter";
-import { cockpitBrief, homeStats, jarvisLines } from "@/lib/site-content";
+import { cockpitBrief, homeStats } from "@/lib/site-content";
 import { JARVIS_MODULES } from "@/lib/jarvis/constants";
 
-const DraggableStat = dynamic(() => import("@/components/home/DraggableStat"), {
-    ssr: false,
-    loading: () => (
-        <article className="jarvis-stat-card">
-            <strong>…</strong>
-            <span>…</span>
-        </article>
-    ),
-});
-
 export default function HomeContent() {
-    const { reduceMotion, speak, bootComplete } = useJarvis();
+    const { reduceMotion, bootComplete } = useJarvis();
     const { playSfx } = useJarvisAudio();
     const heroRef = useRef(null);
     const { display, done } = useTypewriter(
@@ -62,28 +51,22 @@ export default function HomeContent() {
                             {mod.label}
                         </Link>
                     ))}
-                    <button
-                        type="button"
-                        className="button button-ghost"
-                        onClick={() => {
-                            speak(jarvisLines.welcome);
-                            playSfx("click");
-                        }}
-                    >
-                        Briefing
-                    </button>
                 </div>
             </section>
 
             <div className="jarvis-stat-grid">
                 {homeStats.map((stat) => (
-                    <DraggableStat key={stat.label} stat={stat} />
+                    <article
+                        key={stat.label}
+                        className="jarvis-stat-card jarvis-stat-card--static"
+                        onClick={() => playSfx("pulse")}
+                    >
+                        <strong>{stat.value}</strong>
+                        <span>{stat.label}</span>
+                    </article>
                 ))}
             </div>
 
-            <p className="jarvis-eyebrow text-center opacity-70">
-                Drag telemetry cards · Press ⌘K for commands · Say &quot;open projects&quot;
-            </p>
         </div>
     );
 }

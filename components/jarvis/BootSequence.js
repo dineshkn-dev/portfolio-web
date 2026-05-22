@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useJarvis } from "@/components/jarvis/JarvisProvider";
 import { useJarvisAudio } from "@/components/jarvis/AudioController";
-import { jarvisLines } from "@/lib/site-content";
 
 const BOOT_LINES = [
     "INITIALIZING J.A.R.V.I.S…",
@@ -15,7 +14,7 @@ const BOOT_LINES = [
 ];
 
 export default function BootSequence() {
-    const { booting, completeBoot, speak, reduceMotion } = useJarvis();
+    const { booting, completeBoot, reduceMotion } = useJarvis();
     const { playSfx } = useJarvisAudio();
     const containerRef = useRef(null);
     const linesRef = useRef([]);
@@ -30,7 +29,7 @@ export default function BootSequence() {
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({
                 onComplete: () => {
-                    speak(jarvisLines.bootComplete);
+                    playSfx("online");
                     completeBoot();
                 },
             });
@@ -47,7 +46,7 @@ export default function BootSequence() {
         }, containerRef);
 
         return () => ctx.revert();
-    }, [booting, completeBoot, playSfx, speak, reduceMotion]);
+    }, [booting, completeBoot, playSfx, reduceMotion]);
 
     if (!booting || reduceMotion) return null;
 

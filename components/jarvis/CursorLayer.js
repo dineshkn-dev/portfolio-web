@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { useJarvis } from "@/components/jarvis/JarvisProvider";
 
 const INTERACTIVE =
-    "a, button, input, textarea, select, label, [role='button'], [role='tab'], .hud-nav-link, .hud-tab, .jarvis-stat-card, .jarvis-skill-tile, .chronos-rail-item, .chronos-map-node, .vault-strip-tab, .jarvis-chip, [cmdk-item]";
+    "a, button, input, textarea, select, label, [role='button'], [role='tab'], .hud-nav-link, .hud-tab, .jarvis-stat-card, .jarvis-skill-tile, .chronos-rail-item, .chronos-map-node, .vault-strip-tab, .jarvis-chip";
 
 export default function CursorLayer() {
     const { reduceMotion, isMobile } = useJarvis();

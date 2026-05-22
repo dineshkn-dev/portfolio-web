@@ -8,7 +8,9 @@
 
 .jarvis-shell {
     position: relative;
-    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
     overflow-x: hidden;
 }
 
@@ -59,10 +61,26 @@
     }
 }
 
-.jarvis-content {
+.jarvis-chrome {
     position: relative;
     z-index: 2;
-    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 100dvh;
+    width: 100%;
+}
+
+.jarvis-main {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+}
+
+.jarvis-content {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
 }
 
 @keyframes hud-panel-in {
@@ -162,12 +180,16 @@
 }
 
 .hud-nav {
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
     z-index: 50;
+    flex-shrink: 0;
+    width: 100%;
     padding: 0.75rem var(--content-gutter);
+    padding-top: max(0.75rem, env(safe-area-inset-top, 0px));
+    padding-left: max(var(--content-gutter), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--content-gutter), env(safe-area-inset-right, 0px));
+    box-sizing: border-box;
 }
 
 .hud-nav-inner {
@@ -193,11 +215,19 @@
     text-transform: uppercase;
 }
 
+.hud-brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+}
+
 .hud-brand-tag {
     color: var(--accent);
     font-family: var(--mono-font);
     font-size: 0.62rem;
     letter-spacing: 0.14em;
+    line-height: 1.2;
 }
 
 .hud-nav-links {
@@ -260,7 +290,7 @@
     border-color: var(--accent);
 }
 
-.hud-voice-btn {
+.hud-audio-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
@@ -274,19 +304,44 @@
     text-transform: uppercase;
     cursor: pointer;
     color: var(--muted-foreground);
+    transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 
-.hud-voice-btn--active {
+.hud-audio-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.hud-audio-btn--active {
     border-color: var(--accent-2);
     color: var(--accent-2);
     box-shadow: 0 0 12px var(--accent-soft-2);
 }
 
-.hud-voice-btn--listening {
-    animation: hud-pulse 1s ease-in-out infinite;
+.hud-audio-btn-state {
+    opacity: 0.85;
 }
 
-@media (max-width: 900px) {
-    .hud-nav-links { display: none; }
-    .hud-corner { width: 48px; height: 48px; }
+.hud-audio-btn-label--short {
+    display: none;
 }
+
+.hud-nav .theme-toggle {
+    border-color: var(--hud-line);
+    background: transparent;
+    font-family: var(--mono-font);
+}
+
+.hud-nav .theme-toggle-label--long {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+}
+
+.hud-nav .theme-toggle-label--short {
+    display: none;
+}
+
+/* Mobile nav: see styles/jarvis/responsive.css */

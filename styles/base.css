@@ -39,7 +39,13 @@
     --ease-out-smooth: cubic-bezier(0.16, 1, 0.3, 1);
 
     --content-max: 1280px;
-    --content-gutter: 1.25rem;
+    --content-gutter: clamp(1rem, 3vw, 1.5rem);
+
+    /* Bottom HUD chrome (nav is sticky in-flow — no top offset needed) */
+    --shell-status-h: 2.75rem;
+    --shell-bottom-reserve: 3.25rem;
+    --page-pad-top: 1.25rem;
+    --page-pad-bottom: calc(var(--shell-status-h) + var(--shell-bottom-reserve));
 
     --scrollbar-track: var(--background-alt);
     --scrollbar-thumb: color-mix(in srgb, var(--muted-foreground) 45%, var(--border));

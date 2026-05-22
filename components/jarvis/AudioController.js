@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 import { useJarvis } from "@/components/jarvis/JarvisProvider";
 
-function playTone(ctx, frequency, duration, type = "sine", gain = 0.08) {
+function playTone(ctx, frequency, duration, type = "sine", gain = 0.08, startOffset = 0) {
     const osc = ctx.createOscillator();
     const g = ctx.createGain();
     osc.type = type;
@@ -11,10 +11,17 @@ function playTone(ctx, frequency, duration, type = "sine", gain = 0.08) {
     g.gain.value = gain;
     osc.connect(g);
     g.connect(ctx.destination);
-    const now = ctx.currentTime;
+    const now = ctx.currentTime + startOffset;
+    g.gain.setValueAtTime(gain, now);
     g.gain.exponentialRampToValueAtTime(0.001, now + duration);
     osc.start(now);
     osc.stop(now + duration);
+}
+
+function playSequence(ctx, steps) {
+    steps.forEach(([freq, dur, type, gain, offset]) => {
+        playTone(ctx, freq, dur, type ?? "sine", gain ?? 0.06, offset ?? 0);
+    });
 }
 
 export function useJarvisAudio() {
@@ -33,26 +40,73 @@ export function useJarvisAudio() {
     }, []);
 
     const playSfx = useCallback(
-        (name) => {
-            if (sfxMuted || reduceMotion) return;
+        (name, { force = false } = {}) => {
+            if (!force && (sfxMuted || reduceMotion)) return;
             const ctx = getCtx();
             if (!ctx) return;
             switch (name) {
                 case "click":
-                    playTone(ctx, 880, 0.06);
+                    playTone(ctx, 880, 0.05, "sine", 0.07);
+                    break;
+                case "hover":
+                    playTone(ctx, 1200, 0.03, "sine", 0.03);
+                    break;
+                case "nav":
+                    playSequence(ctx, [
+                        [520, 0.06, "triangle", 0.05, 0],
+                        [780, 0.08, "triangle", 0.04, 0.04],
+                    ]);
                     break;
                 case "whoosh":
-                    playTone(ctx, 440, 0.12, "triangle", 0.05);
-                    playTone(ctx, 660, 0.08, "triangle", 0.04);
+                    playSequence(ctx, [
+                        [440, 0.1, "triangle", 0.05, 0],
+                        [660, 0.07, "triangle", 0.04, 0.05],
+                    ]);
+                    break;
+                case "tab":
+                    playTone(ctx, 740, 0.05, "square", 0.05);
+                    break;
+                case "toggle":
+                    playSequence(ctx, [
+                        [600, 0.05, "sine", 0.05, 0],
+                        [900, 0.06, "sine", 0.05, 0.05],
+                    ]);
+                    break;
+                case "pulse":
+                    playTone(ctx, 440, 0.08, "sine", 0.05);
+                    break;
+                case "transmit":
+                    playSequence(ctx, [
+                        [330, 0.08, "sawtooth", 0.04, 0],
+                        [495, 0.1, "sine", 0.05, 0.08],
+                    ]);
                     break;
                 case "boot":
-                    playTone(ctx, 220, 0.2, "sawtooth", 0.04);
-                    setTimeout(() => playTone(ctx, 440, 0.15, "sine", 0.05), 120);
-                    setTimeout(() => playTone(ctx, 880, 0.2, "sine", 0.06), 280);
+                    playSequence(ctx, [
+                        [220, 0.18, "sawtooth", 0.04, 0],
+                        [440, 0.14, "sine", 0.05, 0.12],
+                        [880, 0.18, "sine", 0.06, 0.28],
+                    ]);
+                    break;
+                case "online":
+                    playSequence(ctx, [
+                        [523, 0.1, "sine", 0.06, 0],
+                        [659, 0.12, "sine", 0.06, 0.1],
+                        [784, 0.16, "sine", 0.07, 0.22],
+                    ]);
                     break;
                 case "success":
-                    playTone(ctx, 523, 0.1);
-                    setTimeout(() => playTone(ctx, 659, 0.12), 100);
+                    playSequence(ctx, [
+                        [523, 0.1, "sine", 0.06, 0],
+                        [659, 0.12, "sine", 0.06, 0.1],
+                        [784, 0.14, "sine", 0.05, 0.2],
+                    ]);
+                    break;
+                case "error":
+                    playSequence(ctx, [
+                        [280, 0.12, "sawtooth", 0.05, 0],
+                        [220, 0.14, "sawtooth", 0.05, 0.1],
+                    ]);
                     break;
                 default:
                     playTone(ctx, 660, 0.05);

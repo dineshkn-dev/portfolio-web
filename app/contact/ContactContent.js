@@ -4,12 +4,10 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { socialIconMap } from "@/components/icons/SocialIcons";
 import ModulePage from "@/components/jarvis/ModulePage";
-import { useJarvis } from "@/components/jarvis/JarvisProvider";
 import { useJarvisAudio } from "@/components/jarvis/AudioController";
-import { contactFormEndpoint, jarvisLines, socialLinks } from "@/lib/site-content";
+import { contactFormEndpoint, socialLinks } from "@/lib/site-content";
 
 export default function ContactContent() {
-    const { speak } = useJarvis();
     const { playSfx } = useJarvisAudio();
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,7 +19,7 @@ export default function ContactContent() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        playSfx("click");
+        playSfx("transmit");
         const res = await fetch(contactFormEndpoint, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -29,11 +27,11 @@ export default function ContactContent() {
         });
         if (res.ok) {
             toast.success("Transmission complete.");
-            speak(jarvisLines.contactSuccess);
             playSfx("success");
             setFormData({ name: "", email: "", message: "" });
         } else {
             toast.error("Transmission failed. Retry uplink.");
+            playSfx("error");
         }
         setIsSubmitting(false);
     };
@@ -100,6 +98,7 @@ export default function ContactContent() {
                             placeholder="Enter operator name"
                             value={formData.name}
                             onChange={handleChange}
+                            onFocus={() => playSfx("hover")}
                             required
                         />
                     </div>
@@ -112,6 +111,7 @@ export default function ContactContent() {
                             placeholder="Enter secure address"
                             value={formData.email}
                             onChange={handleChange}
+                            onFocus={() => playSfx("hover")}
                             required
                         />
                     </div>
@@ -123,6 +123,7 @@ export default function ContactContent() {
                             placeholder="Describe mission objectives…"
                             value={formData.message}
                             onChange={handleChange}
+                            onFocus={() => playSfx("hover")}
                             required
                             rows={5}
                         />

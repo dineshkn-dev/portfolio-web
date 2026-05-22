@@ -1,10 +1,14 @@
 /* HUD module pages — cockpit-aligned dashboard layout */
 
 .hud-page {
-    min-height: calc(100vh - 7rem);
-    padding: 6.25rem var(--content-gutter) 5.5rem;
+    min-height: calc(100dvh - var(--page-pad-top) - var(--page-pad-bottom));
+    padding: var(--page-pad-top) var(--content-gutter) var(--page-pad-bottom);
+    padding-left: max(var(--content-gutter), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--content-gutter), env(safe-area-inset-right, 0px));
     max-width: var(--content-max);
     margin-inline: auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .hud-page-header {
@@ -17,7 +21,8 @@
 }
 
 .hud-page-header-main {
-    flex: 1 1 420px;
+    flex: 1 1 min(100%, 420px);
+    min-width: 0;
     max-width: 720px;
 }
 
@@ -92,7 +97,7 @@
     border: 1px solid var(--hud-line);
     border-radius: var(--radius-lg);
     background: color-mix(in srgb, var(--surface) 85%, transparent);
-    min-width: 140px;
+    min-width: min(140px, 100%);
 }
 
 .hud-telemetry strong {
@@ -144,13 +149,13 @@
 
 .hud-split {
     display: grid;
-    grid-template-columns: 1fr 340px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
     gap: 1.25rem;
     align-items: start;
 }
 
 .hud-split--reverse {
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
 }
 
 /* —— Skills —— */
@@ -295,11 +300,11 @@
 
 /* —— Viewport-locked pages (no scroll) —— */
 .hud-page--viewport {
-    height: calc(100dvh - 4.5rem);
-    max-height: calc(100dvh - 4.5rem);
+    height: calc(100dvh - var(--page-pad-bottom) - 5.5rem);
+    max-height: calc(100dvh - var(--page-pad-bottom) - 5.5rem);
     min-height: 0;
     overflow: hidden;
-    padding: 5.25rem max(var(--content-gutter), 1.5rem) 3.25rem;
+    padding: var(--page-pad-top) max(var(--content-gutter), 1.5rem) var(--page-pad-bottom);
     padding-left: max(var(--content-gutter), 1.5rem, env(safe-area-inset-left, 0px));
     padding-right: max(var(--content-gutter), 1.5rem, env(safe-area-inset-right, 0px));
     display: flex;
@@ -1074,18 +1079,9 @@
 }
 
 @media (max-width: 640px) {
-    .hud-skills-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
     .hud-form-row {
         grid-template-columns: 1fr;
         gap: 0.35rem;
-    }
-
-    .hud-page--viewport {
-        padding-top: 5rem;
-        padding-bottom: 2.75rem;
     }
 
     .chronos-metrics {

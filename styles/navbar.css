@@ -156,6 +156,10 @@
     color: var(--muted-foreground);
 }
 
+.theme-toggle-label--short {
+    display: none;
+}
+
 @media (max-width: 900px) {
     .nav-brand-name {
         display: none;

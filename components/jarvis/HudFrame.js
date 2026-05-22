@@ -2,13 +2,11 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { useJarvis } from "@/components/jarvis/JarvisProvider";
 import { getModuleFromPath } from "@/lib/jarvis/constants";
 import { homeStats } from "@/lib/site-content";
 
 export default function HudFrame() {
     const pathname = usePathname();
-    const { voiceEnabled, transcript } = useJarvis();
     const mod = getModuleFromPath(pathname);
     const timeRef = useRef(null);
 
@@ -48,12 +46,6 @@ export default function HudFrame() {
                 </span>
                 <span ref={timeRef} />
             </footer>
-
-            {voiceEnabled ? (
-                <div className="jarvis-transcript" role="status" aria-live="polite">
-                    {transcript || "Voice active — awaiting command…"}
-                </div>
-            ) : null}
         </>
     );
 }

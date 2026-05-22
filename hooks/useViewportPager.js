@@ -8,7 +8,7 @@ export function useViewportPager(length, index, setIndex, playSfx) {
             const clamped = Math.max(0, Math.min(length - 1, next));
             if (clamped !== index) {
                 setIndex(clamped);
-                playSfx?.("click");
+                playSfx?.("tab");
             }
         },
         [index, length, playSfx, setIndex]

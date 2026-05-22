@@ -3,6 +3,12 @@ import JarvisShell from "@/components/jarvis/JarvisShell";
 import DeferredAnalytics from "@/components/DeferredAnalytics";
 import { fontVariables } from "@/lib/fonts";
 
+export const viewport = {
+    width: "device-width",
+    initialScale: 1,
+    viewportFit: "cover",
+};
+
 export const metadata = {
     metadataBase: new URL("https://www.dineshkn.site"),
     title: {

@@ -1,0 +1,543 @@
+/**
+ * Responsive system — breakpoints: 1024 (tablet) · 768 (mobile) · 480 (small phone)
+ * Aligns with JarvisProvider isMobile @ 768px
+ */
+
+/* —— Touch-friendly targets (coarse pointer) —— */
+@media (pointer: coarse) {
+    .hud-nav-link,
+    .hud-audio-btn,
+    .hud-tab,
+    .button,
+    .jarvis-cmd-dialog [cmdk-item],
+    .chronos-rail-item,
+    .vault-strip-tab,
+    .hud-skill-tile,
+    .hud-channel {
+        min-height: 44px;
+    }
+
+    .jarvis-stat-card {
+        touch-action: manipulation;
+        cursor: pointer;
+    }
+}
+
+/* —— Tablet landscape / small laptop —— */
+.hud-cmd-btn-label--short {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    .jarvis-stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .chronos-core {
+        overflow-y: auto;
+        max-height: min(52vh, 500px);
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .vault-stage {
+        overflow-y: auto;
+        max-height: min(58vh, 540px);
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .hud-page-header-aside {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .hud-telemetry {
+        flex: 1 1 calc(50% - 0.35rem);
+        min-width: 0;
+    }
+
+    .chronos-rail-list,
+    .vault-strip {
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
+        scrollbar-width: thin;
+    }
+
+    .chronos-rail-item,
+    .vault-strip-tab {
+        scroll-snap-align: start;
+    }
+}
+
+/* —— Mobile (matches isMobile) —— */
+@media (max-width: 768px) {
+    :root {
+        --shell-status-h: 2.5rem;
+        --shell-bottom-reserve: 4rem;
+        --page-pad-top: 1rem;
+    }
+
+    .hud-corner {
+        display: none;
+    }
+
+    .hud-nav {
+        padding: 0.35rem var(--content-gutter);
+        padding-top: max(0.35rem, env(safe-area-inset-top, 0px));
+    }
+
+    .hud-nav-inner {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.4rem 0.55rem;
+    }
+
+    .hud-brand {
+        flex: 1 1 auto;
+        min-width: 0;
+        gap: 0.45rem;
+        font-size: 0.68rem;
+    }
+
+    .hud-brand-logo {
+        width: 28px !important;
+        height: 28px !important;
+        flex-shrink: 0;
+    }
+
+    .hud-brand-name {
+        display: none;
+    }
+
+    .hud-brand-tag {
+        display: block;
+        font-size: 0.58rem;
+        letter-spacing: 0.12em;
+    }
+
+    .hud-nav-links-wrap {
+        display: none;
+    }
+
+    .hud-nav-actions {
+        flex: 0 0 auto;
+        gap: 0.3rem;
+    }
+
+    .hud-nav-menu-btn,
+    .hud-audio-btn,
+    .hud-nav .theme-toggle {
+        min-height: 40px;
+        min-width: 40px;
+        padding: 0.3rem 0.45rem;
+        justify-content: center;
+    }
+
+    .hud-nav-menu-label {
+        display: none;
+    }
+
+    .hud-nav-menu-icon {
+        font-size: 1.05rem;
+        line-height: 1;
+    }
+
+    .hud-cmd-btn-label--long {
+        display: none;
+    }
+
+    .hud-cmd-btn-label--short {
+        display: inline;
+    }
+
+    .hud-audio-btn-label--long {
+        display: none;
+    }
+
+    .hud-audio-btn-label--short {
+        display: inline;
+    }
+
+    .hud-nav .theme-toggle {
+        padding: 0.3rem 0.45rem 0.3rem 0.3rem;
+        gap: 0.35rem;
+    }
+
+    .hud-nav .theme-toggle-label--long {
+        display: none;
+    }
+
+    .hud-nav .theme-toggle-label--short {
+        display: inline;
+        font-family: var(--mono-font);
+        font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+
+    .hud-nav .theme-toggle-track {
+        width: 2rem;
+        height: 1.1rem;
+    }
+
+    .hud-nav .theme-toggle-thumb {
+        width: 0.85rem;
+        height: 0.85rem;
+    }
+
+    :root[data-theme="light"] .hud-nav .theme-toggle-thumb {
+        transform: translateX(18px);
+    }
+
+    @media (pointer: coarse) {
+        .hud-nav .hud-nav-menu-btn,
+        .hud-nav .hud-audio-btn,
+        .hud-nav .theme-toggle {
+            min-height: 40px;
+            min-width: 40px;
+        }
+    }
+
+    .hud-statusbar {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.35rem 0.75rem;
+        padding: 0.45rem max(0.75rem, env(safe-area-inset-left, 0px))
+            max(0.45rem, env(safe-area-inset-bottom, 0px))
+            max(0.75rem, env(safe-area-inset-right, 0px));
+        font-size: 0.62rem;
+    }
+
+    .hud-statusbar > span:nth-child(2) {
+        display: none;
+    }
+
+    .hud-statusbar > span:first-child,
+    .hud-statusbar > span:last-child {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .jarvis-transcript {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        bottom: calc(var(--shell-status-h) + 0.65rem);
+        max-width: min(360px, calc(100vw - 2rem));
+        text-align: center;
+        border-left: none;
+        border-top: 2px solid var(--accent);
+        padding: 0.45rem 0.65rem;
+    }
+
+    .jarvis-voice-banner {
+        bottom: calc(var(--shell-status-h) + 0.5rem);
+        width: calc(100% - 2rem);
+        max-width: 24rem;
+    }
+
+    .jarvis-cockpit-hero {
+        padding: 1.15rem;
+    }
+
+    .jarvis-system-btns {
+        flex-direction: column;
+    }
+
+    .jarvis-system-btns .button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .jarvis-stat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .jarvis-cockpit-hint--desktop {
+        display: none;
+    }
+
+    /* Viewport-locked pages → natural scroll on phones */
+    .hud-page--viewport {
+        height: auto;
+        max-height: none;
+        min-height: calc(100dvh - var(--page-pad-top) - var(--page-pad-bottom));
+        overflow: visible;
+        display: block;
+    }
+
+    .hud-page--viewport .hud-page-body {
+        overflow: visible;
+        flex: none;
+        min-height: 0;
+    }
+
+    .chronos-bridge,
+    .vault-bridge {
+        overflow: visible;
+        min-height: auto;
+        flex: none;
+    }
+
+    .chronos-rail,
+    .chronos-core,
+    .chronos-map,
+    .vault-stage {
+        overflow: visible;
+        min-height: auto;
+    }
+
+    .chronos-map {
+        display: none;
+    }
+
+    .chronos-core,
+    .vault-stage-main {
+        max-height: none;
+    }
+
+    .chronos-intel-impact,
+    .vault-intel-desc {
+        overflow: visible;
+    }
+
+    .jarvis-cmd-dialog {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: none;
+        width: 100%;
+        max-width: none;
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    .jarvis-cmd-dialog [cmdk-list] {
+        max-height: min(50vh, 360px);
+    }
+
+    .jarvis-help-panel {
+        width: calc(100% - 2rem);
+        margin: 1rem;
+        max-height: calc(100dvh - 2rem);
+        overflow-y: auto;
+    }
+}
+
+/* —— Small phones —— */
+/* Prevent iOS input zoom */
+@media (max-width: 768px) {
+    .hud-form-input,
+    .hud-form-textarea,
+    .jarvis-cmd-dialog [cmdk-input] {
+        font-size: 16px;
+    }
+
+    .hud-skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hud-card {
+        padding: 1rem 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --content-gutter: 0.85rem;
+    }
+
+    .hud-page-header {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .hud-page-header-aside {
+        width: 100%;
+    }
+
+    .hud-telemetry {
+        flex: 1 1 100%;
+    }
+
+    .hud-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 0.35rem;
+        padding-bottom: 0.25rem;
+        scrollbar-width: none;
+    }
+
+    .hud-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .hud-tab {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    .chronos-metrics {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .chronos-metric:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .vault-stage-head {
+        flex-wrap: wrap;
+    }
+
+    .vault-stage-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .jarvis-title {
+        font-size: clamp(1.25rem, 6vw, 1.65rem);
+    }
+
+}
+
+/* —— Mobile nav drawer (shown < 900px via HudNav) —— */
+.hud-nav-menu-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0 0.5rem;
+    border: 1px solid var(--hud-line);
+    border-radius: var(--radius-md);
+    background: transparent;
+    font-family: var(--mono-font);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+    cursor: pointer;
+}
+
+.hud-nav-menu-btn[aria-expanded="true"] {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.hud-nav-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease, visibility 0.2s;
+}
+
+.hud-nav-drawer--open {
+    pointer-events: auto;
+    visibility: visible;
+    opacity: 1;
+}
+
+.hud-nav-drawer-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 8, 14, 0.72);
+    border: none;
+    cursor: pointer;
+}
+
+.hud-nav-drawer-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: min(300px, 100%);
+    height: 100%;
+    padding: 1.25rem;
+    padding-top: max(1.25rem, env(safe-area-inset-top, 0px));
+    padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
+    border-left: 1px solid var(--hud-line);
+    background: color-mix(in srgb, var(--surface-strong) 98%, transparent);
+    box-shadow: var(--shadow-lg);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transform: translateX(100%);
+    transition: transform 0.25s var(--ease-out-smooth);
+}
+
+.hud-nav-drawer--open .hud-nav-drawer-panel {
+    transform: translateX(0);
+}
+
+.hud-nav-drawer-title {
+    font-family: var(--mono-font);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 1rem;
+}
+
+.hud-nav-drawer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.hud-nav-drawer-link {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    font-family: var(--mono-font);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.hud-nav-drawer-link:hover,
+.hud-nav-drawer-link:focus-visible {
+    border-color: var(--hud-line);
+    color: var(--accent);
+}
+
+.hud-nav-drawer-link--active {
+    border-color: var(--border-strong);
+    background: var(--accent-soft);
+    color: var(--accent);
+}
+
+@media (max-width: 900px) {
+    .hud-nav-menu-btn {
+        display: inline-flex;
+    }
+
+    .hud-nav-links,
+    .hud-nav-links-wrap {
+        display: none;
+    }
+
+    .hud-corner {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hud-nav-drawer,
+    .hud-nav-drawer-panel {
+        transition: none;
+    }
+}

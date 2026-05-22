@@ -26,7 +26,7 @@ export default function SkillsContent() {
 
     const select = (tech) => {
         setActive(tech);
-        playSfx("click");
+        playSfx("tab");
     };
 
     const counts = useMemo(() => {
