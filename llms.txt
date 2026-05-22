@@ -1,6 +1,6 @@
-# Dinesh K N — portfolio-web (JARVIS HUD)
+# Dinesh K N — portfolio-web (HUD)
 
-> Next.js 16 portfolio with Iron Man–style command-center UI, voice commands, and Lighthouse perf tooling.
+> Next.js 16 portfolio with a command-center HUD, optional voice commands, and Lighthouse perf tooling.
 
 ## Agent instructions (start here)
 
@@ -18,11 +18,10 @@
 
 ## Key source files
 
-- [app/layout.js](app/layout.js): Root layout + JarvisShell
-- [components/jarvis/JarvisShell.js](components/jarvis/JarvisShell.js): HUD chrome
+- [app/layout.js](app/layout.js): Root layout + HudShell
+- [components/hud/HudShell.js](components/hud/HudShell.js): HUD chrome
 - [lib/site-content.js](lib/site-content.js): Site copy and data
-- [lib/jarvis/constants.js](lib/jarvis/constants.js): Routes, storage keys
-- [lib/jarvis/intents.js](lib/jarvis/intents.js): Voice intent matching
+- [lib/hud/constants.js](lib/hud/constants.js): Routes, storage keys
 - [scripts/perf-report.mjs](scripts/perf-report.mjs): Lighthouse reporter
 
 ## Routes

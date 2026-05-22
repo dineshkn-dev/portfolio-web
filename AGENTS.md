@@ -11,7 +11,7 @@ Humans: see [README.md](README.md). Deep reference: [docs/AGENTS-REFERENCE.md](d
 npm run verify
 ```
 
-This automatically: syncs agent docs from source (`JARVIS_MODULES`, `package.json`), validates agent files, lints, and production-builds. Hooks and CI run the same pipeline — you must not hand off failing `verify`.
+This automatically: syncs agent docs from source (`HUD_MODULES`, `package.json`), validates agent files, lints, and production-builds. Hooks and CI run the same pipeline — you must not hand off failing `verify`.
 
 | Trigger | What runs |
 |---------|-----------|
@@ -28,7 +28,7 @@ Details: [docs/AUTOMATION.md](docs/AUTOMATION.md).
 
 ## Project summary
 
-Next.js 16 (App Router) portfolio with a **JARVIS HUD** shell: cockpit home (`/`), module pages (`/skills`, `/about`, `/projects`, `/contact`), voice intents, command palette (⌘K), optional WebGL backdrop (opt-in only).
+Next.js 16 (App Router) portfolio with a **HUD** shell: cockpit home (`/`), module pages (`/skills`, `/about`, `/projects`, `/contact`), optional WebGL backdrop (opt-in only).
 
 **Live:** https://www.dineshkn.site  
 **Deploy:** Vercel (static prerender). No backend in-repo; contact form uses Formspree.
@@ -59,11 +59,11 @@ Also: `npm install` for dependencies.
 
 ```
 app/                    # Routes + page content (*Content.js)
-components/jarvis/      # Shell: provider, nav, voice, palette, boot
+components/hud/         # Shell: provider, nav, boot, audio
 components/canvas/      # ReactorBackdrop (CSS) + ReactorCanvas (WebGL, lazy)
-lib/jarvis/             # constants, commands, intents, keyboard
+lib/hud/                # constants (routes, storage keys)
 lib/site-content.js     # Copy, projects, skills, social links — edit content here
-styles/jarvis/          # HUD CSS (prefer CSS over new motion libs)
+styles/hud/             # HUD CSS (prefer CSS over new motion libs)
 hooks/                  # useTypewriter, useReducedMotion, useViewportPager
 scripts/perf-report.mjs # Performance reporter
 perf-reports/           # Generated metrics (gitignored except README)
@@ -71,29 +71,27 @@ perf-reports/           # Generated metrics (gitignored except README)
 
 ## Architecture rules
 
-1. **Shell wraps everything** — `app/layout.js` → `JarvisShell` → `JarvisProvider` → page children.
-2. **Module pages** use `ModulePage` from `components/jarvis/ModulePage.js` for consistent headers.
+1. **Shell wraps everything** — `app/layout.js` → `HudShell` → `HudProvider` → page children.
+2. **Module pages** use `ModulePage` from `components/hud/ModulePage.js` for consistent headers.
 3. **Content lives in** `lib/site-content.js` — avoid hardcoding copy in components.
 4. **Client boundaries** — `"use client"` only where needed (hooks, browser APIs, gestures).
-5. **Performance** — WebGL off by default (`STORAGE_KEYS.reactor3d`). Lazy-load: `CommandPalette`, `BootSequence`, `VoiceController`, `gsap`, `@use-gesture/react`. No route-level slide animations; use `.hud-panel-swap` CSS only.
+5. **Performance** — WebGL off by default (`STORAGE_KEYS.reactor3d`). Lazy-load: `BootSequence`, `CursorLayer`, `gsap`, `@use-gesture/react`. No route-level slide animations; use `.hud-panel-swap` CSS only.
 6. **Motion** — Use `hooks/useReducedMotion.js`, not `framer-motion` in shell/provider. Page modules: CSS animations, not horizontal `x` slides on route enter.
-7. **Voice** — Do not stop mic during TTS; avoid restart loops on `no-speech`. See `VoiceController.js`.
 
 ## Code style
 
 - JavaScript (not TypeScript). Path alias: `@/*` → repo root.
 - Match existing patterns: minimal diffs, no over-abstraction, no drive-by refactors.
 - ESLint: `eslint-config-next` core-web-vitals.
-- CSS: global tokens in `styles/base.css`; JARVIS in `styles/jarvis/*.css`.
+- CSS: global tokens in `styles/base.css`; HUD in `styles/hud/*.css`.
 - Fonts: `lib/fonts.js` — Space Grotesk + IBM Plex Mono only (do not re-add Orbitron/Sora without perf review).
 
 ## Adding a new HUD module route
 
-1. Add entry to `JARVIS_MODULES` in `lib/jarvis/constants.js`.
+1. Add entry to `HUD_MODULES` in `lib/hud/constants.js`.
 2. Create `app/<name>/page.js` (dynamic import content + `PageFallback`).
 3. Create `app/<name>/<Name>Content.js` using `ModulePage`.
-4. Add nav intent in `lib/jarvis/intents.js` and command in `lib/jarvis/commands.js` if voice-accessible.
-5. Run `npm run verify` (syncs docs + lint + build).
+4. Run `npm run verify` (syncs docs + lint + build).
 
 ## Do not touch (without explicit user request)
 
