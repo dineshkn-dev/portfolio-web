@@ -2,7 +2,7 @@
 
 ## Identity
 
-Personal portfolio for Dinesh K N. Production: https://www.dineshkn.site. Stack: Next.js 16 App Router, React 19, Tailwind 3, client-side JARVIS HUD.
+Personal portfolio for Dinesh K N. Production: https://www.dineshkn.site. Stack: Next.js 16 App Router, React 19, Tailwind 3, client-side HUD.
 
 ## Agent entrypoints
 
@@ -12,9 +12,9 @@ Personal portfolio for Dinesh K N. Production: https://www.dineshkn.site. Stack:
 
 ## Shell architecture
 
-RootLayout → JarvisShell → JarvisProvider (state) → HudNav, HudFrame, ReactorBackdrop, lazy overlays (CommandPalette, BootSequence, CursorLayer, VoiceController, ReactorCanvas if opt-in) → main → ModuleTransition → page content.
+RootLayout → HudShell → HudProvider (state) → HudNav, HudFrame, ReactorBackdrop, lazy overlays (BootSequence, CursorLayer, ReactorCanvas if opt-in) → main → ModuleTransition → page content.
 
-State: booting, voice, sfx, palette, help, transcript, use3D (localStorage jarvis-reactor-3d=true AND 6+ CPU cores).
+State: booting, sfx, use3D (localStorage hud-reactor-3d=true AND 6+ CPU cores).
 
 ## Routes and content
 
@@ -26,11 +26,7 @@ State: booting, voice, sfx, palette, help, transcript, use3D (localStorage jarvi
 | /projects | app/projects/ProjectsContent.js | Strip + stage, viewport locked |
 | /contact | app/contact/ContactContent.js | Formspree POST |
 
-All module pages use components/jarvis/ModulePage.js. Data: lib/site-content.js.
-
-## Voice pipeline
-
-SpeechRecognition continuous → matchIntent (lib/jarvis/intents.js) → navigate / speak / palette / mute. Do not abort mic during TTS. no-speech: no immediate restart loop.
+All module pages use components/hud/ModulePage.js. Data: lib/site-content.js.
 
 ## Performance defaults
 

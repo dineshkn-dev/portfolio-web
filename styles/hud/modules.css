@@ -1,10 +1,10 @@
-.jarvis-module {
+.hud-module {
     width: min(var(--content-max), calc(100% - var(--content-gutter) * 2));
     margin-inline: auto;
     padding: 6.5rem 0 5rem;
 }
 
-.jarvis-module-panel {
+.hud-module-panel {
     position: relative;
     padding: 1.5rem;
     border: 1px solid var(--hud-line);
@@ -23,7 +23,7 @@
     );
 }
 
-.jarvis-module-panel::before {
+.hud-module-panel::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -38,7 +38,7 @@
     );
 }
 
-.jarvis-eyebrow {
+.hud-eyebrow {
     font-family: var(--mono-font);
     font-size: 0.72rem;
     letter-spacing: 0.14em;
@@ -46,7 +46,7 @@
     color: var(--accent);
 }
 
-.jarvis-title {
+.hud-title {
     font-family: var(--font-primary), var(--display-font);
     font-size: clamp(1.5rem, 3vw, 2.25rem);
     font-weight: 600;
@@ -55,7 +55,7 @@
     margin: 0.5rem 0 0;
 }
 
-.jarvis-cockpit {
+.hud-cockpit {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -68,14 +68,14 @@
     box-sizing: border-box;
 }
 
-.jarvis-cockpit-hero {
+.hud-cockpit-hero {
     padding: 1.75rem;
     border: 1px solid var(--hud-line);
     border-radius: var(--radius-xl);
     background: color-mix(in srgb, var(--surface-strong) 90%, transparent);
 }
 
-.jarvis-typewriter {
+.hud-typewriter {
     font-family: var(--mono-font);
     font-size: clamp(0.95rem, 2vw, 1.15rem);
     line-height: 1.6;
@@ -83,7 +83,7 @@
     min-height: 3.2em;
 }
 
-.jarvis-typewriter-cursor {
+.hud-typewriter-cursor {
     display: inline-block;
     width: 2px;
     height: 1em;
@@ -97,13 +97,13 @@
     50% { opacity: 0; }
 }
 
-.jarvis-stat-grid {
+.hud-stat-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
 }
 
-.jarvis-stat-card {
+.hud-stat-card {
     padding: 1rem;
     border: 1px solid var(--hud-line);
     border-radius: var(--radius-lg);
@@ -114,23 +114,23 @@
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.jarvis-stat-card--static {
+.hud-stat-card--static {
     cursor: pointer;
 }
 
-.jarvis-stat-card:hover {
+.hud-stat-card:hover {
     border-color: var(--accent);
     box-shadow: var(--hud-glow);
 }
 
-.jarvis-stat-card strong {
+.hud-stat-card strong {
     display: block;
     font-family: var(--font-primary), var(--display-font);
     font-size: 1.35rem;
     color: var(--accent);
 }
 
-.jarvis-stat-card span {
+.hud-stat-card span {
     font-family: var(--mono-font);
     font-size: 0.68rem;
     letter-spacing: 0.08em;
@@ -138,14 +138,14 @@
     color: var(--muted-foreground);
 }
 
-.jarvis-system-btns {
+.hud-system-btns {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
     margin-top: 1.25rem;
 }
 
-.jarvis-skills-orbit {
+.hud-skills-orbit {
     position: relative;
     min-height: 420px;
     display: flex;
@@ -153,7 +153,7 @@
     justify-content: center;
 }
 
-.jarvis-skill-node {
+.hud-skill-node {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -167,14 +167,14 @@
     transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
 }
 
-.jarvis-skill-node:hover,
-.jarvis-skill-node--active {
+.hud-skill-node:hover,
+.hud-skill-node--active {
     border-color: var(--accent);
     box-shadow: var(--hud-glow);
     transform: scale(1.08);
 }
 
-.jarvis-skill-detail {
+.hud-skill-detail {
     margin-top: 1.5rem;
     padding: 1.25rem;
     border: 1px solid var(--border-strong);
@@ -182,14 +182,14 @@
     background: var(--surface);
 }
 
-.jarvis-filter-chips {
+.hud-filter-chips {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 1rem;
 }
 
-.jarvis-chip {
+.hud-chip {
     padding: 0.35rem 0.75rem;
     font-family: var(--mono-font);
     font-size: 0.68rem;
@@ -202,19 +202,19 @@
     color: var(--muted-foreground);
 }
 
-.jarvis-chip--active {
+.hud-chip--active {
     border-color: var(--accent);
     color: var(--accent);
     background: var(--accent-soft);
 }
 
-.jarvis-timeline-scrub {
+.hud-timeline-scrub {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
 }
 
-.jarvis-scrub-track {
+.hud-scrub-track {
     position: relative;
     height: 4px;
     background: var(--border);
@@ -223,7 +223,7 @@
     touch-action: none;
 }
 
-.jarvis-scrub-fill {
+.hud-scrub-fill {
     position: absolute;
     left: 0;
     top: 0;
@@ -233,7 +233,7 @@
     pointer-events: none;
 }
 
-.jarvis-scrub-thumb {
+.hud-scrub-thumb {
     position: absolute;
     top: 50%;
     width: 14px;
@@ -245,14 +245,14 @@
     pointer-events: none;
 }
 
-.jarvis-timeline-card {
+.hud-timeline-card {
     padding: 1.5rem;
     border: 1px solid var(--hud-line);
     border-radius: var(--radius-lg);
     background: var(--surface);
 }
 
-.jarvis-projects-carousel {
+.hud-projects-carousel {
     display: flex;
     gap: 1rem;
     overflow-x: auto;
@@ -261,13 +261,13 @@
     scrollbar-width: thin;
 }
 
-.jarvis-project-slide {
+.hud-project-slide {
     flex: 0 0 min(320px, 85vw);
     scroll-snap-align: center;
     cursor: pointer;
 }
 
-.jarvis-drawer {
+.hud-drawer {
     position: fixed;
     right: 0;
     top: 0;
@@ -280,8 +280,8 @@
     overflow-y: auto;
 }
 
-.jarvis-terminal-form input,
-.jarvis-terminal-form textarea {
+.hud-terminal-form input,
+.hud-terminal-form textarea {
     width: 100%;
     padding: 0.75rem 1rem;
     margin-bottom: 0.85rem;
@@ -293,18 +293,18 @@
     color: var(--foreground);
 }
 
-.jarvis-terminal-form input:focus,
-.jarvis-terminal-form textarea:focus {
+.hud-terminal-form input:focus,
+.hud-terminal-form textarea:focus {
     border-color: var(--accent);
     box-shadow: 0 0 16px var(--accent-soft);
 }
 
-.jarvis-terminal-prompt::before {
+.hud-terminal-prompt::before {
     content: "> ";
     color: var(--accent);
 }
 
-.jarvis-cursor {
+.hud-cursor {
     position: fixed;
     top: 0;
     left: 0;
@@ -313,7 +313,7 @@
     mix-blend-mode: difference;
 }
 
-.jarvis-cursor-ring {
+.hud-cursor-ring {
     width: 32px;
     height: 32px;
     border: 1px solid var(--accent);
@@ -322,13 +322,13 @@
     transition: width 0.1s ease-out, height 0.1s ease-out, border-color 0.1s ease-out;
 }
 
-.jarvis-cursor-ring--hover {
+.hud-cursor-ring--hover {
     width: 48px;
     height: 48px;
     border-color: var(--accent-2);
 }
 
-.jarvis-cursor-dot {
+.hud-cursor-dot {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -339,7 +339,7 @@
     transform: translate(-50%, -50%);
 }
 
-.jarvis-boot {
+.hud-boot {
     position: fixed;
     inset: 0;
     z-index: 200;
@@ -351,14 +351,14 @@
     font-family: var(--mono-font);
 }
 
-.jarvis-boot-line {
+.hud-boot-line {
     font-size: 0.85rem;
     letter-spacing: 0.1em;
     color: var(--accent);
     margin: 0.25rem 0;
 }
 
-.jarvis-boot-skip {
+.hud-boot-skip {
     position: absolute;
     bottom: 2rem;
     right: 2rem;
@@ -373,7 +373,7 @@
     cursor: pointer;
 }
 
-.jarvis-help-overlay {
+.hud-help-overlay {
     position: fixed;
     inset: 0;
     z-index: 80;
@@ -384,7 +384,7 @@
     backdrop-filter: blur(6px);
 }
 
-.jarvis-help-panel {
+.hud-help-panel {
     width: min(480px, 92vw);
     padding: 1.5rem;
     border: 1px solid var(--hud-line);
@@ -394,7 +394,7 @@
     font-size: 0.78rem;
 }
 
-.jarvis-help-panel kbd {
+.hud-help-panel kbd {
     display: inline-block;
     padding: 0.15rem 0.4rem;
     border: 1px solid var(--hud-line);
@@ -403,7 +403,7 @@
     color: var(--accent);
 }
 
-.jarvis-voice-banner {
+.hud-voice-banner {
     position: fixed;
     bottom: 3rem;
     left: 50%;
@@ -421,7 +421,7 @@
     gap: 0.75rem;
 }
 
-.jarvis-transcript {
+.hud-transcript {
     position: fixed;
     bottom: 3.5rem;
     left: 1.25rem;
@@ -438,10 +438,10 @@
 }
 
 @media (max-width: 768px) {
-    .jarvis-cursor { display: none; }
+    .hud-cursor { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .jarvis-css-reactor { animation: none; }
+    .hud-css-reactor { animation: none; }
     .hud-status-dot { animation: none; }
 }

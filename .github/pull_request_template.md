@@ -5,7 +5,7 @@
 ## Type of change
 
 - [ ] Content / copy (`lib/site-content.js`)
-- [ ] JARVIS UI / shell
+- [ ] HUD UI / shell
 - [ ] New route or module
 - [ ] Performance
 - [ ] Dependencies

@@ -1,20 +1,20 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useJarvis } from "@/components/jarvis/JarvisProvider";
+import { useHud } from "@/components/hud/HudProvider";
 
 const INTERACTIVE =
-    "a, button, input, textarea, select, label, [role='button'], [role='tab'], .hud-nav-link, .hud-tab, .jarvis-stat-card, .jarvis-skill-tile, .chronos-rail-item, .chronos-map-node, .vault-strip-tab, .jarvis-chip";
+    "a, button, input, textarea, select, label, [role='button'], [role='tab'], .hud-nav-link, .hud-tab, .hud-stat-card, .hud-skill-tile, .chronos-rail-item, .chronos-map-node, .vault-strip-tab, .hud-chip";
 
 export default function CursorLayer() {
-    const { reduceMotion, isMobile } = useJarvis();
+    const { reduceMotion, isMobile } = useHud();
     const ringRef = useRef(null);
 
     useEffect(() => {
         if (reduceMotion || isMobile) return;
 
-        document.documentElement.classList.add("jarvis-custom-cursor");
-        return () => document.documentElement.classList.remove("jarvis-custom-cursor");
+        document.documentElement.classList.add("hud-custom-cursor");
+        return () => document.documentElement.classList.remove("hud-custom-cursor");
     }, [reduceMotion, isMobile]);
 
     useEffect(() => {
@@ -28,7 +28,7 @@ export default function CursorLayer() {
         };
 
         const onOver = (e) => {
-            ring.classList.toggle("jarvis-cursor-ring--hover", !!e.target?.closest?.(INTERACTIVE));
+            ring.classList.toggle("hud-cursor-ring--hover", !!e.target?.closest?.(INTERACTIVE));
         };
 
         window.addEventListener("mousemove", onMove, { passive: true });
@@ -43,13 +43,13 @@ export default function CursorLayer() {
     if (reduceMotion || isMobile) return null;
 
     return (
-        <div className="jarvis-cursor" aria-hidden="true">
+        <div className="hud-cursor" aria-hidden="true">
             <div
                 ref={ringRef}
-                className="jarvis-cursor-ring"
+                className="hud-cursor-ring"
                 style={{ position: "fixed", top: 0, left: 0, willChange: "transform" }}
             >
-                <span className="jarvis-cursor-dot" />
+                <span className="hud-cursor-dot" />
             </div>
         </div>
     );

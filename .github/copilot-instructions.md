@@ -6,7 +6,7 @@ Follow [AGENTS.md](../AGENTS.md) for this repository.
 
 ## Quick context
 
-Next.js 16 JARVIS-themed portfolio. Shell in `components/jarvis/`. Site data in `lib/site-content.js`.
+Next.js 16 HUD-themed portfolio. Shell in `components/hud/`. Site data in `lib/site-content.js`.
 
 ## When suggesting code
 

@@ -1,16 +1,15 @@
 ---
-description: JARVIS HUD shell, voice, and module UI conventions
-globs: components/jarvis/**/*,components/canvas/**/*,app/**/*
+description: HUD shell, voice, and module UI conventions
+globs: components/hud/**/*,components/canvas/**/*,app/**/*
 alwaysApply: false
 ---
 
-# JARVIS UI rules
+# HUD UI rules
 
-## Shell (`components/jarvis/`)
+## Shell (`components/hud/`)
 
-- State lives in `JarvisProvider`; init in `JarvisInit.js`.
-- Lazy/dynamic: `CommandPalette`, `BootSequence`, `CursorLayer`, `VoiceController`, `ReactorCanvas`.
-- Mount palette/help only when `paletteOpen` / `helpOpen`.
+- State lives in `HudProvider`; init in `HudInit.js`.
+- Lazy/dynamic: `BootSequence`, `CursorLayer`, `ReactorCanvas`.
 - `ModuleTransition` is a static wrapper — no GSAP route animations.
 
 ## Module pages
@@ -19,12 +18,6 @@ alwaysApply: false
 - Panel swaps: class `hud-panel-swap` (CSS opacity), not Framer `x`/`y` on first paint.
 - `AnimatePresence initial={false}` if animation libraries are required for tab changes.
 
-## Voice (`VoiceController.js`)
-
-- Do not `abort()` mic for TTS; use `speakingRef` to ignore results.
-- `no-speech` must not trigger tight restart loops.
-- `destroySession` only when voice disabled or unmounting.
-
 ## Canvas
 
 - Default: `ReactorBackdrop` (CSS grid only).
@@ -32,4 +25,4 @@ alwaysApply: false
 
 ## Styles
 
-- Edit `styles/jarvis/*.css`; match existing HUD tokens and `hud-card` patterns.
+- Edit `styles/hud/*.css`; match existing HUD tokens and `hud-card` patterns.

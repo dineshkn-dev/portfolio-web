@@ -8,7 +8,7 @@ alwaysApply: false
 
 ## Defaults (do not regress)
 
-- WebGL backdrop off unless user opt-in (`jarvis-reactor-3d` in localStorage).
+- WebGL backdrop off unless user opt-in (`hud-reactor-3d` in localStorage).
 - Two fonts only: Space Grotesk + IBM Plex Mono (`lib/fonts.js`).
 - Defer typewriter (`useTypewriter` idle callback) and home gestures (dynamic import).
 - `optimizePackageImports` in `next.config.mjs` — keep heavy packages tree-shaken.

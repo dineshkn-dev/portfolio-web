@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useJarvisAudio } from "@/components/jarvis/AudioController";
+import { useHudAudio } from "@/components/hud/AudioController";
 
 const THEMES = ["dark", "light"];
 
 export default function ThemeToggle() {
-    const { playSfx } = useJarvisAudio();
+    const { playSfx } = useHudAudio();
     const [theme, setTheme] = useState(() => {
         if (typeof window === "undefined") {
             return "dark";

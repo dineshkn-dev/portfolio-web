@@ -4,10 +4,10 @@
 @import "./styles/cards.css";
 @import "./styles/typography.css";
 @import "./styles/layouts.css";
-@import "./styles/jarvis/hud.css";
-@import "./styles/jarvis/modules.css";
-@import "./styles/jarvis/pages.css";
-@import "./styles/jarvis/responsive.css";
+@import "./styles/hud/hud.css";
+@import "./styles/hud/modules.css";
+@import "./styles/hud/pages.css";
+@import "./styles/hud/responsive.css";
 
 /* Tailwind Directives */
 @tailwind base;

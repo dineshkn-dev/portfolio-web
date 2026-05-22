@@ -2,11 +2,11 @@
 
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
-import { useJarvis } from "@/components/jarvis/JarvisProvider";
+import { useHud } from "@/components/hud/HudProvider";
 
 export default function LenisScroller({ children, className = "" }) {
     const wrapRef = useRef(null);
-    const { reduceMotion } = useJarvis();
+    const { reduceMotion } = useHud();
 
     useEffect(() => {
         const el = wrapRef.current;

@@ -4,8 +4,8 @@
 export default function ReactorBackdrop() {
     return (
         <>
-            <div className="jarvis-css-reactor" aria-hidden="true" />
-            <div className="jarvis-ambient-glow" aria-hidden="true" />
+            <div className="hud-css-reactor" aria-hidden="true" />
+            <div className="hud-ambient-glow" aria-hidden="true" />
         </>
     );
 }

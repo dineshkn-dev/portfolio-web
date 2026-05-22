@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { getModuleFromPath } from "@/lib/jarvis/constants";
+import { getModuleFromPath } from "@/lib/hud/constants";
 import { homeStats } from "@/lib/site-content";
 
 export default function HudFrame() {

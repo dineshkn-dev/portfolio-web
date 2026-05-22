@@ -5,12 +5,12 @@
 ```mermaid
 flowchart TB
     subgraph layout [app/layout.js]
-        Shell[JarvisShell]
+        Shell[HudShell]
         Analytics[DeferredAnalytics]
     end
 
-    subgraph shell [JarvisShell]
-        Provider[JarvisProvider]
+    subgraph shell [HudShell]
+        Provider[HudProvider]
         Backdrop[ReactorBackdrop CSS]
         Canvas[ReactorCanvas WebGL optional]
         Nav[HudNav]
@@ -19,8 +19,6 @@ flowchart TB
     end
 
     subgraph lazy [Dynamic imports]
-        Palette[CommandPalette cmdk]
-        Voice[VoiceController STT]
         Boot[BootSequence gsap]
         Cursor[CursorLayer]
     end
@@ -46,37 +44,23 @@ flowchart TB
 
 Pages use `next/dynamic` + `PageFallback` for code splitting.
 
-## State (`JarvisProvider`)
+## State (`HudProvider`)
 
 | State | Purpose |
 |-------|---------|
 | `booting` / `bootComplete` | First-visit boot sequence (`sessionStorage`) |
-| `voiceEnabled` / `voiceConsent` | Voice layer (`localStorage`) |
-| `paletteOpen` / `helpOpen` | Overlays |
 | `sfxMuted` | UI sounds |
-| `transcript` / `listening` | Voice HUD |
 | `use3D` | WebGL backdrop (opt-in + hardware check) |
 | `isMobile` / `reduceMotion` | Capability gates |
 
-Init: `JarvisInit.js` (layout effect, reads storage + media queries).
-
-## Voice flow
-
-1. User grants consent → `VoiceController` starts `SpeechRecognition` (continuous).
-2. Final transcript → `matchIntent()` in `lib/jarvis/intents.js`.
-3. Actions: `router.push`, `speechSynthesis`, toggle SFX, open palette/help.
-4. Unknown intents: update transcript only (no TTS loop).
-
-## Keyboard (`lib/jarvis/keyboard.js`)
-
-Global listener in `JarvisShell`: ⌘K palette, shortcuts 1–5 for modules, `?` help, voice toggles.
+Init: `HudInit.js` (layout effect, reads storage + media queries).
 
 ## Styling layers
 
 1. `globals.css` — imports + Tailwind
 2. `styles/base.css` — design tokens
-3. `styles/jarvis/*.css` — HUD, modules, pages, palette
-4. Legacy `styles/*.css` — shared cards, buttons (pre-JARVIS)
+3. `styles/hud/*.css` — HUD, modules, pages
+4. Legacy `styles/*.css` — shared cards, buttons (pre-HUD)
 
 ## Performance model
 
@@ -92,6 +76,5 @@ Global listener in `JarvisShell`: ⌘K palette, shortcuts 1–5 for modules, `?`
 
 ## Extension points
 
-- New module: `JARVIS_MODULES` + route + `ModulePage` content
-- New voice command: `intents.js` + optional `commands.js`
+- New module: `HUD_MODULES` + route + `ModulePage` content
 - New SFX: `AudioController.js` Web Audio buffers

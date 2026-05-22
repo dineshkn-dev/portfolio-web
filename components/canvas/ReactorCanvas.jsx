@@ -64,7 +64,7 @@ export default function ReactorCanvas() {
     }, []);
 
     return (
-        <div className="jarvis-canvas-layer" aria-hidden="true">
+        <div className="hud-canvas-layer" aria-hidden="true">
             <Canvas
                 camera={{ position: [0, 0, 7], fov: 50 }}
                 dpr={[1, 1.25]}

@@ -3,12 +3,12 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { socialIconMap } from "@/components/icons/SocialIcons";
-import ModulePage from "@/components/jarvis/ModulePage";
-import { useJarvisAudio } from "@/components/jarvis/AudioController";
+import ModulePage from "@/components/hud/ModulePage";
+import { useHudAudio } from "@/components/hud/AudioController";
 import { contactFormEndpoint, socialLinks } from "@/lib/site-content";
 
 export default function ContactContent() {
-    const { playSfx } = useJarvisAudio();
+    const { playSfx } = useHudAudio();
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [isSubmitting, setIsSubmitting] = useState(false);
 

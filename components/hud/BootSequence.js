@@ -2,20 +2,20 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { useJarvis } from "@/components/jarvis/JarvisProvider";
-import { useJarvisAudio } from "@/components/jarvis/AudioController";
+import { useHud } from "@/components/hud/HudProvider";
+import { useHudAudio } from "@/components/hud/AudioController";
 
 const BOOT_LINES = [
-    "INITIALIZING J.A.R.V.I.S…",
+    "INITIALIZING HUD…",
     "LOADING REACTOR CORE…",
-    "CALIBRATING HUD OVERLAY…",
-    "SYNCING NEURAL INTERFACE…",
+    "CALIBRATING OVERLAY…",
+    "SYNCING INTERFACE…",
     "UPLINK SECURE — ALL SYSTEMS ONLINE",
 ];
 
 export default function BootSequence() {
-    const { booting, completeBoot, reduceMotion } = useJarvis();
-    const { playSfx } = useJarvisAudio();
+    const { booting, completeBoot, reduceMotion } = useHud();
+    const { playSfx } = useHudAudio();
     const containerRef = useRef(null);
     const linesRef = useRef([]);
 
@@ -56,11 +56,11 @@ export default function BootSequence() {
     };
 
     return (
-        <div className="jarvis-boot" ref={containerRef} role="status" aria-live="polite">
+        <div className="hud-boot" ref={containerRef} role="status" aria-live="polite">
             {BOOT_LINES.map((line, i) => (
                 <p
                     key={line}
-                    className="jarvis-boot-line"
+                    className="hud-boot-line"
                     ref={(el) => {
                         linesRef.current[i] = el;
                     }}
@@ -69,7 +69,7 @@ export default function BootSequence() {
                     {line}
                 </p>
             ))}
-            <button type="button" className="jarvis-boot-skip" onClick={skip}>
+            <button type="button" className="hud-boot-skip" onClick={skip}>
                 Skip sequence
             </button>
         </div>

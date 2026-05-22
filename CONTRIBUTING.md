@@ -25,8 +25,8 @@ See [docs/AUTOMATION.md](docs/AUTOMATION.md).
 
 - **Copy / data** → `lib/site-content.js`
 - **New page** → follow [docs/conventions.md](docs/conventions.md) + `AGENTS.md` checklist
-- **HUD / shell** → `components/jarvis/`
-- **Styles** → `styles/jarvis/` (keep tokens in `styles/base.css`)
+- **HUD / shell** → `components/hud/`
+- **Styles** → `styles/hud/` (keep tokens in `styles/base.css`)
 
 ## Commit messages
 

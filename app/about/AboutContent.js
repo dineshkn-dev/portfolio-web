@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import ModulePage from "@/components/jarvis/ModulePage";
-import { useJarvisAudio } from "@/components/jarvis/AudioController";
+import ModulePage from "@/components/hud/ModulePage";
+import { useHudAudio } from "@/components/hud/AudioController";
 import { useViewportPager } from "@/hooks/useViewportPager";
 import { careerTimeline } from "@/lib/site-content";
 
@@ -16,7 +16,7 @@ const MISSION_TAGS = [
 
 export default function AboutContent() {
     const [index, setIndex] = useState(0);
-    const { playSfx } = useJarvisAudio();
+    const { playSfx } = useHudAudio();
     const item = careerTimeline[index];
     const { go, prev, next } = useViewportPager(
         careerTimeline.length,

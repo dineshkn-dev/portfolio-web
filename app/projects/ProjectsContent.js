@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import ModulePage from "@/components/jarvis/ModulePage";
-import { useJarvisAudio } from "@/components/jarvis/AudioController";
+import ModulePage from "@/components/hud/ModulePage";
+import { useHudAudio } from "@/components/hud/AudioController";
 import { useViewportPager } from "@/hooks/useViewportPager";
 import { projects } from "@/lib/site-content";
 
 export default function ProjectsContent() {
     const [index, setIndex] = useState(0);
-    const { playSfx } = useJarvisAudio();
+    const { playSfx } = useHudAudio();
     const project = projects[index];
     const { go, prev, next } = useViewportPager(projects.length, index, setIndex, playSfx);
 

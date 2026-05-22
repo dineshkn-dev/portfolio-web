@@ -2,9 +2,9 @@
 
 import { useLayoutEffect } from "react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { STORAGE_KEYS } from "@/lib/jarvis/constants";
+import { STORAGE_KEYS } from "@/lib/hud/constants";
 
-export default function JarvisInit({ onInit }) {
+export default function HudInit({ onInit }) {
     const reduceMotion = useReducedMotion();
 
     useLayoutEffect(() => {

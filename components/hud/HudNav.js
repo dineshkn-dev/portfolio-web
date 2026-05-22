@@ -4,16 +4,16 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useJarvis } from "@/components/jarvis/JarvisProvider";
-import { useJarvisAudio } from "@/components/jarvis/AudioController";
+import { useHud } from "@/components/hud/HudProvider";
+import { useHudAudio } from "@/components/hud/AudioController";
 import ThemeToggle from "@/components/ThemeToggle";
-import { JARVIS_MODULES } from "@/lib/jarvis/constants";
+import { HUD_MODULES } from "@/lib/hud/constants";
 
 export default function HudNav() {
     const pathname = usePathname();
     const [menuOpen, setMenuOpen] = useState(false);
-    const { sfxMuted, toggleSfx } = useJarvis();
-    const { playSfx } = useJarvisAudio();
+    const { sfxMuted, toggleSfx } = useHud();
+    const { playSfx } = useHudAudio();
 
     const handleAudioToggle = () => {
         if (sfxMuted) {
@@ -65,13 +65,13 @@ export default function HudNav() {
                         />
                         <span className="hud-brand-text">
                             <span className="hud-brand-name">Dinesh K N</span>
-                            <span className="hud-brand-tag">J.A.R.V.I.S</span>
+                            <span className="hud-brand-tag">Command Center</span>
                         </span>
                     </Link>
 
                     <nav className="hud-nav-links-wrap" aria-label="Systems">
                         <ul className="hud-nav-links">
-                            {JARVIS_MODULES.map((item) => {
+                            {HUD_MODULES.map((item) => {
                                 const active = pathname === item.path;
                                 return (
                                     <li key={item.path}>
@@ -140,7 +140,7 @@ export default function HudNav() {
                 <div className="hud-nav-drawer-panel" role="dialog" aria-label="Navigation">
                     <p className="hud-nav-drawer-title">Systems</p>
                     <ul className="hud-nav-drawer-links">
-                        {JARVIS_MODULES.map((item) => {
+                        {HUD_MODULES.map((item) => {
                             const active = pathname === item.path;
                             return (
                                 <li key={item.path}>

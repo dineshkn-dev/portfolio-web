@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useRef } from "react";
-import { useJarvis } from "@/components/jarvis/JarvisProvider";
+import { useHud } from "@/components/hud/HudProvider";
 
 function playTone(ctx, frequency, duration, type = "sine", gain = 0.08, startOffset = 0) {
     const osc = ctx.createOscillator();
@@ -24,8 +24,8 @@ function playSequence(ctx, steps) {
     });
 }
 
-export function useJarvisAudio() {
-    const { sfxMuted, reduceMotion } = useJarvis();
+export function useHudAudio() {
+    const { sfxMuted, reduceMotion } = useHud();
     const ctxRef = useRef(null);
 
     const getCtx = useCallback(() => {
@@ -119,6 +119,6 @@ export function useJarvisAudio() {
 }
 
 export default function AudioController() {
-    useJarvisAudio();
+    useHudAudio();
     return null;
 }

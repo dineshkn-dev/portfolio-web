@@ -9,20 +9,20 @@ import {
     useState,
 } from "react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import JarvisInit from "@/components/jarvis/JarvisInit";
-import { STORAGE_KEYS } from "@/lib/jarvis/constants";
+import HudInit from "@/components/hud/HudInit";
+import { STORAGE_KEYS } from "@/lib/hud/constants";
 
-const JarvisContext = createContext(null);
+const HudContext = createContext(null);
 
-export function useJarvis() {
-    const ctx = useContext(JarvisContext);
+export function useHud() {
+    const ctx = useContext(HudContext);
     if (!ctx) {
-        throw new Error("useJarvis must be used within JarvisProvider");
+        throw new Error("useHud must be used within HudProvider");
     }
     return ctx;
 }
 
-export default function JarvisProvider({ children }) {
+export default function HudProvider({ children }) {
     const reduceMotion = useReducedMotion();
     const [initialized, setInitialized] = useState(false);
     const [booting, setBooting] = useState(false);
@@ -116,9 +116,9 @@ export default function JarvisProvider({ children }) {
     );
 
     return (
-        <JarvisContext.Provider value={value}>
-            <JarvisInit onInit={handleInit} />
+        <HudContext.Provider value={value}>
+            <HudInit onInit={handleInit} />
             {children}
-        </JarvisContext.Provider>
+        </HudContext.Provider>
     );
 }

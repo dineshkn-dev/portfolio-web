@@ -25,8 +25,8 @@ export default function ModulePage({
             <header className="hud-page-header">
                 <div className="hud-page-header-main">
                     {sysId ? <span className="hud-sys-id">{sysId}</span> : null}
-                    <p className="jarvis-eyebrow">{eyebrow}</p>
-                    <h1 className="jarvis-title">{title}</h1>
+                    <p className="hud-eyebrow">{eyebrow}</p>
+                    <h1 className="hud-title">{title}</h1>
                     {description && !compact ? (
                         <p className="hud-page-desc">{description}</p>
                     ) : null}

@@ -6,10 +6,10 @@
 |---------|---------|
 | Route page (server) | `app/skills/page.js` |
 | Client content | `app/skills/SkillsContent.js` |
-| Jarvis component | `components/jarvis/HudNav.js` |
+| Hud component | `components/hud/HudNav.js` |
 | Canvas | `components/canvas/ReactorBackdrop.jsx` |
 | Hook | `hooks/useTypewriter.js` |
-| Jarvis lib | `lib/jarvis/intents.js` |
+| Hud lib | `lib/hud/constants.js` |
 | Global content | `lib/site-content.js` |
 
 ## React
@@ -21,7 +21,7 @@
 
 ## CSS
 
-- HUD styles: `styles/jarvis/` — use existing classes (`hud-card`, `jarvis-title`, `hud-panel-swap`).
+- HUD styles: `styles/hud/` — use existing classes (`hud-card`, `hud-title`, `hud-panel-swap`).
 - Panel enter animation: `.hud-panel-swap` only (opacity), no `x`/`y` route transitions.
 - Avoid `backdrop-filter` on large surfaces (macOS GPU cost).
 - Viewport-locked pages: `ModulePage` with `viewportFit` + `compact`.
@@ -29,8 +29,8 @@
 ## Imports
 
 ```javascript
-import { useJarvis } from "@/components/jarvis/JarvisProvider";
-import { JARVIS_MODULES } from "@/lib/jarvis/constants";
+import { useHud } from "@/components/hud/HudProvider";
+import { HUD_MODULES } from "@/lib/hud/constants";
 import { projects } from "@/lib/site-content";
 ```
 
@@ -38,7 +38,7 @@ import { projects } from "@/lib/site-content";
 
 Edit **`lib/site-content.js`** for:
 
-- Projects, skills, timeline, cockpit copy, jarvis voice lines, social links
+- Projects, skills, timeline, cockpit copy, social links
 
 Do not duplicate strings in components.
 

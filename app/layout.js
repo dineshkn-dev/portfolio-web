@@ -1,5 +1,5 @@
 import "@/globals.css";
-import JarvisShell from "@/components/jarvis/JarvisShell";
+import HudShell from "@/components/hud/HudShell";
 import DeferredAnalytics from "@/components/DeferredAnalytics";
 import { fontVariables } from "@/lib/fonts";
 
@@ -57,7 +57,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en" data-scroll-behavior="smooth" className={fontVariables}>
             <body className="min-h-screen antialiased text-[var(--foreground)]">
-                <JarvisShell>{children}</JarvisShell>
+                <HudShell>{children}</HudShell>
                 <DeferredAnalytics />
             </body>
         </html>

@@ -1,58 +1,58 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import JarvisProvider from "@/components/jarvis/JarvisProvider";
-import HudFrame from "@/components/jarvis/HudFrame";
-import HudNav from "@/components/jarvis/HudNav";
-import ModuleTransition from "@/components/jarvis/ModuleTransition";
+import HudProvider from "@/components/hud/HudProvider";
+import HudFrame from "@/components/hud/HudFrame";
+import HudNav from "@/components/hud/HudNav";
+import ModuleTransition from "@/components/hud/ModuleTransition";
 import ReactorBackdrop from "@/components/canvas/ReactorBackdrop";
-import AudioController from "@/components/jarvis/AudioController";
-import { useJarvis } from "@/components/jarvis/JarvisProvider";
+import AudioController from "@/components/hud/AudioController";
+import { useHud } from "@/components/hud/HudProvider";
 
 const ReactorCanvas = dynamic(() => import("@/components/canvas/ReactorCanvas"), {
     ssr: false,
     loading: () => null,
 });
 
-const BootSequence = dynamic(() => import("@/components/jarvis/BootSequence"), {
+const BootSequence = dynamic(() => import("@/components/hud/BootSequence"), {
     ssr: false,
 });
 
-const CursorLayer = dynamic(() => import("@/components/jarvis/CursorLayer"), {
+const CursorLayer = dynamic(() => import("@/components/hud/CursorLayer"), {
     ssr: false,
 });
 
-function JarvisShellInner({ children }) {
-    const jarvis = useJarvis();
+function HudShellInner({ children }) {
+    const hud = useHud();
 
     return (
-        <div className="jarvis-shell site-shell">
+        <div className="hud-shell site-shell">
             <ReactorBackdrop />
-            {jarvis.use3D ? <ReactorCanvas /> : null}
+            {hud.use3D ? <ReactorCanvas /> : null}
             <HudFrame />
-            <div className="jarvis-chrome">
+            <div className="hud-chrome">
                 <HudNav />
                 <main
-                    className="jarvis-main"
+                    className="hud-main"
                     style={{
-                        visibility: jarvis.booting ? "hidden" : "visible",
-                        pointerEvents: jarvis.booting ? "none" : "auto",
+                        visibility: hud.booting ? "hidden" : "visible",
+                        pointerEvents: hud.booting ? "none" : "auto",
                     }}
                 >
                     <ModuleTransition>{children}</ModuleTransition>
                 </main>
             </div>
-            {jarvis.booting ? <BootSequence /> : null}
-            {!jarvis.reduceMotion && !jarvis.isMobile ? <CursorLayer /> : null}
+            {hud.booting ? <BootSequence /> : null}
+            {!hud.reduceMotion && !hud.isMobile ? <CursorLayer /> : null}
             <AudioController />
         </div>
     );
 }
 
-export default function JarvisShell({ children }) {
+export default function HudShell({ children }) {
     return (
-        <JarvisProvider>
-            <JarvisShellInner>{children}</JarvisShellInner>
-        </JarvisProvider>
+        <HudProvider>
+            <HudShellInner>{children}</HudShellInner>
+        </HudProvider>
     );
 }

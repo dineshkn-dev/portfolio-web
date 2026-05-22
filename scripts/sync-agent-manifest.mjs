@@ -26,9 +26,9 @@ function pagePathForRoute(routePath) {
     return `app/${seg}/page.js`;
 }
 
-function parseJarvisModules(constantsSrc) {
-    const block = constantsSrc.match(/export const JARVIS_MODULES\s*=\s*\[([\s\S]*?)\];/);
-    if (!block) throw new Error("JARVIS_MODULES not found in lib/jarvis/constants.js");
+function parseHudModules(constantsSrc) {
+    const block = constantsSrc.match(/export const HUD_MODULES\s*=\s*\[([\s\S]*?)\];/);
+    if (!block) throw new Error("HUD_MODULES not found in lib/hud/constants.js");
 
     const routes = [];
     const re = /\{\s*id:\s*"([^"]+)"\s*,\s*label:\s*"([^"]+)"\s*,\s*path:\s*"([^"]+)"/g;
@@ -36,7 +36,7 @@ function parseJarvisModules(constantsSrc) {
     while ((m = re.exec(block[1])) !== null) {
         routes.push({ id: m[1], label: m[2], path: m[3] });
     }
-    if (!routes.length) throw new Error("No routes parsed from JARVIS_MODULES");
+    if (!routes.length) throw new Error("No routes parsed from HUD_MODULES");
     return routes;
 }
 
@@ -128,8 +128,8 @@ async function writeOrCheck(filePath, nextContent, { stableCompare = false } = {
 async function main() {
     console.log(checkOnly ? "🔍 Checking agent manifest…\n" : "🔄 Syncing agent manifest…\n");
 
-    const constantsSrc = await readFile(path.join(root, "lib/jarvis/constants.js"), "utf8");
-    const routes = parseJarvisModules(constantsSrc);
+    const constantsSrc = await readFile(path.join(root, "lib/hud/constants.js"), "utf8");
+    const routes = parseHudModules(constantsSrc);
 
     for (const r of routes) {
         const pageFile = path.join(root, pagePathForRoute(r.path));

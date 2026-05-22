@@ -2,8 +2,8 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import ModulePage from "@/components/jarvis/ModulePage";
-import { useJarvisAudio } from "@/components/jarvis/AudioController";
+import ModulePage from "@/components/hud/ModulePage";
+import { useHudAudio } from "@/components/hud/AudioController";
 import { skillLevelWidth, techStack } from "@/lib/site-content";
 
 const FILTERS = ["All", "Advanced", "Intermediate", "Beginner"];
@@ -17,7 +17,7 @@ const levelClass = {
 export default function SkillsContent() {
     const [filter, setFilter] = useState("All");
     const [active, setActive] = useState(techStack[0]);
-    const { playSfx } = useJarvisAudio();
+    const { playSfx } = useHudAudio();
 
     const filtered = useMemo(() => {
         if (filter === "All") return techStack;
@@ -115,7 +115,7 @@ export default function SkillsContent() {
                                     <Image src={active.icon} alt="" width={48} height={48} />
                                 </div>
                                 <div>
-                                    <h2 className="jarvis-title" style={{ fontSize: "1.35rem" }}>
+                                    <h2 className="hud-title" style={{ fontSize: "1.35rem" }}>
                                         {active.name}
                                     </h2>
                                     <p
