@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify (sync, lint, build)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - name: End-to-end verify
+        run: npm run verify
+
+      - name: Fail if synced docs were not committed
+        run: |
+          git diff --exit-code llms.txt AGENTS.md docs/generated/manifest.json || (
+            echo "::error::Agent manifest out of date. Run 'npm run sync:agent' locally and commit the changes."
+            exit 1
+          )
+
+  perf:
+    name: Lighthouse perf
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: verify
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Perf audit
+        run: npm run perf:full
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: perf-reports
+          path: perf-reports/latest.*
+          if-no-files-found: error

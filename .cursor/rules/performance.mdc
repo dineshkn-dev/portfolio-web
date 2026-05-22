@@ -1,0 +1,29 @@
+---
+description: Performance and bundle-size guardrails
+globs: "**/*.{js,jsx,css,mjs}"
+alwaysApply: false
+---
+
+# Performance rules
+
+## Defaults (do not regress)
+
+- WebGL backdrop off unless user opt-in (`jarvis-reactor-3d` in localStorage).
+- Two fonts only: Space Grotesk + IBM Plex Mono (`lib/fonts.js`).
+- Defer typewriter (`useTypewriter` idle callback) and home gestures (dynamic import).
+- `optimizePackageImports` in `next.config.mjs` — keep heavy packages tree-shaken.
+
+## Before claiming "faster"
+
+```sh
+npm run perf:full
+```
+
+Compare `perf-reports/latest.json`: `routes[].performance`, `lcpMs`, `tbtMs`, `bundle.totalJsKb`.
+
+## Red flags
+
+- Importing `three`, `gsap`, `cmdk`, `framer-motion` in layout or provider.
+- `useEffect` + GSAP on every route change.
+- `backdrop-filter: blur()` on many simultaneous HUD cards.
+- `setState` on every `mousemove` without need (cursor uses `classList`).

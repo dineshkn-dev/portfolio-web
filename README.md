@@ -2,6 +2,8 @@
 
 This repository contains the source code for my personal portfolio website, showcasing my skills, experience, and projects.
 
+> **AI agents:** start with [AGENTS.md](AGENTS.md) · [llms.txt](llms.txt) · `npm run agent:check`
+
 ## Live Website
 Visit: **[dineshkn.site](https://www.dineshkn.site/)**
 
@@ -61,6 +63,22 @@ Output is written to:
 - `perf-reports/latest.json` — full metrics
 
 Copy either file into chat when asking for performance help. See `perf-reports/README.md` for options (`--mobile`, custom routes, etc.).
+
+## AI agent documentation
+
+This repo follows open [AGENTS.md](https://agents.md/) conventions (Agentic AI Foundation) plus [llms.txt](https://llmstxt.org/) discovery.
+
+| File | Purpose |
+|------|---------|
+| [AGENTS.md](AGENTS.md) | Primary instructions for coding agents |
+| [CLAUDE.md](CLAUDE.md) | Claude Code entry |
+| [llms.txt](llms.txt) | LLM link index |
+| [docs/architecture.md](docs/architecture.md) | System design |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Contributor + agent PR guide |
+
+**One command for all chores:** `npm run verify` (sync docs, lint, build)
+
+Validate agent files: `npm run agent:check` · Automation: [docs/AUTOMATION.md](docs/AUTOMATION.md)
 
 ## Contact
 - **Email:** [kandilindinesh@gmail.com](mailto:kandilindinesh@gmail.com)

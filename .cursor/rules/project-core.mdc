@@ -1,0 +1,33 @@
+---
+description: Core portfolio-web standards for all AI agent work
+alwaysApply: true
+---
+
+# portfolio-web — core agent rules
+
+Read `AGENTS.md` at repo root before non-trivial changes.
+
+## Must run before finishing
+
+- `npm run verify` (sync + lint + build — **mandatory**, see `.cursor/rules/automation.mdc`)
+
+## Must follow
+
+- JavaScript only; `@/` path alias.
+- Content in `lib/site-content.js`, routes in `lib/jarvis/constants.js`.
+- Minimal diffs; no drive-by refactors or new abstractions for one-off use.
+- No commits unless the user explicitly asks.
+- Shell wraps all pages via `JarvisShell` — do not bypass it in `layout.js`.
+
+## Must avoid
+
+- Secrets in repo; force-push; amending others' commits.
+- Always-on WebGL (`ReactorCanvas` without opt-in).
+- `framer-motion` in `JarvisProvider` or route-enter horizontal slides.
+- Stopping speech recognition during TTS in `VoiceController`.
+- Heavy `backdrop-filter` on HUD cards without perf justification.
+
+## Performance
+
+- Lazy-load heavy deps (`gsap`, `cmdk`, gestures, three.js).
+- After perf work: `npm run perf:full` and reference `perf-reports/latest.json`.

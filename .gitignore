@@ -18,6 +18,8 @@
 !/perf-reports/README.md
 !/perf-reports/.gitkeep
 
+# generated agent manifest is committed (do not ignore docs/generated/)
+
 # next.js
 /.next/
 /out/

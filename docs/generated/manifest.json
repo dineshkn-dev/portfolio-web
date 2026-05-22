@@ -1,0 +1,76 @@
+{
+  "generatedAt": "2026-05-22T09:40:39.185Z",
+  "routes": [
+    {
+      "id": "home",
+      "label": "Cockpit",
+      "path": "/"
+    },
+    {
+      "id": "skills",
+      "label": "Skills Matrix",
+      "path": "/skills"
+    },
+    {
+      "id": "timeline",
+      "label": "Career Timeline",
+      "path": "/about"
+    },
+    {
+      "id": "projects",
+      "label": "Project Archive",
+      "path": "/projects"
+    },
+    {
+      "id": "contact",
+      "label": "Comms Channel",
+      "path": "/contact"
+    }
+  ],
+  "scripts": [
+    {
+      "name": "dev",
+      "command": "next dev"
+    },
+    {
+      "name": "build",
+      "command": "next build"
+    },
+    {
+      "name": "start",
+      "command": "next start"
+    },
+    {
+      "name": "lint",
+      "command": "eslint ."
+    },
+    {
+      "name": "verify",
+      "command": "node scripts/verify.mjs"
+    },
+    {
+      "name": "verify:ci",
+      "command": "node scripts/verify.mjs --perf"
+    },
+    {
+      "name": "sync:agent",
+      "command": "node scripts/sync-agent-manifest.mjs"
+    },
+    {
+      "name": "agent:check",
+      "command": "node scripts/validate-agent-docs.mjs"
+    },
+    {
+      "name": "perf",
+      "command": "node scripts/perf-report.mjs"
+    },
+    {
+      "name": "perf:full",
+      "command": "npm run build && node scripts/perf-report.mjs --start"
+    },
+    {
+      "name": "dev:perf",
+      "command": "concurrently -k -n dev,perf -c blue,green \"next dev\" \"node scripts/perf-when-ready.mjs\""
+    }
+  ]
+}

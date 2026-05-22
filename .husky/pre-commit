@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm run sync:agent
+git add llms.txt AGENTS.md docs/generated/manifest.json 2>/dev/null || true
+npm run agent:check
+npx lint-staged

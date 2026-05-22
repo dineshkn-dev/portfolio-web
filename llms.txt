@@ -1,0 +1,40 @@
+# Dinesh K N — portfolio-web (JARVIS HUD)
+
+> Next.js 16 portfolio with Iron Man–style command-center UI, voice commands, and Lighthouse perf tooling.
+
+## Agent instructions (start here)
+
+- [AGENTS.md](AGENTS.md): Build commands, repo map, do-not-touch list, verification checklist
+- [docs/AGENTS-REFERENCE.md](docs/AGENTS-REFERENCE.md): Extended agent reference
+- [docs/architecture.md](docs/architecture.md): Shell, routes, voice, performance model
+- [docs/conventions.md](docs/conventions.md): Code and CSS conventions
+- [docs/AUTOMATION.md](docs/AUTOMATION.md): Hooks, CI, `npm run verify` pipeline
+
+## Human docs
+
+- [README.md](README.md): Setup, features, contact
+- [CONTRIBUTING.md](CONTRIBUTING.md): How to contribute
+- [perf-reports/README.md](perf-reports/README.md): Performance audit workflow
+
+## Key source files
+
+- [app/layout.js](app/layout.js): Root layout + JarvisShell
+- [components/jarvis/JarvisShell.js](components/jarvis/JarvisShell.js): HUD chrome
+- [lib/site-content.js](lib/site-content.js): Site copy and data
+- [lib/jarvis/constants.js](lib/jarvis/constants.js): Routes, storage keys
+- [lib/jarvis/intents.js](lib/jarvis/intents.js): Voice intent matching
+- [scripts/perf-report.mjs](scripts/perf-report.mjs): Lighthouse reporter
+
+## Routes
+
+<!-- AGENT-SYNC:ROUTES:START -->
+- `/` — Cockpit home
+- `/skills` — Skills matrix
+- `/about` — Career timeline
+- `/projects` — Project vault
+- `/contact` — Comms / Formspree form
+<!-- AGENT-SYNC:ROUTES:END -->
+
+## Optional
+
+- [llms-full.txt](llms-full.txt): Condensed project context for long-context models

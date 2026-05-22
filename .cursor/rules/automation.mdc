@@ -1,0 +1,41 @@
+---
+description: Mandatory end-to-end verification — never skip chores
+alwaysApply: true
+---
+
+# Automation — non-negotiable
+
+You must run chores yourself. **Never tell the user to run lint/build/sync unless `verify` is blocked by environment limits.**
+
+## Before marking ANY task complete
+
+```sh
+npm run verify
+```
+
+If it fails: fix the failure, re-run until green. Include synced agent files in the same change set.
+
+## After route or script changes
+
+`npm run verify` runs `sync:agent --check`. If it fails, run `npm run sync:agent` and commit:
+
+- `llms.txt`
+- `AGENTS.md` (scripts table)
+- `docs/generated/manifest.json`
+
+## Do not skip
+
+- ESLint (`lint` inside verify)
+- Production build (`build` inside verify)
+- Agent manifest sync check
+- Updating agent docs when architecture/commands change
+
+## Perf work
+
+Run `npm run verify:ci` or rely on CI perf job; cite `perf-reports/latest.json` metrics.
+
+## Commits
+
+Only commit when the user asks. When committing, hooks run automatically — ensure `verify` passed first so pre-push does not fail.
+
+See [docs/AUTOMATION.md](docs/AUTOMATION.md).

@@ -1,0 +1,49 @@
+# portfolio-web — full context for LLMs
+
+## Identity
+
+Personal portfolio for Dinesh K N. Production: https://www.dineshkn.site. Stack: Next.js 16 App Router, React 19, Tailwind 3, client-side JARVIS HUD.
+
+## Agent entrypoints
+
+1. AGENTS.md — operational instructions (commands, boundaries)
+2. docs/AGENTS-REFERENCE.md — deep dive
+3. .cursor/rules/*.mdc — Cursor scoped rules
+
+## Shell architecture
+
+RootLayout → JarvisShell → JarvisProvider (state) → HudNav, HudFrame, ReactorBackdrop, lazy overlays (CommandPalette, BootSequence, CursorLayer, VoiceController, ReactorCanvas if opt-in) → main → ModuleTransition → page content.
+
+State: booting, voice, sfx, palette, help, transcript, use3D (localStorage jarvis-reactor-3d=true AND 6+ CPU cores).
+
+## Routes and content
+
+| Path | Content file | Notes |
+|------|----------------|-------|
+| / | app/home/HomeContent.js | Typewriter deferred; lazy DraggableStat |
+| /skills | app/skills/SkillsContent.js | Bento grid + inspect panel |
+| /about | app/about/AboutContent.js | 3-col chronos bridge, viewport locked |
+| /projects | app/projects/ProjectsContent.js | Strip + stage, viewport locked |
+| /contact | app/contact/ContactContent.js | Formspree POST |
+
+All module pages use components/jarvis/ModulePage.js. Data: lib/site-content.js.
+
+## Voice pipeline
+
+SpeechRecognition continuous → matchIntent (lib/jarvis/intents.js) → navigate / speak / palette / mute. Do not abort mic during TTS. no-speech: no immediate restart loop.
+
+## Performance defaults
+
+- CSS reactor only; WebGL opt-in
+- No framer-motion in shell; CSS hud-panel-swap for panel changes
+- No GSAP/cmdk in initial shell bundle (dynamic import)
+- Fonts: Space Grotesk + IBM Plex Mono
+- npm run perf:full → perf-reports/latest.json
+
+## Commands
+
+npm install | dev | build | start | lint | perf | perf:full | dev:perf
+
+## Do not
+
+Commit without ask; force-push; add secrets; always-on WebGL; horizontal route enter animations; backdrop-filter on HUD cards without perf review.
