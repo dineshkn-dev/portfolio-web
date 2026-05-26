@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useHud } from "@/components/hud/HudProvider";
 import { useHudAudio } from "@/components/hud/AudioController";
 import { useTypewriter } from "@/hooks/useTypewriter";
-import { cockpitBrief, homeStats } from "@/lib/site-content";
+import { cockpitBrief, homeStats, projects } from "@/lib/site-content";
 import { HUD_MODULES } from "@/lib/hud/constants";
 
 export default function HomeContent() {
@@ -27,6 +27,7 @@ export default function HomeContent() {
     };
 
     const systems = HUD_MODULES.filter((m) => m.path !== "/");
+    const featuredApps = projects.filter((p) => p.featured);
 
     return (
         <div className="hud-cockpit">
@@ -53,6 +54,43 @@ export default function HomeContent() {
                     ))}
                 </div>
             </section>
+
+            {featuredApps.length > 0 ? (
+                <section className="hud-cockpit-launch" aria-label="Featured software">
+                    <div className="hud-cockpit-launch-head">
+                        <p className="hud-eyebrow">Launch bay // Shipped</p>
+                        <Link
+                            href="/projects"
+                            className="hud-cockpit-launch-more"
+                            onClick={() => playSfx("pulse")}
+                        >
+                            Project archive →
+                        </Link>
+                    </div>
+                    <div className="hud-cockpit-launch-grid">
+                        {featuredApps.map((app) => (
+                            <article key={app.title} className="hud-launch-card">
+                                <h2 className="hud-launch-card-title">{app.title}</h2>
+                                <p className="hud-launch-card-tagline">{app.cockpitTagline}</p>
+                                <div className="hud-launch-card-links">
+                                    {app.links?.map((link) => (
+                                        <a
+                                            key={link.href}
+                                            href={link.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="hud-launch-link"
+                                            onClick={() => playSfx("pulse")}
+                                        >
+                                            {link.label} ↗
+                                        </a>
+                                    ))}
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+            ) : null}
 
             <div className="hud-stat-grid">
                 {homeStats.map((stat) => (

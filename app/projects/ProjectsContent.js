@@ -67,10 +67,27 @@ export default function ProjectsContent() {
                                 </div>
                                 <h2 className="vault-intel-title">{project.title}</h2>
                                 <p className="vault-intel-desc">{project.description}</p>
-                                <div className="vault-stage-meta">
-                                    <strong>{project.company}</strong>
-                                    <span>{project.timeline}</span>
-                                </div>
+                                <footer className="vault-stage-detail">
+                                    <div className="vault-stage-meta">
+                                        <strong>{project.company}</strong>
+                                        <span>{project.timeline}</span>
+                                    </div>
+                                    {project.links?.length ? (
+                                        <div className="vault-stage-links">
+                                            {project.links.map((link) => (
+                                                <a
+                                                    key={link.href}
+                                                    href={link.href}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="vault-stage-link"
+                                                >
+                                                    {link.label} ↗
+                                                </a>
+                                            ))}
+                                        </div>
+                                    ) : null}
+                                </footer>
                             </div>
 
                             <div className="vault-stage-stack">

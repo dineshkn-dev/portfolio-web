@@ -99,7 +99,7 @@ export default function HudNav() {
                         >
                             <span className="hud-audio-btn-label--long">Interface audio</span>
                             <span className="hud-audio-btn-label--short">Audio</span>
-                            <span className="hud-audio-btn-state">{sfxMuted ? "Off" : "On"}</span>
+                            <span className="hud-audio-btn-indicator" aria-hidden="true" />
                         </button>
                         <ThemeToggle />
                         <button

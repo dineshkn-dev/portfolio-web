@@ -8,7 +8,7 @@ const ProjectsContent = dynamic(() => import("./ProjectsContent"), {
 export const metadata = {
     title: "Projects",
     description:
-        "Explore projects by Dinesh K N — from Digital Banking and IoT dashboards to HRMS platforms and ML applications."
+        "Explore projects by Dinesh K N — VaultDeck, Torrin, digital banking APIs, IoT dashboards, HRMS platforms, and ML applications."
 };
 
 export default function ProjectsPage() {

@@ -145,6 +145,84 @@
     margin-top: 1.25rem;
 }
 
+.hud-cockpit-launch {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.hud-cockpit-launch-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.35rem 1rem;
+}
+
+.hud-cockpit-launch-more {
+    font-family: var(--mono-font);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+    text-decoration: none;
+}
+
+.hud-cockpit-launch-more:hover {
+    color: var(--accent);
+}
+
+.hud-cockpit-launch-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+}
+
+.hud-launch-card {
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--hud-line);
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--surface-strong) 85%, transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.hud-launch-card-title {
+    font-family: var(--font-primary), var(--display-font);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    margin: 0;
+}
+
+.hud-launch-card-tagline {
+    margin: 0;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--muted-foreground);
+}
+
+.hud-launch-card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.hud-launch-link {
+    font-family: var(--mono-font);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.hud-launch-link:hover {
+    color: var(--foreground);
+}
+
 .hud-skills-orbit {
     position: relative;
     min-height: 420px;

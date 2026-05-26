@@ -193,15 +193,21 @@
 }
 
 .hud-nav-inner {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    justify-content: space-between;
     gap: 1rem;
     padding: 0.55rem 1rem;
     border: 1px solid var(--hud-line);
     border-radius: var(--radius-lg);
     background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
     box-shadow: var(--hud-glow);
+}
+
+.hud-nav-links-wrap {
+    justify-self: center;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .hud-brand {
@@ -232,7 +238,8 @@
 
 .hud-nav-links {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    justify-content: center;
     gap: 0.35rem;
     list-style: none;
     margin: 0;
@@ -266,9 +273,21 @@
 }
 
 .hud-nav-actions {
+    --hud-nav-actions-w: 21.5rem;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 0.5rem;
+    width: var(--hud-nav-actions-w);
+    min-width: var(--hud-nav-actions-w);
+    max-width: var(--hud-nav-actions-w);
+    flex-shrink: 0;
+    justify-self: end;
+}
+
+.hud-nav-actions .hud-audio-btn,
+.hud-nav-actions .theme-toggle {
+    flex: 0 0 auto;
 }
 
 .hud-cmd-btn {
@@ -291,9 +310,15 @@
 }
 
 .hud-audio-btn {
-    display: inline-flex;
+    --hud-audio-btn-w: 10.5rem;
+    box-sizing: border-box;
+    display: inline-grid;
+    grid-template-columns: minmax(0, 1fr) 0.5rem;
     align-items: center;
-    gap: 0.35rem;
+    column-gap: 0.4rem;
+    width: var(--hud-audio-btn-w);
+    min-width: var(--hud-audio-btn-w);
+    max-width: var(--hud-audio-btn-w);
     padding: 0.4rem 0.65rem;
     border: 1px solid var(--hud-line);
     border-radius: var(--radius-md);
@@ -304,7 +329,8 @@
     text-transform: uppercase;
     cursor: pointer;
     color: var(--muted-foreground);
-    transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+    flex-shrink: 0;
 }
 
 .hud-audio-btn:hover {
@@ -315,11 +341,32 @@
 .hud-audio-btn--active {
     border-color: var(--accent-2);
     color: var(--accent-2);
-    box-shadow: 0 0 12px var(--accent-soft-2);
+    background: color-mix(in srgb, var(--accent-soft-2) 18%, transparent);
 }
 
-.hud-audio-btn-state {
-    opacity: 0.85;
+.hud-audio-btn-label--long,
+.hud-audio-btn-label--short {
+    grid-column: 1;
+    min-width: 0;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hud-audio-btn-indicator {
+    grid-column: 2;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--muted-foreground) 55%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--hud-line) 80%, transparent);
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.hud-audio-btn--active .hud-audio-btn-indicator {
+    background: var(--accent-2);
+    box-shadow: 0 0 10px var(--accent-soft-2);
 }
 
 .hud-audio-btn-label--short {

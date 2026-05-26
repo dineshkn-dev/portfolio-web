@@ -33,6 +33,10 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .hud-cockpit-launch-grid {
+        grid-template-columns: 1fr;
+    }
+
     .chronos-core {
         overflow-y: auto;
         max-height: min(52vh, 500px);
@@ -126,12 +130,20 @@
     }
 
     .hud-nav-menu-btn,
-    .hud-audio-btn,
     .hud-nav .theme-toggle {
         min-height: 40px;
         min-width: 40px;
         padding: 0.3rem 0.45rem;
         justify-content: center;
+    }
+
+    .hud-audio-btn {
+        --hud-audio-btn-w: 4.75rem;
+        min-height: 40px;
+        width: var(--hud-audio-btn-w);
+        min-width: var(--hud-audio-btn-w);
+        max-width: var(--hud-audio-btn-w);
+        padding: 0.3rem 0.45rem;
     }
 
     .hud-nav-menu-label {
@@ -193,10 +205,17 @@
 
     @media (pointer: coarse) {
         .hud-nav .hud-nav-menu-btn,
-        .hud-nav .hud-audio-btn,
         .hud-nav .theme-toggle {
             min-height: 40px;
             min-width: 40px;
+        }
+
+        .hud-nav .hud-audio-btn {
+            --hud-audio-btn-w: 4.75rem;
+            min-height: 40px;
+            width: var(--hud-audio-btn-w);
+            min-width: var(--hud-audio-btn-w);
+            max-width: var(--hud-audio-btn-w);
         }
     }
 
@@ -522,6 +541,12 @@
 @media (max-width: 900px) {
     .hud-nav-menu-btn {
         display: inline-flex;
+    }
+
+    .hud-nav-actions {
+        width: auto;
+        min-width: 0;
+        max-width: none;
     }
 
     .hud-nav-links,
