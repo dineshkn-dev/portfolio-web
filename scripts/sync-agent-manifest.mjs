@@ -13,11 +13,11 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const checkOnly = process.argv.includes("--check");
 
 const ROUTE_LABELS = {
-    "/": "Cockpit home",
-    "/skills": "Skills matrix",
-    "/about": "Career timeline",
-    "/projects": "Project vault",
-    "/contact": "Comms / Formspree form",
+    "/": "Portfolio home",
+    "/skills": "Skills overview",
+    "/about": "Experience timeline",
+    "/projects": "Selected work",
+    "/contact": "Contact form",
 };
 
 function pagePathForRoute(routePath) {
@@ -26,9 +26,9 @@ function pagePathForRoute(routePath) {
     return `app/${seg}/page.js`;
 }
 
-function parseHudModules(constantsSrc) {
-    const block = constantsSrc.match(/export const HUD_MODULES\s*=\s*\[([\s\S]*?)\];/);
-    if (!block) throw new Error("HUD_MODULES not found in lib/hud/constants.js");
+function parseSiteRoutes(constantsSrc) {
+    const block = constantsSrc.match(/export const SITE_ROUTES\s*=\s*\[([\s\S]*?)\];/);
+    if (!block) throw new Error("SITE_ROUTES not found in lib/site/constants.js");
 
     const routes = [];
     const re = /\{\s*id:\s*"([^"]+)"\s*,\s*label:\s*"([^"]+)"\s*,\s*path:\s*"([^"]+)"/g;
@@ -36,7 +36,7 @@ function parseHudModules(constantsSrc) {
     while ((m = re.exec(block[1])) !== null) {
         routes.push({ id: m[1], label: m[2], path: m[3] });
     }
-    if (!routes.length) throw new Error("No routes parsed from HUD_MODULES");
+    if (!routes.length) throw new Error("No routes parsed from SITE_ROUTES");
     return routes;
 }
 
@@ -128,8 +128,8 @@ async function writeOrCheck(filePath, nextContent, { stableCompare = false } = {
 async function main() {
     console.log(checkOnly ? "🔍 Checking agent manifest…\n" : "🔄 Syncing agent manifest…\n");
 
-    const constantsSrc = await readFile(path.join(root, "lib/hud/constants.js"), "utf8");
-    const routes = parseHudModules(constantsSrc);
+    const constantsSrc = await readFile(path.join(root, "lib/site/constants.js"), "utf8");
+    const routes = parseSiteRoutes(constantsSrc);
 
     for (const r of routes) {
         const pageFile = path.join(root, pagePathForRoute(r.path));

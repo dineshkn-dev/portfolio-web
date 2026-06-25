@@ -25,8 +25,8 @@ See [docs/AUTOMATION.md](docs/AUTOMATION.md).
 
 - **Copy / data** → `lib/site-content.js`
 - **New page** → follow [docs/conventions.md](docs/conventions.md) + `AGENTS.md` checklist
-- **HUD / shell** → `components/hud/`
-- **Styles** → `styles/hud/` (keep tokens in `styles/base.css`)
+- **Shell** → `components/shell/`
+- **Styles** → `styles/shell/` (keep tokens in `styles/base.css`)
 
 ## Commit messages
 
@@ -35,9 +35,9 @@ See [docs/AUTOMATION.md](docs/AUTOMATION.md).
 
 ## Performance
 
-- Do not enable WebGL by default.
+- Do not re-add WebGL, boot, audio, or custom-cursor effects without a clear request.
 - Share `perf-reports/latest.json` when claiming perf improvements.
-- Avoid `backdrop-filter` on large HUD surfaces without measurement.
+- Avoid `backdrop-filter` on large surfaces without measurement.
 
 ## Agent-generated PRs
 

@@ -3,12 +3,10 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { socialIconMap } from "@/components/icons/SocialIcons";
-import ModulePage from "@/components/hud/ModulePage";
-import { useHudAudio } from "@/components/hud/AudioController";
+import ModulePage from "@/components/shell/ModulePage";
 import { contactFormEndpoint, socialLinks } from "@/lib/site-content";
 
 export default function ContactContent() {
-    const { playSfx } = useHudAudio();
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -19,66 +17,62 @@ export default function ContactContent() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        playSfx("transmit");
         const res = await fetch(contactFormEndpoint, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
         });
         if (res.ok) {
-            toast.success("Transmission complete.");
-            playSfx("success");
+            toast.success("Message sent.");
             setFormData({ name: "", email: "", message: "" });
         } else {
-            toast.error("Transmission failed. Retry uplink.");
-            playSfx("error");
+            toast.error("Message could not be sent. Please try again.");
         }
         setIsSubmitting(false);
     };
 
     return (
         <ModulePage
-            sysId="SYS-05"
-            eyebrow="Comms Channel"
-            title="Secure uplink"
-            description="Open a direct line for collaboration, consulting, or backend leadership opportunities. Encrypted relay via Formspree."
+            sysId="Contact"
+            eyebrow="Let's talk"
+            title="Build something dependable"
+            description="Reach out for backend engineering, cloud delivery, or product work that needs practical technical ownership."
             aside={
-                <div className="hud-telemetry">
-                    <strong>ONLINE</strong>
-                    <span>Channel status</span>
+                <div className="site-stat-pill">
+                    <strong>Open</strong>
+                    <span>Availability</span>
                 </div>
             }
         >
-            <div className="hud-comms-layout">
-                <aside className="hud-card hud-card--glow-left">
-                    <p className="hud-card-label">Signal integrity</p>
-                    <div className="hud-signal-bars" aria-hidden="true">
+            <div className="contact-layout">
+                <aside className="site-card site-card--glow-left">
+                    <p className="site-card-label">Response rhythm</p>
+                    <div className="contact-bars" aria-hidden="true">
                         <span /><span /><span /><span /><span />
                     </div>
                     <p className="text-sm text-[var(--muted-foreground)] leading-relaxed">
-                        All external channels verified. Average response within 24 hours on
-                        business days.
+                        Best for collaboration, product engineering discussions, and roles where
+                        backend reliability matters.
                     </p>
 
-                    <p className="hud-card-label mt-6">Alternate channels</p>
-                    <div className="hud-channel-list">
+                    <p className="site-card-label mt-6">Direct links</p>
+                    <div className="site-channel-list">
                         {socialLinks.map(({ platform, href, color }) => {
                             const Icon = socialIconMap[platform];
                             return (
                                 <a
                                     key={platform}
                                     href={href}
-                                    className="hud-channel"
+                                    className="site-channel"
                                     target={href.startsWith("http") ? "_blank" : undefined}
                                     rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                                    onClick={() => playSfx("click")}
                                 >
-                                    <span className="hud-channel-icon">
+                                    <span className="site-channel-icon">
                                         <Icon className={`w-5 h-5 ${color}`} />
                                     </span>
                                     <span>
-                                        <span className="hud-channel-label">{platform}</span>
-                                        <span className="hud-channel-status block">READY</span>
+                                        <span className="site-channel-label">{platform}</span>
+                                        <span className="site-channel-status block">Open</span>
                                     </span>
                                 </a>
                             );
@@ -86,44 +80,41 @@ export default function ContactContent() {
                     </div>
                 </aside>
 
-                <form onSubmit={handleSubmit} className="hud-card hud-form-console">
-                    <p className="hud-card-label">Compose transmission</p>
+                <form onSubmit={handleSubmit} className="site-card site-form-console">
+                    <p className="site-card-label">Send a message</p>
 
-                    <div className="hud-form-row">
-                        <span className="hud-form-label">Name</span>
+                    <div className="site-form-row">
+                        <span className="site-form-label">Name</span>
                         <input
-                            className="hud-form-input"
+                            className="site-form-input"
                             name="name"
                             type="text"
-                            placeholder="Enter operator name"
+                            placeholder="Your name"
                             value={formData.name}
                             onChange={handleChange}
-                            onFocus={() => playSfx("hover")}
                             required
                         />
                     </div>
-                    <div className="hud-form-row">
-                        <span className="hud-form-label">Email</span>
+                    <div className="site-form-row">
+                        <span className="site-form-label">Email</span>
                         <input
-                            className="hud-form-input"
+                            className="site-form-input"
                             name="email"
                             type="email"
-                            placeholder="Enter secure address"
+                            placeholder="you@example.com"
                             value={formData.email}
                             onChange={handleChange}
-                            onFocus={() => playSfx("hover")}
                             required
                         />
                     </div>
-                    <div className="hud-form-row">
-                        <span className="hud-form-label">Payload</span>
+                    <div className="site-form-row">
+                        <span className="site-form-label">Message</span>
                         <textarea
-                            className="hud-form-input hud-form-textarea"
+                            className="site-form-input site-form-textarea"
                             name="message"
-                            placeholder="Describe mission objectives…"
+                            placeholder="Tell me what you are building or where you need help."
                             value={formData.message}
                             onChange={handleChange}
-                            onFocus={() => playSfx("hover")}
                             required
                             rows={5}
                         />
@@ -132,9 +123,9 @@ export default function ContactContent() {
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="button button-primary hud-form-submit disabled:opacity-70"
+                        className="button button-primary site-form-submit"
                     >
-                        {isSubmitting ? "Transmitting…" : "Initiate Transmission"}
+                        {isSubmitting ? "Sending..." : "Send message"}
                     </button>
                 </form>
             </div>

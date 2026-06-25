@@ -1,0 +1,15 @@
+.tech-badge {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    background: color-mix(in srgb, var(--accent-soft) 45%, transparent);
+    color: var(--foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    padding: 0.4rem 0.68rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.tech-badge:hover {
+    border-color: var(--border-strong);
+    background: color-mix(in srgb, var(--accent-soft) 68%, transparent);
+}

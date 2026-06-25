@@ -2,7 +2,7 @@
 
 ## Identity
 
-Personal portfolio for Dinesh K N. Production: https://www.dineshkn.site. Stack: Next.js 16 App Router, React 19, Tailwind 3, client-side HUD.
+Personal portfolio for Dinesh K N. Production: https://www.dineshkn.site. Stack: Next.js 16 App Router, React 19, Tailwind 3, minimal portfolio shell.
 
 ## Agent entrypoints
 
@@ -12,27 +12,26 @@ Personal portfolio for Dinesh K N. Production: https://www.dineshkn.site. Stack:
 
 ## Shell architecture
 
-RootLayout → HudShell → HudProvider (state) → HudNav, HudFrame, ReactorBackdrop, lazy overlays (BootSequence, CursorLayer, ReactorCanvas if opt-in) → main → ModuleTransition → page content.
+RootLayout -> PortfolioShell -> ShellProvider -> SiteNav -> main -> PageTransition -> page content.
 
-State: booting, sfx, use3D (localStorage hud-reactor-3d=true AND 6+ CPU cores).
+State: reduced-motion and mobile capability gates.
 
 ## Routes and content
 
 | Path | Content file | Notes |
 |------|----------------|-------|
-| / | app/home/HomeContent.js | Typewriter deferred; lazy DraggableStat |
+| / | app/home/HomeContent.js | Hero, proof panel, featured work |
 | /skills | app/skills/SkillsContent.js | Bento grid + inspect panel |
-| /about | app/about/AboutContent.js | 3-col chronos bridge, viewport locked |
+| /about | app/about/AboutContent.js | 3-col timeline bridge, viewport locked |
 | /projects | app/projects/ProjectsContent.js | Strip + stage, viewport locked |
 | /contact | app/contact/ContactContent.js | Formspree POST |
 
-All module pages use components/hud/ModulePage.js. Data: lib/site-content.js.
+All module pages use components/shell/ModulePage.js. Data: lib/site-content.js.
 
 ## Performance defaults
 
-- CSS reactor only; WebGL opt-in
-- No framer-motion in shell; CSS hud-panel-swap for panel changes
-- No GSAP/cmdk in initial shell bundle (dynamic import)
+- Minimal shell; no WebGL, boot screen, custom cursor, or audio effects
+- Paint-only CSS transitions for interaction feedback; no transform/filter/opacity fades
 - Fonts: Space Grotesk + IBM Plex Mono
 - npm run perf:full → perf-reports/latest.json
 
@@ -42,4 +41,4 @@ npm install | dev | build | start | lint | perf | perf:full | dev:perf
 
 ## Do not
 
-Commit without ask; force-push; add secrets; always-on WebGL; horizontal route enter animations; backdrop-filter on HUD cards without perf review.
+Commit without ask; force-push; add secrets; re-add WebGL/boot/audio effects; horizontal route enter animations; backdrop-filter on cards without perf review.

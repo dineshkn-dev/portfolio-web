@@ -2,16 +2,15 @@
 
 import { useCallback, useEffect } from "react";
 
-export function useViewportPager(length, index, setIndex, playSfx) {
+export function useViewportPager(length, index, setIndex) {
     const go = useCallback(
         (next) => {
             const clamped = Math.max(0, Math.min(length - 1, next));
             if (clamped !== index) {
                 setIndex(clamped);
-                playSfx?.("tab");
             }
         },
-        [index, length, playSfx, setIndex]
+        [index, length, setIndex]
     );
 
     useEffect(() => {

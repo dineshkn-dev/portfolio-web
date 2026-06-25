@@ -1,29 +1,29 @@
 {
-  "generatedAt": "2026-06-25T15:53:30.114Z",
+  "generatedAt": "2026-06-25T17:06:28.042Z",
   "routes": [
     {
       "id": "home",
-      "label": "Cockpit",
+      "label": "Home",
       "path": "/"
     },
     {
       "id": "skills",
-      "label": "Skills Matrix",
+      "label": "Skills",
       "path": "/skills"
     },
     {
       "id": "timeline",
-      "label": "Career Timeline",
+      "label": "Experience",
       "path": "/about"
     },
     {
       "id": "projects",
-      "label": "Project Archive",
+      "label": "Work",
       "path": "/projects"
     },
     {
       "id": "contact",
-      "label": "Comms Channel",
+      "label": "Contact",
       "path": "/contact"
     }
   ],

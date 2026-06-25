@@ -20,7 +20,6 @@ Do not open public issues for undisclosed security problems.
 
 - **No secrets in git** — no `.env` files, API keys, or private Formspree keys in the repo.
 - **Contact form** — client-side POST to Formspree; validate and rate-limit on Formspree dashboard, not in this repo.
-- **Voice** — browser speech APIs only; no audio uploaded to a custom backend.
 - **Dependencies** — run `npm audit` when upgrading packages; report critical issues to the maintainer.
 
 ## Out of scope

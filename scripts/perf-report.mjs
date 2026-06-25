@@ -48,7 +48,7 @@ function parseArgs(argv) {
             opts.routes = argv[++i].split(",").map((r) => (r.startsWith("/") ? r : `/${r}`));
         } else if (arg === "--help" || arg === "-h") {
             console.log(`
-HUD portfolio performance reporter
+Portfolio performance reporter
 
   npm run perf              Audit routes (server must be running)
   npm run perf:full         Build, start production server, audit, stop
@@ -238,7 +238,7 @@ async function main() {
     const port = new URL(opts.baseUrl).port || DEFAULT_PORT;
     let serverProc = null;
 
-    console.log("\n🔬 HUD Performance Reporter\n");
+    console.log("\n🔬 Portfolio Performance Reporter\n");
 
     if (opts.startServer) {
         console.log(`▶ Starting production server on port ${port}…`);

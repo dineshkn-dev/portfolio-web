@@ -6,19 +6,19 @@ Follow [AGENTS.md](../AGENTS.md) for this repository.
 
 ## Quick context
 
-Next.js 16 HUD-themed portfolio. Shell in `components/hud/`. Site data in `lib/site-content.js`.
+Next.js 16 portfolio with a minimal shell in `components/shell/`. Site data in `lib/site-content.js`.
 
 ## When suggesting code
 
 - Use `ModulePage` for new module routes.
-- Prefer CSS (`hud-panel-swap`) over Framer Motion for enter animations.
+- Prefer paint-only CSS transitions; avoid transform, filter, opacity fades, canvas, and WebGL.
 - Dynamic-import browser-only and heavy libraries.
 - Run `npm run verify` before suggesting merges (sync + lint + build).
 
 ## Avoid suggesting
 
 - TypeScript migration without request.
-- Always-on Three.js background.
+- WebGL, boot-screen, custom-cursor, or audio-effect UI.
 - New global state libraries.
 - Committing `.env` or API secrets.
 

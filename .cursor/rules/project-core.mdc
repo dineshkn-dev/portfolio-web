@@ -14,19 +14,19 @@ Read `AGENTS.md` at repo root before non-trivial changes.
 ## Must follow
 
 - JavaScript only; `@/` path alias.
-- Content in `lib/site-content.js`, routes in `lib/hud/constants.js`.
+- Content in `lib/site-content.js`, routes in `lib/site/constants.js`.
 - Minimal diffs; no drive-by refactors or new abstractions for one-off use.
 - No commits unless the user explicitly asks.
-- Shell wraps all pages via `HudShell` — do not bypass it in `layout.js`.
+- Shell wraps all pages via `PortfolioShell` — do not bypass it in `layout.js`.
 
 ## Must avoid
 
 - Secrets in repo; force-push; amending others' commits.
-- Always-on WebGL (`ReactorCanvas` without opt-in).
-- `framer-motion` in `HudProvider` or route-enter horizontal slides.
-- Heavy `backdrop-filter` on HUD cards without perf justification.
+- Re-adding WebGL, boot, audio, or custom-cursor effects.
+- Animation libraries in `ShellProvider` or route-enter horizontal slides.
+- Heavy `backdrop-filter` on cards without perf justification.
 
 ## Performance
 
-- Lazy-load heavy deps (`gsap`, `cmdk`, gestures, three.js).
+- Keep heavy visual dependencies out of the shell.
 - After perf work: `npm run perf:full` and reference `perf-reports/latest.json`.

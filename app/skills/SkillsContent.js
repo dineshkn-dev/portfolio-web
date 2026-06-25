@@ -2,22 +2,20 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import ModulePage from "@/components/hud/ModulePage";
-import { useHudAudio } from "@/components/hud/AudioController";
+import ModulePage from "@/components/shell/ModulePage";
 import { skillLevelWidth, techStack } from "@/lib/site-content";
 
 const FILTERS = ["All", "Advanced", "Intermediate", "Beginner"];
 
 const levelClass = {
-    Advanced: "hud-skill-level--advanced",
-    Intermediate: "hud-skill-level--intermediate",
-    Beginner: "hud-skill-level--beginner",
+    Advanced: "site-skill-level--advanced",
+    Intermediate: "site-skill-level--intermediate",
+    Beginner: "site-skill-level--beginner",
 };
 
 export default function SkillsContent() {
     const [filter, setFilter] = useState("All");
     const [active, setActive] = useState(techStack[0]);
-    const { playSfx } = useHudAudio();
 
     const filtered = useMemo(() => {
         if (filter === "All") return techStack;
@@ -26,7 +24,6 @@ export default function SkillsContent() {
 
     const select = (tech) => {
         setActive(tech);
-        playSfx("tab");
     };
 
     const counts = useMemo(() => {
@@ -39,29 +36,29 @@ export default function SkillsContent() {
 
     return (
         <ModulePage
-            sysId="SYS-02"
-            eyebrow="Skills Matrix"
-            title="Capability telemetry"
-            description="Select any stack module to inspect proficiency, reactor sync, and deployment readiness."
+            sysId="Stack"
+            eyebrow="Technical range"
+            title="Tools I use to ship reliable systems"
+            description="A focused view of the backend, cloud, and platform tools I reach for in production work."
             aside={
                 <>
-                    <div className="hud-telemetry">
+                    <div className="site-stat-pill">
                         <strong>{techStack.length}</strong>
-                        <span>Total modules</span>
+                        <span>Core tools</span>
                     </div>
-                    <div className="hud-telemetry">
+                    <div className="site-stat-pill">
                         <strong>{counts.Advanced}</strong>
-                        <span>Advanced tier</span>
+                        <span>Deepest focus</span>
                     </div>
                 </>
             }
         >
-            <div className="hud-tabs">
+            <div className="site-tabs">
                 {FILTERS.map((f) => (
                     <button
                         key={f}
                         type="button"
-                        className={`hud-tab ${filter === f ? "hud-tab--active" : ""}`}
+                        className={`site-tab ${filter === f ? "site-tab--active" : ""}`}
                         onClick={() => {
                             setFilter(f);
                             const first = f === "All" ? techStack[0] : techStack.find((t) => t.level === f);
@@ -73,26 +70,26 @@ export default function SkillsContent() {
                 ))}
             </div>
 
-            <div className="hud-split">
-                <div className="hud-card hud-card--glow-left">
-                    <p className="hud-card-label">Active scan · {filtered.length} detected</p>
-                    <div className="hud-skills-grid">
+            <div className="site-split">
+                <div className="site-card site-card--glow-left">
+                    <p className="site-card-label">{filtered.length} tools in view</p>
+                    <div className="site-skills-grid">
                         {filtered.map((tech) => (
                             <button
                                 key={tech.name}
                                 type="button"
-                                className={`hud-skill-tile ${active?.name === tech.name ? "hud-skill-tile--active" : ""}`}
+                                className={`site-skill-tile ${active?.name === tech.name ? "site-skill-tile--active" : ""}`}
                                 onClick={() => select(tech)}
                             >
                                 <div
-                                    className="hud-skill-ring"
+                                    className="site-skill-ring"
                                     style={{ "--progress": skillLevelWidth[tech.level] }}
                                 >
                                     <Image src={tech.icon} alt="" width={32} height={32} />
                                 </div>
-                                <span className="hud-skill-name">{tech.name}</span>
+                                <span className="site-skill-name">{tech.name}</span>
                                 <span
-                                    className={`hud-skill-level ${levelClass[tech.level] ?? ""}`}
+                                    className={`site-skill-level ${levelClass[tech.level] ?? ""}`}
                                 >
                                     {tech.level}
                                 </span>
@@ -104,24 +101,24 @@ export default function SkillsContent() {
                 {active ? (
                     <aside
                         key={active.name}
-                        className="hud-card hud-skill-inspect hud-panel-swap"
+                        className="site-card site-skill-inspect site-panel-swap"
                     >
-                            <p className="hud-card-label">Module inspection</p>
-                            <div className="hud-skill-inspect-head">
+                            <p className="site-card-label">Skill profile</p>
+                            <div className="site-skill-inspect-head">
                                 <div
-                                    className="hud-skill-inspect-ring relative"
+                                    className="site-skill-inspect-ring relative"
                                     style={{ "--progress": skillLevelWidth[active.level] }}
                                 >
                                     <Image src={active.icon} alt="" width={48} height={48} />
                                 </div>
                                 <div>
-                                    <h2 className="hud-title" style={{ fontSize: "1.35rem" }}>
+                                    <h2 className="site-title" style={{ fontSize: "1.35rem" }}>
                                         {active.name}
                                     </h2>
                                     <p
-                                        className={`hud-skill-level mt-1 ${levelClass[active.level] ?? ""}`}
+                                        className={`site-skill-level mt-1 ${levelClass[active.level] ?? ""}`}
                                     >
-                                        {active.level} proficiency
+                                        {active.level} experience
                                     </p>
                                 </div>
                             </div>
@@ -129,13 +126,13 @@ export default function SkillsContent() {
                                 Production-grade experience across backend services, cloud
                                 delivery, and platform engineering workflows.
                             </p>
-                            <div className="hud-meter">
+                            <div className="site-meter">
                                 <div
-                                    className="hud-meter-fill"
+                                    className="site-meter-fill"
                                     style={{ width: `${skillLevelWidth[active.level]}%` }}
                                 />
                             </div>
-                            <div className="hud-skill-tags">
+                            <div className="site-skill-tags">
                                 <span className="tech-badge">API design</span>
                                 <span className="tech-badge">Cloud native</span>
                                 <span className="tech-badge">Observability</span>

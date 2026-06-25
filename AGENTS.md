@@ -11,7 +11,7 @@ Humans: see [README.md](README.md). Deep reference: [docs/AGENTS-REFERENCE.md](d
 npm run verify
 ```
 
-This automatically: syncs agent docs from source (`HUD_MODULES`, `package.json`), validates agent files, lints, and production-builds. Hooks and CI run the same pipeline — you must not hand off failing `verify`.
+This automatically: syncs agent docs from source (`SITE_ROUTES`, `package.json`), validates agent files, lints, and production-builds. Hooks and CI run the same pipeline — you must not hand off failing `verify`.
 
 | Trigger | What runs |
 |---------|-----------|
@@ -28,7 +28,7 @@ Details: [docs/AUTOMATION.md](docs/AUTOMATION.md).
 
 ## Project summary
 
-Next.js 16 (App Router) portfolio with a **HUD** shell: cockpit home (`/`), module pages (`/skills`, `/about`, `/projects`, `/contact`), optional WebGL backdrop (opt-in only).
+Next.js 16 (App Router) portfolio with a minimal portfolio shell: home (`/`), skills, experience, selected work, and contact pages.
 
 **Live:** https://www.dineshkn.site  
 **Deploy:** Vercel (static prerender). No backend in-repo; contact form uses Formspree.
@@ -59,36 +59,35 @@ Also: `npm install` for dependencies.
 
 ```
 app/                    # Routes + page content (*Content.js)
-components/hud/         # Shell: provider, nav, boot, audio
-components/canvas/      # ReactorBackdrop (CSS) + ReactorCanvas (WebGL, lazy)
-lib/hud/                # constants (routes, storage keys)
+components/shell/         # Shell, provider, nav, shared ModulePage layout
+lib/site/                # constants (routes, storage keys)
 lib/site-content.js     # Copy, projects, skills, social links — edit content here
-styles/hud/             # HUD CSS (prefer CSS over new motion libs)
-hooks/                  # useTypewriter, useReducedMotion, useViewportPager
+styles/shell/             # Portfolio shell/page CSS
+hooks/                  # useReducedMotion, useViewportPager
 scripts/perf-report.mjs # Performance reporter
 perf-reports/           # Generated metrics (gitignored except README)
 ```
 
 ## Architecture rules
 
-1. **Shell wraps everything** — `app/layout.js` → `HudShell` → `HudProvider` → page children.
-2. **Module pages** use `ModulePage` from `components/hud/ModulePage.js` for consistent headers.
+1. **Shell wraps everything** — `app/layout.js` → `PortfolioShell` → `ShellProvider` → page children.
+2. **Module pages** use `ModulePage` from `components/shell/ModulePage.js` for consistent headers.
 3. **Content lives in** `lib/site-content.js` — avoid hardcoding copy in components.
 4. **Client boundaries** — `"use client"` only where needed (hooks, browser APIs, gestures).
-5. **Performance** — WebGL off by default (`STORAGE_KEYS.reactor3d`). Lazy-load: `BootSequence`, `CursorLayer`, `gsap`, `@use-gesture/react`. No route-level slide animations; use `.hud-panel-swap` CSS only.
-6. **Motion** — Use `hooks/useReducedMotion.js`, not `framer-motion` in shell/provider. Page modules: CSS animations, not horizontal `x` slides on route enter.
+5. **Performance** — Keep the shell light: no WebGL backdrop, boot screen, custom cursor, audio layer, or route-level slide animations.
+6. **Motion** — Prefer paint-only CSS transitions such as color, border-color, and background-color; avoid transform, filter, opacity fades, canvas, WebGL, and motion libraries.
 
 ## Code style
 
 - JavaScript (not TypeScript). Path alias: `@/*` → repo root.
 - Match existing patterns: minimal diffs, no over-abstraction, no drive-by refactors.
 - ESLint: `eslint-config-next` core-web-vitals.
-- CSS: global tokens in `styles/base.css`; HUD in `styles/hud/*.css`.
+- CSS: global tokens in `styles/base.css`; shell/page styling in `styles/shell/*.css`.
 - Fonts: `lib/fonts.js` — Space Grotesk + IBM Plex Mono only (do not re-add Orbitron/Sora without perf review).
 
-## Adding a new HUD module route
+## Adding a new portfolio route
 
-1. Add entry to `HUD_MODULES` in `lib/hud/constants.js`.
+1. Add entry to `SITE_ROUTES` in `lib/site/constants.js`.
 2. Create `app/<name>/page.js` (dynamic import content + `PageFallback`).
 3. Create `app/<name>/<Name>Content.js` using `ModulePage`.
 4. Run `npm run verify` (syncs docs + lint + build).
@@ -99,19 +98,18 @@ perf-reports/           # Generated metrics (gitignored except README)
 - `.env*` / secrets / API keys
 - `package-lock.json` unless dependencies changed intentionally
 - Git config, force-push, or amend commits you did not create
-- Re-enable always-on WebGL or heavy `backdrop-filter` on HUD cards
+- Re-add WebGL/boot/audio/custom-cursor effects or heavy `backdrop-filter` on page cards
 
 ## Security
 
 - No secrets in repo. Formspree endpoint is public client endpoint in `lib/site-content.js`.
-- Do not log or commit voice consent tokens beyond existing `localStorage` keys in `STORAGE_KEYS`.
 - Sanitize any new user-facing HTML; prefer React text nodes.
 
 ## Testing & verification checklist
 
 After **any** code change: `npm run verify` (required).
 
-After UI/perf work also: `npm run verify:ci` or check CI perf artifact; smoke `/`, one module, ⌘K, theme toggle, mobile width.
+After UI/perf work also: `npm run verify:ci` or check CI perf artifact; smoke `/`, one module, theme toggle, mobile width.
 
 ## PR / commit messages
 

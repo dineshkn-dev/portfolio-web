@@ -9,7 +9,7 @@ Visit: **[dineshkn.site](https://www.dineshkn.site/)**
 
 ## Tech Stack
 - **Framework:** Next.js 16 (App Router), React 19
-- **Styling:** Tailwind CSS, Framer Motion
+- **Styling:** Tailwind CSS, custom CSS
 - **Analytics:** Vercel Analytics, Vercel Speed Insights
 - **Deployment:** Vercel
 

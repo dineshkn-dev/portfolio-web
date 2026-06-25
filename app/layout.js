@@ -1,5 +1,5 @@
 import "@/globals.css";
-import HudShell from "@/components/hud/HudShell";
+import PortfolioShell from "@/components/shell/PortfolioShell";
 import DeferredAnalytics from "@/components/DeferredAnalytics";
 import { fontVariables } from "@/lib/fonts";
 
@@ -45,7 +45,7 @@ export const metadata = {
             "Portfolio of Dinesh K N — Software Engineer specializing in Backend Development, Cloud Architecture, and DevOps."
     },
     icons: {
-        icon: "/favico.svg"
+        icon: "/logo.svg"
     },
     robots: {
         index: true,
@@ -57,7 +57,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en" data-scroll-behavior="smooth" className={fontVariables}>
             <body className="min-h-screen antialiased text-[var(--foreground)]">
-                <HudShell>{children}</HudShell>
+                <PortfolioShell>{children}</PortfolioShell>
                 <DeferredAnalytics />
             </body>
         </html>

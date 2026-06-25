@@ -5,7 +5,7 @@
 ## Type of change
 
 - [ ] Content / copy (`lib/site-content.js`)
-- [ ] HUD UI / shell
+- [ ] UI / shell
 - [ ] New route or module
 - [ ] Performance
 - [ ] Dependencies
@@ -17,7 +17,7 @@ CI runs `npm run verify` + Lighthouse automatically on this PR.
 
 - [ ] `npm run verify` passed locally
 - [ ] Synced files committed if routes/scripts changed (`llms.txt`, `AGENTS.md`, `docs/generated/manifest.json`)
-- [ ] Manual smoke: `/`, one module, ⌘K palette (if UI)
+- [ ] Manual smoke: `/`, one module, theme toggle, mobile width (if UI)
 
 ## Agent docs
 

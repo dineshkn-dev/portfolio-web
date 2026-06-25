@@ -18,7 +18,7 @@ flowchart LR
 
 | Step | Script | What it does |
 |------|--------|----------------|
-| 1 | `sync:agent --check` | Routes in `llms.txt` + `AGENTS.md` match `HUD_MODULES`; page files exist |
+| 1 | `sync:agent --check` | Routes in `llms.txt` + `AGENTS.md` match `SITE_ROUTES`; page files exist |
 | 2 | `agent:check` | Required agent doc files present |
 | 3 | `lint` | ESLint entire repo |
 | 4 | `build` | Next.js production build |
@@ -66,7 +66,7 @@ Copilot: `.github/copilot-instructions.md` points here.
 
 ## Adding a route (automated checklist)
 
-1. Edit `lib/hud/constants.js` (`HUD_MODULES`)
+1. Edit `lib/site/constants.js` (`SITE_ROUTES`)
 2. Add `app/.../page.js` + `*Content.js`
 3. Run `npm run verify` — sync updates docs; fix lint/build errors
 4. Commit **including** synced `llms.txt`, `AGENTS.md`, `manifest.json`

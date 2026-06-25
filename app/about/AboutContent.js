@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import ModulePage from "@/components/hud/ModulePage";
-import { useHudAudio } from "@/components/hud/AudioController";
+import ModulePage from "@/components/shell/ModulePage";
 import { useViewportPager } from "@/hooks/useViewportPager";
 import { careerTimeline } from "@/lib/site-content";
 
-const MISSION_TAGS = [
+const EXPERIENCE_TAGS = [
     "API systems",
     "Cloud delivery",
     "Platform scale",
@@ -16,13 +15,11 @@ const MISSION_TAGS = [
 
 export default function AboutContent() {
     const [index, setIndex] = useState(0);
-    const { playSfx } = useHudAudio();
     const item = careerTimeline[index];
     const { go, prev, next } = useViewportPager(
         careerTimeline.length,
         index,
-        setIndex,
-        playSfx
+        setIndex
     );
 
     const progressPct = Math.round(
@@ -31,43 +28,43 @@ export default function AboutContent() {
 
     return (
         <ModulePage
-            sysId="SYS-03"
-            eyebrow="Career Timeline"
-            title="Mission chronology"
+            sysId="Experience"
+            eyebrow="Career timeline"
+            title="A practical path through product engineering"
             viewportFit
             compact
             aside={
                 <>
-                    <div className="hud-telemetry">
+                    <div className="site-stat-pill">
                         <strong>{careerTimeline.length}</strong>
-                        <span>Deployments</span>
+                        <span>Roles</span>
                     </div>
-                    <div className="hud-telemetry">
+                    <div className="site-stat-pill">
                         <strong>{progressPct}%</strong>
-                        <span>Trajectory</span>
+                        <span>Timeline</span>
                     </div>
                 </>
             }
         >
-            <div className="chronos-bridge">
-                <nav className="chronos-rail hud-card" aria-label="Mission selector">
-                    <p className="hud-card-label">Mission log</p>
-                    <ul className="chronos-rail-list">
+            <div className="timeline-bridge">
+                <nav className="timeline-rail site-card" aria-label="Experience selector">
+                    <p className="site-card-label">Experience</p>
+                    <ul className="timeline-rail-list">
                         {careerTimeline.map((entry, i) => (
                             <li key={`${entry.year}-${entry.company}`}>
                                 <button
                                     type="button"
-                                    className={`chronos-rail-item ${i === index ? "chronos-rail-item--active" : ""}`}
+                                    className={`timeline-rail-item ${i === index ? "timeline-rail-item--active" : ""}`}
                                     onClick={() => go(i)}
                                     aria-current={i === index ? "step" : undefined}
                                 >
-                                    <span className="chronos-rail-id">
+                                    <span className="timeline-rail-id">
                                         {String(i + 1).padStart(2, "0")}
                                     </span>
-                                    <span className="chronos-rail-text">
-                                        <span className="chronos-rail-year">{entry.year}</span>
-                                        <span className="chronos-rail-role">{entry.role}</span>
-                                        <span className="chronos-rail-co">{entry.company}</span>
+                                    <span className="timeline-rail-text">
+                                        <span className="timeline-rail-year">{entry.year}</span>
+                                        <span className="timeline-rail-role">{entry.role}</span>
+                                        <span className="timeline-rail-co">{entry.company}</span>
                                     </span>
                                 </button>
                             </li>
@@ -77,109 +74,109 @@ export default function AboutContent() {
 
                 <article
                     key={`${item.year}-${item.company}`}
-                    className="chronos-core hud-card hud-card--glow-left hud-panel-swap"
+                    className="timeline-core site-card site-card--glow-left site-panel-swap"
                     role="tabpanel"
                 >
-                        <div className="chronos-core-head">
+                        <div className="timeline-core-head">
                             <div>
-                                <p className="chronos-intel-year">{item.year}</p>
-                                <h2 className="chronos-intel-role">{item.role}</h2>
-                                <p className="chronos-intel-co">{item.company}</p>
+                                <p className="timeline-intel-year">{item.year}</p>
+                                <h2 className="timeline-intel-role">{item.role}</h2>
+                                <p className="timeline-intel-co">{item.company}</p>
                             </div>
-                            <span className="chronos-core-badge">ACTIVE NODE</span>
+                            <span className="timeline-core-badge">Selected role</span>
                         </div>
 
-                        <div className="chronos-metrics">
-                            <div className="chronos-metric">
+                        <div className="timeline-metrics">
+                            <div className="timeline-metric">
                                 <strong>{String(index + 1).padStart(2, "0")}</strong>
-                                <span>Sequence</span>
+                                <span>Step</span>
                             </div>
-                            <div className="chronos-metric">
+                            <div className="timeline-metric">
                                 <strong>{careerTimeline.length - index}</strong>
-                                <span>Prior roles</span>
+                                <span>Roles listed</span>
                             </div>
-                            <div className="chronos-metric">
+                            <div className="timeline-metric">
                                 <strong>{progressPct}%</strong>
-                                <span>Career arc</span>
+                                <span>Progress</span>
                             </div>
                         </div>
 
-                        <p className="chronos-intel-impact">{item.impact}</p>
+                        <p className="timeline-intel-impact">{item.impact}</p>
 
-                        <div className="chronos-tags">
-                            {MISSION_TAGS.map((tag) => (
+                        <div className="timeline-tags">
+                            {EXPERIENCE_TAGS.map((tag) => (
                                 <span key={tag} className="tech-badge">
                                     {tag}
                                 </span>
                             ))}
                         </div>
 
-                        <div className="chronos-core-foot">
-                            <div className="chronos-segments" aria-hidden="true">
+                        <div className="timeline-core-foot">
+                            <div className="timeline-segments" aria-hidden="true">
                                 {careerTimeline.map((_, i) => (
                                     <span
                                         key={i}
-                                        className={`chronos-segment ${i <= index ? "is-lit" : ""}`}
+                                        className={`timeline-segment ${i <= index ? "is-lit" : ""}`}
                                     />
                                 ))}
                             </div>
-                            <div className="chronos-nav">
+                            <div className="timeline-nav">
                                 <button
                                     type="button"
-                                    className="hud-tab"
+                                    className="site-tab"
                                     disabled={index === 0}
                                     onClick={prev}
                                 >
-                                    ← Prev
+                                    Prev
                                 </button>
                                 <button
                                     type="button"
-                                    className="hud-tab"
+                                    className="site-tab"
                                     disabled={index === careerTimeline.length - 1}
                                     onClick={next}
                                 >
-                                    Next →
+                                    Next
                                 </button>
                             </div>
                         </div>
                 </article>
 
-                <aside className="chronos-map hud-card" aria-label="Career trajectory">
-                    <p className="hud-card-label">Flight trajectory</p>
-                    <div className="chronos-map-canvas">
-                        <span className="chronos-map-spine" aria-hidden="true" />
+                <aside className="timeline-map site-card" aria-label="Career map">
+                    <p className="site-card-label">Career map</p>
+                    <div className="timeline-map-canvas">
+                        <span className="timeline-map-spine" aria-hidden="true" />
                         {careerTimeline.map((entry, i) => {
                             const top = 8 + (i / (careerTimeline.length - 1)) * 76;
                             return (
                                 <button
                                     key={`map-${entry.company}`}
                                     type="button"
-                                    className={`chronos-map-node ${i === index ? "chronos-map-node--active" : ""} ${i < index ? "chronos-map-node--past" : ""}`}
+                                    className={`timeline-map-node ${i === index ? "timeline-map-node--active" : ""} ${i < index ? "timeline-map-node--past" : ""}`}
                                     style={{ top: `${top}%` }}
                                     onClick={() => go(i)}
                                     aria-label={`${entry.role} at ${entry.company}`}
                                 >
-                                    <span className="chronos-map-dot" />
-                                    <span className="chronos-map-label">
-                                        <span className="chronos-map-label-year">{entry.year}</span>
-                                        <span className="chronos-map-label-co">{entry.company}</span>
+                                    <span className="timeline-map-dot" />
+                                    <span className="timeline-map-label">
+                                        <span className="timeline-map-label-year">{entry.year}</span>
+                                        <span className="timeline-map-label-co">{entry.company}</span>
                                     </span>
                                 </button>
                             );
                         })}
                     </div>
-                    <div className="chronos-map-readout">
+                    <div className="timeline-map-readout">
                         <div>
-                            <span className="chronos-map-readout-k">Status</span>
-                            <span className="chronos-map-readout-v">DEPLOYED</span>
+                            <span className="timeline-map-readout-k">Status</span>
+                            <span className="timeline-map-readout-v">Building</span>
                         </div>
                         <div>
-                            <span className="chronos-map-readout-k">Uplink</span>
-                            <span className="chronos-map-readout-v">SECURE</span>
+                            <span className="timeline-map-readout-k">Practice</span>
+                            <span className="timeline-map-readout-v">Backend</span>
                         </div>
                         <div>
-                            <span className="chronos-map-readout-k">Range</span>
-                            <span className="chronos-map-readout-v">2018 — NOW</span>
+                            <span className="timeline-map-readout-k">Range</span>
+                            <span className="timeline-map-readout-v">2018 - now</span>
                         </div>
                     </div>
                 </aside>

@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useState } from "react";
 
-/** Lightweight prefers-reduced-motion (avoids pulling in framer-motion). */
+/** Lightweight prefers-reduced-motion hook for client-side interactions. */
 export function useReducedMotion() {
     const [reduce, setReduce] = useState(false);
 

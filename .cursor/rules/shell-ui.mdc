@@ -1,0 +1,22 @@
+---
+description: Portfolio shell and module UI conventions
+globs: components/shell/**/*,app/**/*
+alwaysApply: false
+---
+
+# Portfolio UI rules
+
+## Shell (`components/shell/`)
+
+- State lives in `ShellProvider`.
+- `PageTransition` is a static wrapper — no route slide animations.
+
+## Module pages
+
+- Use `ModulePage` for headers; `viewportFit` for no-scroll layouts (about, projects).
+- Motion should be paint-only: color, border-color, and background-color transitions. Do not use transform, filter, opacity fades, canvas, or WebGL.
+- Keep interactions direct and quiet; do not re-add boot, audio, custom cursor, or WebGL backdrop effects.
+
+## Styles
+
+- Edit `styles/shell/*.css`; match existing shell tokens and `site-card` patterns.

@@ -1,13 +1,13 @@
 @import "./styles/base.css";
-@import "./styles/navbar.css";
+@import "./styles/theme-toggle.css";
 @import "./styles/buttons.css";
-@import "./styles/cards.css";
+@import "./styles/badges.css";
 @import "./styles/typography.css";
 @import "./styles/layouts.css";
-@import "./styles/hud/hud.css";
-@import "./styles/hud/modules.css";
-@import "./styles/hud/pages.css";
-@import "./styles/hud/responsive.css";
+@import "./styles/shell/shell.css";
+@import "./styles/shell/home.css";
+@import "./styles/shell/pages.css";
+@import "./styles/shell/responsive.css";
 
 /* Tailwind Directives */
 @tailwind base;
@@ -89,27 +89,4 @@ textarea {
 :focus-visible {
 	outline: 2px solid var(--ring);
 	outline-offset: 3px;
-}
-
-@keyframes fade-in-up {
-	from {
-		opacity: 0;
-		transform: translateY(12px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-.animate-in {
-	animation: fade-in-up 0.45s var(--ease-out-smooth) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.animate-in {
-		animation: none;
-		opacity: 1;
-		transform: none;
-	}
 }

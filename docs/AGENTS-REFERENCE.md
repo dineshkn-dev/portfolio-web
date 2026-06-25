@@ -6,21 +6,15 @@ Companion to [AGENTS.md](../AGENTS.md). Use when the root file is not enough.
 
 | Package | Loaded when | Notes |
 |---------|-------------|-------|
-| `three`, `@react-three/fiber` | `use3D` + dynamic `ReactorCanvas` | Opt-in via `localStorage` `hud-reactor-3d` |
-| `gsap` | Boot sequence, home button click | Dynamic import |
-| `@use-gesture/react` | Home draggable stats | Dynamic `DraggableStat` |
-| `framer-motion` | Legacy `TiltCard`, `lib/motion-ui.js` only | Not in shell |
 | `lighthouse` | `npm run perf` | devDependency |
 
 ## localStorage / sessionStorage keys
 
-Defined in `lib/hud/constants.js` → `STORAGE_KEYS`:
+Defined in `lib/site/constants.js` → `SITE_STORAGE_KEYS`:
 
 | Key | Values | Purpose |
 |-----|--------|---------|
-| `hud-boot-complete` | session | Skip boot animation |
-| `hud-sfx-muted` | `"true"` / `"false"` | UI sounds |
-| `hud-reactor-3d` | `"true"` | Enable WebGL (perf opt-in) |
+| `portfolio-theme` | `"dark"` / `"light"` | Persist selected color theme |
 
 ## Perf reporter API
 
@@ -35,28 +29,26 @@ Output: `perf-reports/latest.json` with `routes[].performance`, `lcpMs`, `tbtMs`
 
 ## Common agent mistakes (avoid)
 
-1. **Re-adding `ModuleTransition` GSAP** — causes layout jerk; wrapper is static.
-2. **Framer `x` slide on route mount** — use `AnimatePresence initial={false}` or CSS only.
-3. **Importing `framer-motion` in `HudProvider`** — bloats every page.
-4. **Always-on `ReactorCanvas`** — regresses Lighthouse ~10+ points.
-5. **Editing `perf-reports/latest.json`** — generated; re-run `perf:full`.
+1. **Re-adding boot/WebGL/audio/custom cursor effects** — this repo intentionally uses a minimal shell.
+2. **Adding route mount slide animations** — keep page changes static or use paint-only CSS transitions.
+3. **Importing animation libraries in `ShellProvider` or `PortfolioShell`** — bloats every page.
+4. **Editing `perf-reports/latest.json`** — generated; re-run `perf:full`.
 
 ## Smoke test script (manual)
 
-1. `/` — hero, typewriter starts after idle, stat drag works
+1. `/` — hero, proof panel, featured work
 2. `/skills` — select tile, inspect panel updates
 3. `/about` — rail + map sync index
 4. Theme toggle — light/dark
-5. 768px width — mobile: no custom cursor
+5. 768px width — mobile drawer, no text overlap
 
 ## File ownership
 
 | Area | Primary files |
 |------|----------------|
-| Shell | `HudShell.js`, `HudProvider.js`, `HudNav.js`, `HudFrame.js` |
-| Audio | `AudioController.js` |
+| Shell | `PortfolioShell.js`, `ShellProvider.js`, `SiteNav.js` |
 | Home | `app/home/HomeContent.js` |
-| Styles | `styles/hud/hud.css`, `pages.css`, `modules.css` |
+| Styles | `styles/shell/shell.css`, `home.css`, `pages.css`, `responsive.css` |
 | SEO | `app/layout.js` metadata, `app/sitemap.js`, `app/robots.js` |
 
 ## Updating agent docs
